@@ -23,11 +23,11 @@
             return $stmt->execute();
         }
         public function update($id){
-            $querySQL = "UPDATE $this->table SET nome = :nome WHERE cd_usuario = :cd_usuario";
+            $querySQL = "UPDATE $this->table SET nm_usuario = :nm_usuario WHERE cd_usuario = :cd_usuario";
             $stmt = dataBase::prepare($querySQL);
-            $stmt = bindParam(':nome',$this->nome);
-            $stmt = bindParam(':id',$id);
-            return $stmt->execute($querySQL);
+            $stmt -> bindParam(':nm_usuario', $this->nome);
+            $stmt -> bindParam(':cd_usuario', $id);
+            return $stmt->execute();
         }
     }
 ?>

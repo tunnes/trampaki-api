@@ -7,10 +7,43 @@
             echo 'Bem vindo a primeira pagina!';
             
             $usuarioTeste = new User();
-            $usuarioTeste->setNome('Felipes');
-            if($usuarioTeste->insert()){
-                echo 'Cadastrado com exito!';
-            };
+            
+        #   Insert.
+        
+        #   $usuarioTeste->setNome('Felipes');
+        #   if($usuarioTeste->insert()){
+        #       echo 'Cadastrado com exito!';
+        #   };
+        
+        #   Select;   
+        
+        #   $retorno = $usuarioTeste->select(1);
+        #   echo '<br>';
+        #   foreach ($retorno as $value){
+        #       echo $value. ' - ';
+        #   }
+        
+        #   Select All;
+        
+        #   $retorno = $usuarioTeste->selectAll();
+        #   echo '<br>';
+        #   foreach ($retorno as $value){
+        #       echo '<br>';
+        #       foreach ($value as $value){
+        #           echo $value. ' - ';
+        #       }
+        #   }
+        
+        #   Update.
+        
+        #   $usuarioTeste->setNome('Ayrton Do Update');
+        #   if($usuarioTeste->update(2)){
+        #       echo 'Alterado com exito!';
+        #   };
+        
+        #   Delete ou Remove pqp '-'
+
+        #    $usuarioTeste->remove(2);
             
         } 
     }

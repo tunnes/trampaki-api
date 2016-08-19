@@ -17,21 +17,22 @@
         abstract public function update($id);
         
         public function select($id){
-            $querySQL = "SELECT * FROM $this->table WHERE id = :id";
-            $stmt = DB::prepare($querySQL);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $querySQL = "SELECT * FROM $this->table WHERE cd_usuario = :cd_usuario";
+            $stmt = dataBase::prepare($querySQL);
+            $stmt->bindParam(':cd_usuario', $id, PDO::PARAM_INT);
             $stmt->execute();
             return $stmt->fetch();
         }
         public function selectAll(){
             $querySQL = "SELECT * FROM $this->table ";
-            $stmt = DB::prepare($querySQL);
+            $stmt = dataBase::prepare($querySQL);
             $stmt->execute();
             return $stmt->fetchAll();
         }
         public function remove($id){
-            $querySQL = "DELETE FROM $this->table WHERE id = :id";
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+            $querySQL = "DELETE FROM $this->table WHERE cd_usuario = :cd_usuario";
+            $stmt = dataBase::prepare($querySQL);
+            $stmt->bindParam(':cd_usuario', $id, PDO::PARAM_INT);
             $stmt->execute();
         }
     }
