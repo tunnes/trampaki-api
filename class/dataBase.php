@@ -4,7 +4,7 @@
     
     require_once 'config.php';
     
-    Class DataBase{
+    class DataBase{
         
         private static $instance;
         
@@ -15,9 +15,9 @@
                 try {
                 #   Relativo ao PDO, seus recursos e funções devo aprofundar mais meus conhecimentos 
                 #   relacionados para isso: https://www.youtube.com/watch?v=etcYlWwHAn0
-                
-                    self::$instance =  new PDO('mysql:host='.DB_HOST. 'dbname='.DB_NAME, DB_USER, DB_PASS);
-                    self::$instance -> setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXEPTION);
+                    
+                    self::$instance = new PDO('mysql:host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS);
+                    self::$instance->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     self::$instance -> setAttribute( PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
                 } catch (PDOException $erroDeConexao) {
                     echo $erroDeConexao -> getMenssage();
@@ -27,7 +27,7 @@
         }
         
         public static function prepare($sql){
-            return selft::getInstance() -> prepare($sql);
+            return self::getInstance() -> prepare($sql);
         }
         
     }

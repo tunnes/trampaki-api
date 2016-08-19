@@ -13,6 +13,7 @@
     
     $roteador -> novaRota('/','home');
     $roteador -> novaRota('/primeira','primeira');
+    $roteador -> novaRota('/register','register');
     #$roteador -> mapa();
     $roteador -> rotear();
     

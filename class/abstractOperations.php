@@ -6,7 +6,7 @@
 
     require_once 'dataBase.php';
     
-    abstract class abstractOperaions extends dataBase{
+    abstract class AbstractOperations extends dataBase{
         
     #   Para que as classes filhas, acessem os valores dos atributos da classe abstractOperations
     #   eu usei o protected.
