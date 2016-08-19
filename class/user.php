@@ -1,10 +1,10 @@
 <?php
-#   O arquivo 'userRegistration.php' como o próprio nome já acusa, tem como finalidade 
-#   o cadastro de usuários do sistema.
+#   O arquivo 'user.php' como o próprio nome já acusa, tem como finalidade 
+#   as interações genéricas dos usuários do sistema.
 
     require_once 'abstractOperations.php';
     
-    class UserRegistration extends AbstractOperations{
+    class User extends AbstractOperations{
         
         protected $table = 'usuario';
         private   $nome;
