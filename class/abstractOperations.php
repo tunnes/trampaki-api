@@ -12,7 +12,7 @@
     #   eu usei o protected.
     
         protected $table;
-    
+        
         abstract public function insert();
         abstract public function update($id);
         
