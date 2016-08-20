@@ -3,8 +3,11 @@
 #   de erro, pagina principal, redirecionamentos, URL bonitinhas e um
 #   SEO mais consistente. 
 
-#   Habilita(on) ou desabilita(off) o módulo mod_rewrite.
+#   Habilita(on) ou desabilita(off) o módulo mod_rewrite o modo de reescrita.
     RewriteEngine On
+
+#   Identifica qual o diretorio base do projeto no caso a 'raiz'.  
+    RewriteBase /
 
 #   Em português ficaria reescreva se a condição:     
 #   Se não foi requerido um diretorio (-d)
@@ -17,4 +20,4 @@
     RewriteCond %{REQUEST_FILENAME} !-l
 
 #   No fim definimos a regra que queremos exibir como URL:
-    RewriteRule ^(.+)$ index.php?path=$1 [QSA,L]
+    RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
