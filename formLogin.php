@@ -1,31 +1,34 @@
 <?php
-    if(isset($_POST['enviar'])){
-    #   A função PHP 'filter_input()' tem como finalidade obter a variavel especifica do formulario.
-    #   O 'FILTER_SANITIZE_MAGIC_QUOTES' retorna uma barra invertida na frente das aspas simples.
+    session_start();
+    require_once('class/dataBase.php');
+    require_once('class/login.php');
     
-        echo $login = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
-        echo $senha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
-        
+    class FormLogin{
+        public function __construct(){
+            if(isset($_POST['enviar'])){
+            
+            #   A função PHP 'filter_input()' tem como finalidade obter a variavel especifica do formulario.
+            #   O 'FILTER_SANITIZE_MAGIC_QUOTES' retorna uma barra invertida na frente das aspas simples.
+                echo '<hr>';
+                echo 'Dados de acesso:';
+                echo '<br>';
+                echo $login = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
+                echo '<br>';
+                echo $senha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
+                echo '<hr>';
+                
+                $logadaNoAr = new Login;
+                $logadaNoAr->setLogin($login);
+                $logadaNoAr->setSenha($senha);
+                
+                if ($logadaNoAr->logar()){
+                #   A função 'header("Location")' redireciona o usuário pra o paramêtro fornecido 
+                    header("Location: logado.php");
+                }else{
+                    echo 'Erro ao logar!';        
+                }
+            }
+            include('view/testeLogin.html');
+        }
     }
 ?>
-<!DOCTYPE html>
-<html>
-    <head>
-        
-    </head>   
-    <body>
-        <div id='login'>
-            <form action='' method='POST' id='form_login'>
-                <label for="login">Login:
-                    <input type="text" name="login" class="input" id="input_login"/>
-                </label>
-                <label for="senha">Senha:
-                    <input type="psw" name="senha" class="input" id="input_senha"/>
-                </label>
-                <label for="submit">
-                    <input name="enviar" type="submit"  value="Submit"/>    
-                </label>
-            </form>
-        </div>
-    </body>
-</html>
