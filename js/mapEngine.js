@@ -3,6 +3,8 @@
 function mapEngine(){
     var mapa;
     
+//  GERAR MAPA --------------------------------------------------------------------------------------------------------------
+
     function inicializar(){
     //  O objeto 'posicaoAtual' recebe como parametro as cordenadas relativas ao ponto onde o usuario se encontra
     //  tornando este o centro da tela será necessário tornar isto dinâmico, com um request Ajax.
@@ -21,17 +23,23 @@ function mapEngine(){
     
     inicializar();
     
+//  GERAR MARCADORES --------------------------------------------------------------------------------------------------------    
     function carregarMarcadores(){
-    //  O
+        
+    //  O objeto 'configuracoesMarcador01' contem as informações de localização, 
+    //  titulo e mapa onde seram exibidos.
         var configuracoesMarcador01 = {
-            position: new google.maps.LatLng(-19.212355602107472, -44.20234468749999),
+            position: new google.maps.LatLng(-22.57825604463875, -48.68476656249999),
             title: "Marcador 01",
-            map: mapa
+            map: mapa,
+            icon: "../img/blackHoleSun.png"
         };
+        
+    //  Na instancia 'marcador01' passei como parâmetro o objeto cirado 'configuraçõesMarcador01'.
         var marcador01 = new google.maps.Marker(configuracoesMarcador01);
         
         var configuracoesMarcador02 = {
-            position: new google.maps.LatLng(-19.212355602107472, -44.20234468749999),
+            position: new google.maps.LatLng(-22.618827234831404, -42.57636812499999),
             title: "Marcador 02",
             map: mapa
         };
