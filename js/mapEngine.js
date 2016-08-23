@@ -36,11 +36,35 @@ function mapEngine(){
             mapa.setMapTypeId('map_style');
         }
         
+    //  Desenhando o circulo no centro da tela:
+        function circuloCentral(){
+            var cityCircle = new google.maps.Circle({
+              strokeColor: '#FF3110',
+              strokeOpacity: 0.35,
+              strokeWeight: 1,
+              fillColor: '#FF3110',
+              fillOpacity: 0.35,
+              map: mapa,
+              center: {lat: -23.96425614, lng: -46.38520819},
+              radius:  5000
+            });
+            var direction = 1;
+            var rMin = 4000, rMax = 5000;
+            setInterval(function() {
+                var radius = cityCircle.getRadius();
+                if ((radius > rMax) || (radius < rMin)) {
+                    direction *= -1;
+                }
+                cityCircle.setRadius(radius + direction * 50);
+                }, 50);
+        }
     
-    //
         
         mapa = new google.maps.Map(document.getElementById("mapa"), configuracoes);
         estiloDoMapa();
+        circuloCentral();
+        
+        
     }
     
 //  GERAR MARCADORES --------------------------------------------------------------------------------------------------------    
