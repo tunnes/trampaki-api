@@ -2,6 +2,7 @@
 
 function mapEngine(){
     var mapa;
+
     
 //  GERAR MAPA --------------------------------------------------------------------------------------------------------------
     function inicializar(){
@@ -124,10 +125,11 @@ function mapEngine(){
         var marcador02 = new google.maps.Marker(configuracoesMarcador02);
         
         function carregarInfoWindown(){
-              var contentString = 
+              var contentString =
                    '<h2>Minha Casa</h2>'
                   +'<p>O marcador lindo do Ayrton *-*.</p>'
-                  +'<img src="../img/eu.jpg" alt="Um cara normal" height="100" width="100">'
+                  +'<br>'
+                  +'<img src="../img/eu.jpg" height="100" width="100">'
                   +'<br>'
                   +'<a href="https://github.com/tunnes" target="_blank">GitHub</a>';
               var infowindow = new google.maps.InfoWindow({
@@ -137,7 +139,6 @@ function mapEngine(){
                google.maps.event.addListener(marcador01, 'click', function() {
                 infowindow.open(mapa,marcador01);
               });
-              
         }
         carregarInfoWindown();
         
@@ -147,4 +148,5 @@ function mapEngine(){
     inicializar();
     carregarMarcadores();
 }
+
 
