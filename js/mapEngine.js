@@ -36,7 +36,7 @@ function mapEngine(){
             mapa.setMapTypeId('map_style');
         }
         
-    //  Desenhando o circulo no centro da tela:
+    /*  Desenhando o circulo no centro da tela:
         function circuloCentral(){
             var cityCircle = new google.maps.Circle({
               strokeColor: '#FF3110',
@@ -58,7 +58,37 @@ function mapEngine(){
                 cityCircle.setRadius(radius + direction * 50);
                 }, 50);
         }
-    
+    */
+        function circuloCentral(){
+            var c1 = new google.maps.Circle({
+              strokeColor: '#FF3110',
+              strokeOpacity: 0.35,
+              strokeWeight: 1,
+              fillColor: '#FF3110',
+              fillOpacity: 0.01,
+              map: mapa,
+              center: {lat: -23.96425614, lng: -46.38520819},
+              radius:  3000
+            });
+            
+
+            
+            var teste = 0.01;
+            
+
+            setInterval(function() {
+                if(c1.getRadius() >= 5000){
+                   c1.setRadius(500);
+                   teste = 0.80
+                }else{
+                    c1.setRadius(c1.getRadius() + 40);
+                    teste > 0.006 ? teste = teste - 0.006 : teste = 0.006;
+                }
+                
+                c1.setOptions({fillOpacity: teste });
+                }, 50);
+
+        }
         
         mapa = new google.maps.Map(document.getElementById("mapa"), configuracoes);
         estiloDoMapa();
