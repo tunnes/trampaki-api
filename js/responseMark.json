@@ -1,0 +1,21 @@
+[   
+    {
+		"id": 1, 
+        "latitude": -23.97915736,
+        "longitude": -46.31190878,
+		"imagem": "../img/fatec.jpg",
+		"titulo": "Fatec BS",
+		"descricaoSimples": "Faculdade de Tecnologia (Fatec) Baixada Santista, o local onde estudo quase todos os dias menos domingo..",
+		"estrelas": 3
+    },
+    
+    {
+		"id": 2, 
+        "latitude": -23.98154798,
+        "longitude": -46.45915708,
+		"imagem": "../img/eu.jpg",
+		"titulo": "Eu",
+		"descricaoSimples": "Um dos lugares que mais odeio.",
+		"estrelas": 1
+    }
+]    
