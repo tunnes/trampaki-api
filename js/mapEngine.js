@@ -106,9 +106,11 @@ function mapEngine(){
                         descricaoSimples: objeto.descricaoSimples,
                         estrelas: objeto.estrelas
                     });
-                    marcador.addListener('click', function() {
+                    marcador.addListener('mouseover', function() {
                         document.getElementById('notification').style.display = "block";
+                        marcador.setAnimation(google.maps.Animation.BOUNCE);
                     });
+                    
                 });
         }
     }
