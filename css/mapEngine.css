@@ -1,6 +1,7 @@
 html, body{
 	height: 100%;
 	margin: 0px;
+    font-family: 'Open Sans', sans-serif;
 }
 #mapa{
     margin: 0px;
@@ -15,4 +16,48 @@ html, body{
     background-color: black;
     width: 18%;
     min-height: 100%;
+}
+#barraLateral .nav{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+#barraLateral .nav span{
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    padding-top: 10px;
+    padding-bottom: 1px;
+    margin-left: 10px;
+    
+}
+/*  CORPO DA BARRA LATERAL ========================================================================= */
+
+#barraLateral .main{
+    margin-top: 40px;
+    margin-left: 20px;
+}
+/*  MENSAGENS ====================================================================================== */
+#barraLateral .main input{
+    margin-top:10px;
+    width: 90%;
+    height: 25px;
+    border-radius: 2px;
+    background-color: black;
+    border: 1px solid white;
+    font-size: 20px;
+    color:white;
+}
+::-webkit-input-placeholder {
+    font-size: 15px;
+    font-weight: 800;
+}
+#chat{
+    display: none;
+}
+#painel span{
+    margin-top:10px;
+    font-size:23px;
+    font-weight: 800;
+    display: block;
+    color: white;
 }

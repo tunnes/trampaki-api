@@ -3,14 +3,28 @@
     <head>
         <meta charset="UTF-8">
         <title>Trampaki</title>
-        <link rel="stylesheet" href="css/mapEngine.css" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800" rel="stylesheet">
+        <link rel="stylesheet" href="css/mapEngine.css" type="text/css"/>
+        <script src="js/barraLateral.js"></script>
     </head>
     <body>
         <!-- Barra latereal para chat e configurações do sistema -->
         <div id="barraLateral">
-            <div class="header">
-                <a href="#">CONFIGURAÇÕES</a>
-                <a href="#">PAINEL</a>
+            <div class="nav">
+                <span id="configuracaoAjax" href="#" onclick="barraLateralMensagens()" >MENSAGENS</span>
+                <span id="painelAjax" href="#" onclick="barraLateralPainel()">PAINEL</span>
+            </div>
+            <div class="main">
+                <div id="painel">
+                    <span>OPÇÕES DE PERFIL</span>
+                    <span>MEUS ANUNCIOS</span>
+                    <span>SAIR</span>
+                </div>
+                <div id="chat">
+                    <form>
+                        <input placeholder="PESQUISAR.." type="text" name="firstname"><br>
+                    </form>    
+                </div>
             </div>
         </div>
         
