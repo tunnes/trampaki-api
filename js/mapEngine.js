@@ -114,6 +114,9 @@ function mapEngine(){
         
     //  Na instancia 'marcador01' passei como parâmetro o objeto cirado 'configuraçõesMarcador01'.
         var marcador01 = new google.maps.Marker(configuracoesMarcador01);
+        marcador01.addListener('click', function() {
+            document.getElementById('notification').style.display = "block";
+        });
         
         var configuracoesMarcador02 = {
             position: new google.maps.LatLng(-23.97915736, -46.31190878),
@@ -136,9 +139,10 @@ function mapEngine(){
                   content: contentString,
                   maxWidth: 200
               });
-               google.maps.event.addListener(marcador01, 'click', function() {
+            /*   google.maps.event.addListener(marcador01, 'click', function() {
                 infowindow.open(mapa,marcador01);
               });
+            */
         }
         carregarInfoWindown();
         
