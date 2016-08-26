@@ -109,13 +109,13 @@ function mapEngine(){
         }
         function carregarVisualizacao(marcador){
             document.getElementById('titulo').textContent = marcador.titulo;
-            document.getElementById('notification').style.display = "block";
-            document.getElementById('trojkat_bg').style.backgroundImage = "url(" +marcador.imagem+")";
+            document.getElementById('info-moldura').style.display = "block";
+            document.getElementById('info-fundo-imagem').style.backgroundImage = "url(" +marcador.imagem+")";
             document.getElementById('descricao').textContent = marcador.descricaoSimples;
             marcador.setAnimation(google.maps.Animation.BOUNCE);
             ultimo = marcador;
             mapa.addListener('click', function(){
-                document.getElementById('notification').style.display = "none";
+                document.getElementById('info-moldura').style.display = "none";
                 ultimo.setAnimation(null);
             });
         }
