@@ -6,7 +6,7 @@ html, body{
 #mapa{
     margin: 0px;
     float:left;
-    width: 82%;
+    width: 85%;
     min-height: 100%;
     /*border: 1px solid black;*/
 }
@@ -14,7 +14,7 @@ html, body{
     margin: 0px;
     float:left;
     background-color: black;
-    width: 18%;
+    width: 15%;
     min-height: 100%;
 }
 #barraLateral .nav{
@@ -24,7 +24,7 @@ html, body{
 #barraLateral .nav span{
     color: white;
     font-weight: 800;
-    font-size: 14px;
+    font-size: 12px;
     padding-top: 10px;
     padding-bottom: 1px;
     margin-left: 10px;
@@ -55,9 +55,9 @@ html, body{
     display: none;
 }
 #painel span{
-    margin-top:10px;
-    font-size:23px;
-    font-weight: 800;
+    margin-top: 5px;
+    font-size: 17px;
+    font-weight: 100;
     display: block;
     color: white;
 }
@@ -71,14 +71,22 @@ html, body{
     top: 0px;
     z-index: 1;
 }
-#conteudoMarcador{
+#fundoMarcador{
     background-color: black;
     height: 130px;
     width: 398px;
     position: absolute;
     right: 0px;
     top: 0px;
-    z-index: -2;
+    z-index: -1;
+}
+#conteudoMarcador{
+    height: 130px;
+    width: 398px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
     color: white;
 }
 #conteudoMarcador #titulo{
@@ -90,7 +98,9 @@ html, body{
 #texto{
     margin-top: 20px;
     margin-left: 80px;
+    margin-right: 5px;
     font-size: 11px;
+    position:absolute;
 }
 .kwadrat
 { 
@@ -110,7 +120,7 @@ html, body{
   height: 159px;
   margin:-100px 0 0 16px;
 }
-.trojkat_bg
+#trojkat_bg
 {
   position: absolute;
   width: 200%;
@@ -120,10 +130,22 @@ html, body{
   z-index: -1;
   background: url(http://jakub-zajac.pl/wp-content/uploads/2014/03/last.jpg);
   background-size: 100%;
-  background-position: center top;
+  background-position: center 50%;
   transform: skew(-10deg,-10deg) rotate(-45deg) ;
   transition: .3s;
 }
 
 .trojkat_bg:hover{ background-size: 90%; }
 		
+
+
+#texto button{
+    z-index: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 22px;
+    margin-top: 14px;
+    border-radius: 0px;
+    background-color: black;
+    color:white;
+}

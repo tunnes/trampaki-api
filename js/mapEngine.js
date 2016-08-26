@@ -2,7 +2,7 @@
 
 function mapEngine(){
     var mapa;
-
+    var ultimo = new google.maps.Marker();
     
 //  GERAR MAPA --------------------------------------------------------------------------------------------------------------
     function inicializar(){
@@ -39,34 +39,29 @@ function mapEngine(){
         
     //  Alcance do Usuario --------------------------------------------------------------------------------------------------        
         function circuloCentral(){
-            var c1 = new google.maps.Circle({
-              strokeColor: '#FF3110',
-              strokeOpacity: 0.35,
-              strokeWeight: 1,
-              fillColor: '#FF3110',
-              fillOpacity: 0.01,
-              map: mapa,
-              center: {lat: -23.96425614, lng: -46.38520819},
-              radius:  3000
+            var circulo = new google.maps.Circle({
+                strokeColor: '#FF3110',
+                strokeOpacity: 0.35,
+                strokeWeight: 1,
+                fillColor: '#FF3110',
+                fillOpacity: 0.01,
+                map: mapa,
+                center: {lat: -23.96425614, lng: -46.38520819},
+                radius:  3000
             });
-            
-
-            
             var teste = 0.01;
-            
 
             setInterval(function() {
-                if(c1.getRadius() >= 5000){
-                   c1.setRadius(500);
+                if(circulo.getRadius() >= 5000){
+                   circulo.setRadius(500);
                    teste = 0.80
                 }else{
-                    c1.setRadius(c1.getRadius() + 40);
+                    circulo.setRadius(circulo.getRadius() + 40);
                     teste > 0.006 ? teste = teste - 0.006 : teste = 0.006;
                 }
                 
-                c1.setOptions({fillOpacity: teste });
-                }, 50);
-
+                circulo.setOptions({fillOpacity: teste });
+                }, 80);
         }
         
         mapa = new google.maps.Map(document.getElementById("mapa"), configuracoes);
@@ -104,14 +99,25 @@ function mapEngine(){
                         animation: google.maps.Animation.DROP,
                         imagem: objeto.imagem,
                         descricaoSimples: objeto.descricaoSimples,
-                        estrelas: objeto.estrelas
+                        estrelas: objeto.estrelas,
+                        titulo: objeto.titulo
                     });
-                    marcador.addListener('mouseover', function() {
-                        document.getElementById('notification').style.display = "block";
-                        marcador.setAnimation(google.maps.Animation.BOUNCE);
+                    marcador.addListener('click', function(){
+                        ultimo.getAnimation() != null ? ultimo.setAnimation(null) : carregarVisualizacao(marcador);
                     });
-                    
                 });
+        }
+        function carregarVisualizacao(marcador){
+            document.getElementById('titulo').textContent = marcador.titulo;
+            document.getElementById('notification').style.display = "block";
+            document.getElementById('trojkat_bg').style.backgroundImage = "url(" +marcador.imagem+")";
+            document.getElementById('descricao').textContent = marcador.descricaoSimples;
+            marcador.setAnimation(google.maps.Animation.BOUNCE);
+            ultimo = marcador;
+            mapa.addListener('click', function(){
+                document.getElementById('notification').style.display = "none";
+                ultimo.setAnimation(null);
+            });
         }
     }
 
