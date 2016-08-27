@@ -1,5 +1,4 @@
 /*global google*/
-
 function mapEngine(){
     var mapa;
     var ultimo = new google.maps.Marker();
@@ -103,19 +102,24 @@ function mapEngine(){
                         titulo: objeto.titulo
                     });
                     marcador.addListener('click', function(){
-                        ultimo.getAnimation() != null ? ultimo.setAnimation(null) : carregarVisualizacao(marcador);
+                        ultimo.getAnimation() != null ? ultimo.setAnimation(null) : null;
+                        carregarVisualizacao(marcador);
                     });
                 });
         }
         function carregarVisualizacao(marcador){
             document.getElementById('titulo').textContent = marcador.titulo;
-            document.getElementById('info-moldura').style.display = "block";
+            //document.getElementById('info-moldura').style.display = "block";
+
+            document.getElementById('info-moldura').style.opacity = 1;
+            document.getElementById('info-moldura').style.height = "auto";
             document.getElementById('info-fundo-imagem').style.backgroundImage = "url(" +marcador.imagem+")";
             document.getElementById('descricao').textContent = marcador.descricaoSimples;
             marcador.setAnimation(google.maps.Animation.BOUNCE);
             ultimo = marcador;
             mapa.addListener('click', function(){
-                document.getElementById('info-moldura').style.display = "none";
+                document.getElementById('info-moldura').style.opacity = 0;
+                document.getElementById('info-moldura').style.height = 1;
                 ultimo.setAnimation(null);
             });
         }

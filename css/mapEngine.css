@@ -15,7 +15,10 @@ html, body{
 /* JANELAS DE INFORMAÇÃO ------------------------------------------------------- */
 #info-moldura{
     transition: width 2s;
-    display: none;
+    transition: opacity 1s ease-out;
+    opacity: 0; 
+    height: 0;
+    overflow: hidden;
 
 	position: absolute;
     right: 0px;
@@ -58,6 +61,7 @@ html, body{
     padding-right: 15px;
     height: 22px;
     margin-top: 14px;
+    border: 1px Solid White; 
     border-radius: 0px;
     background-color: black;
     color:white;
