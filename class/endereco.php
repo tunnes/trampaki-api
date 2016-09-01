@@ -18,14 +18,8 @@
         
         public function novoEndereco(){
             $querySQL = "INSERT INTO ENDERECO (cd_numeroResidencia, cd_cep, nm_cidade, sg_estado, cd_logitude, cd_latitude) 
-                         VALUES (:cd_numeroResidencia, :cd_cep, :nm_cidade, :sg_estado, :cd_logitude, :cd_latitude)";
+                         VALUES ($this->numeroResidencia, $this->CEP, $this->cidade, $this->estado, $this->longitude, $this->latitude)";
             $comandoSQL =  dataBase::prepare($querySQL);
-            $comandoSQL->bindParam(':cd_numeroResidencia', $this->numeroResidencia);
-            $comandoSQL->bindParam(':cd_logitude', $this->longitude);
-            $comandoSQL->bindParam(':cd_latitude', $this->latitude);
-            $comandoSQL->bindParam(':nm_cidade', $this->cidade);
-            $comandoSQL->bindParam(':sg_estado', $this->estado);
-            $comandoSQL->bindParam(':cd_cep', $this->CEP);
             return $comandoSQL->execute();
         }
         public function verEndereco($codigoEndereco){

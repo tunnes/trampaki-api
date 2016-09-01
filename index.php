@@ -4,11 +4,11 @@
     include ('formLogin.php');
     include ('router.php');
     include ('primeira.php');
-    include ('home.php');
+    include ('controller/paginaInicial.php');
     
     $roteador =  new Router();
     
-    $roteador -> novaRota('/','home');
+    $roteador -> novaRota('/','paginaInicial');
     $roteador -> novaRota('/primeira','primeira');
     $roteador -> novaRota('/register','register');
     $roteador -> novaRota('/login','formLogin');

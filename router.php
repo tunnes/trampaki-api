@@ -17,13 +17,13 @@
         
         public function rotear(){
             $url = $_GET['url'];
-            echo 'URL: ' .$url;
+        #   echo 'URL: ' .$url;
             
             $chave = array_search($url, $this->arrayRotas);
             if($chave === false){
                 echo '<hr> Rota não encontrada';
             }else{
-                echo $this -> arrayAcoes[$chave];
+            #   echo $this -> arrayAcoes[$chave];
                 new  $this -> arrayAcoes[$chave]();
                 
             }
