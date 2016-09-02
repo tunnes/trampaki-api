@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+    </head>   
+    <body>
+        <div id='cadastro'>
+            <h1>Formulario cadastro...</h1>
+            <form action='' method='POST' id='form_cadastro'>
+                <!-- USUARIO ------------------------------------------------------------------------------------ -->
+                <div>
+                    <h3>Informações Pessoais:</h3>
+                    <label for="nm_usuario">Nome:
+                        <input type="text" name="nm_usuario" class="input" id="nm_usuario"/>
+                    </label>
+                    <label for="nm_email">Email:
+                        <input type="text" name="nm_email" class="input" id="nm_email"/>
+                    </label>
+                    <label for="cd_telefone">Telefone:
+                        <input type="text" name="cd_telefone" class="input" id="cd_telefone"/>
+                    </label>
+                </div>
+                
+                <!-- LOGIN -------------------------------------------------------------------------------------- -->
+                <div>
+                    <h3>Informações de Acesso:</h3>
+                    <label for="cd_senha">Senha:
+                        <input type="text" name="cd_senha" class="input" id="cd_senha"/>
+                    </label>
+                    <label for="cd_login">Login:
+                        <input type="text" name="cd_login" class="input" id="cd_login"/>
+                    </label>
+                </div>
+                
+                <!-- ENDERECO ----------------------------------------------------------------------------------- -->
+                <div>
+                    <h3>Informações para localização:</h3>
+                    <label for="cd_numeroResidencia">Numero:
+                        <input type="text" name="cd_numeroResidencia" class="input" id="cd_numeroResidencia"/>
+                    </label>
+                    <label for="cd_cep">CEP:
+                        <input type="text" name="cd_cep" class="input" id="cd_cep"/>
+                    </label>
+                    <label for="nm_cidade">Cidade:
+                        <input type="text" name="nm_cidade" class="input" id="nm_cidade"/>
+                    </label>
+                    <br><br>
+                    <label for="sg_estado">Estado:
+                        <input type="text" name="sg_estado" class="input" id="sg_estado"/>
+                    </label>
+                    <label for="cd_longitude">Longitude:
+                        <input type="text" name="cd_longitude" class="input" id="cd_longitude"/>
+                    </label>
+                    <label for="cd_latitude">Latitude:
+                        <input type="text" name="cd_latitude" class="input" id="cd_latitude"/>
+                    </label>
+                </div>
+                <!-- Escolha de tipo de usuario -------------------------------------------------- -->
+                <h1>Escolha o tipo de usuario...</h1>
+                    <form>
+                      <input type="radio" name="tipo" value="prestador" checked> Prestador<br>
+                      <input type="radio" name="tipo" value="aunciante"> Aunciante<br>
+                    </form>
+
+                    <h3>Prestador de servico:</h3>
+                    <label for="ds_cat01">Categoria01:
+                        <input type="text" name="ds_cat01" class="input" id="ds_cat01"/>
+                    </label>
+                    <label for="ds_cat02">Categoria02:
+                        <input type="text" name="ds_cat02" class="input" id="ds_cat02"/>
+                    </label>
+                    <label for="ds_cat03">Categoria03:
+                        <input type="text" name="ds_cat03" class="input" id="ds_cat03"/>
+                    </label>
+                    <br><br>
+                    <label for="qt_areaDeAlcance">Area de alcance:
+                        <input type="text" name="qt_areaDeAlcance" class="input" id="qt_areaDeAlcance"/>
+                    </label>
+                    <br><br>
+                    <label for="ds_profissao">
+                        <textarea name="ds_profissao" id="ds_profissao" rows="4" cols="50">
+                        At w3schools.com you will learn how to make a website. We offer free tutorials in all web development technologies.
+                        </textarea>
+                    </label>
+                    <hr>
+                    <!-- Anunciante -------------------------------------------------------------------------------------------------------->
+                    <h3>Anunciante:</h3>
+                        
+                    
+                <br><br>
+                <label for="submit">
+                    <input name="cadastrar" type="submit"  value="Submit"/>    
+                </label>
+            </form>
+        </div>
+    </body>
+</html>

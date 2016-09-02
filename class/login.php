@@ -2,17 +2,22 @@
     require_once 'dataBase.php';
     
     class Login extends dataBase{
-        protected $login;
-        protected $senha;
-        protected $email;
+        public $login;
+        public $senha;
         
         public function __construct($login, $senha){
             $this->login = $login;
             $this->senha = $senha;
         }
+        public function getSenha(){
+            return $this->senha;
+        }
+        public function getLogin(){
+            return $this->login;
+        }
         public function efetuarLogin(){
             
-            $querySQL = "SELECT * FROM USUARIO WHERE cd_login = :cd_login AND cd_senha = :cd_senha";
+            $querySQL = "SELECT * FROM usuario WHERE cd_login = :cd_login AND cd_senha = :cd_senha";
             $comandoSQL= dataBase::prepare($querySQL);
             $comandoSQL->bindParam(':cd_login', $this->login, PDO::PARAM_STR);
             $comandoSQL->bindParam(':cd_senha', $this->senha, PDO::PARAM_STR);

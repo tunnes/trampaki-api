@@ -11,11 +11,11 @@
             #   A função PHP 'filter_input()' tem como finalidade obter a variavel especifica do formulario.
             #   O 'FILTER_SANITIZE_MAGIC_QUOTES' retorna uma barra invertida na frente das aspas simples, neste
             #   passo estou recuperando os dados inseridos no formulario de login e verificando se são validos:
-            
-                $login = new Login;
+        
                 $DadosLogin = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
                 $DadosSenha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
-                $login->setLogin($DadosLogin, $DadosSenha);
+                $login = new Login($DadosLogin, $DadosSenha);
+                
             #   --------------------------------------------------------------------------------------------------
             
             #   Passo 02 -----------------------------------------------------------------------------------------
@@ -24,6 +24,7 @@
             #   retornou verdadeiro caso sim, o usuario sera direcionado para a tela principal:
             
                 $login->efetuarLogin() ? header("Location: controller/main.php") : print('Erro ao logar');
+            
             #   --------------------------------------------------------------------------------------------------
             }
             include('view/testeLogin.html');
