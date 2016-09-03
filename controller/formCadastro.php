@@ -11,24 +11,19 @@
             #   Neste passo estou verificando se o usuario efetudou o request POST pelo sumit 'cadastrar' que se 
             #   encontra na camada view, como tenho injeção de dependencia com usuario, login e endereco ambos 
             #   tem que serem declarados na seguinte sequencia:
+                
+                $valoresFormulario = array("login"=>"cd_login","senha"=>"cd_senha","nmResidencia"=>"cd_numeroResidencia","cep"=>"cd_cep",
+                                           "cidade"=>"nm_cidade","estado"=>"sg_estado","long"=>"cd_longitude","lati"=>"cd_latitude",
+                                           "nomeUser"=>"nm_usuario","email"=>"nm_email","tel"=>"cd_telefone");
+                                           
+                foreach($valoresFormulario as $campo => $valor) {
+                    $valoresFormulario[$campo] = filter_input(INPUT_POST, $valoresFormulario[$campo], FILTER_SANITIZE_MAGIC_QUOTES);
+                }
+                $login = new Login($valoresFormulario[login], $valoresFormulario[senha]);
+                $endereco = new Endereco($valoresFormulario[estado], $valoresFormulario[cidade], $valoresFormulario[cep], $valoresFormulario[nmResidencia], $valoresFormulario[long], $valoresFormulario[lati]);
             
-                $formLogin = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formSenha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
-                $login = new Login($formLogin, $formSenha);
-                
-                $formNumeroResidencia = filter_input(INPUT_POST, "cd_numeroResidencia", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formCEP = filter_input(INPUT_POST, "cd_cep", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formCidade = filter_input(INPUT_POST, "nm_cidade", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formEstado = filter_input(INPUT_POST, "sg_estado", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formLongitude = filter_input(INPUT_POST, "cd_longitude", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formLatitude = filter_input(INPUT_POST, "cd_latitude", FILTER_SANITIZE_MAGIC_QUOTES);
-                $endereco = new Endereco($formEstado, $formCidade, $formCEP, $formNumeroResidencia, $formLongitude, $formLatitude);
-                
-                $formNomeUsuario = filter_input(INPUT_POST, "nm_usuario", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formEmail = filter_input(INPUT_POST, "nm_email", FILTER_SANITIZE_MAGIC_QUOTES);
-                $formTelefone = filter_input(INPUT_POST, "cd_telefone", FILTER_SANITIZE_MAGIC_QUOTES);
                 $endereco->novoEndereco();
-                $usuario = new Usuario($formNomeUsuario, $formEmail, $formTelefone, $endereco, $login);
+                $usuario = new Usuario($valoresFormulario[nomeUser], $valoresFormulario[email], $valoresFormulario[tel], $endereco, $login);
                 
                 
                 
