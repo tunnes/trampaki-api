@@ -9,6 +9,11 @@
             $this->dsProfissional = $dsProfissional;
             $this->qtAreaDeAlcance = $qtAreaDeAlcance;
         }
+        
+        public function getCodigoPrestador(){
+            return $this->codePrestador; 
+        }
+        
         public function novoPrestador(){
             $bancoDeDados = Database::getInstance();
             $querySQL = "INSERT INTO prestadorDeServico (cd_usuario, ds_perfilProfissional, qt_areaAlcance) VALUES (:cd_usuario, :ds_perfilProfissional, :qt_areaAlcance)";

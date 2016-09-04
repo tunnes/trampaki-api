@@ -6,6 +6,7 @@
     require_once('model/login.php');
     require_once('model/endereco.php');
     require_once('model/anuncio.php');
+    require_once('model/conexao.php');
     
     class FormCadastro{
         
@@ -75,6 +76,10 @@
                     $prestador->novoCadastro();
                     $prestador->novoPrestador();
                     $prestador->selecionarCategoria(1);
+                    
+                #   Conexão Prestador De Serviço -> Anuncio;
+                    $conexao = new Conexao();
+                    $conexao->novaConexao(1, $prestador->getCodigoPrestador());
                     
                 }
                 
