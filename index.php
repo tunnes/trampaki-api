@@ -11,7 +11,6 @@
     $roteador -> novaRota('/','paginaInicial');
     $roteador -> novaRota('/cadastro','formCadastro');
     $roteador -> novaRota('/primeira','primeira');
-    $roteador -> novaRota('/register','register');
     $roteador -> novaRota('/login','formLogin');
     #$roteador -> mapa();
     $roteador -> rotear();

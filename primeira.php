@@ -6,7 +6,7 @@
         public  function __construct(){
             echo 'Bem vindo a primeira pagina!';
             
-            $usuarioTeste = new User();
+        #    $usuarioTeste = new User();
             
         #   Insert.
         

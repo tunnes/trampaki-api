@@ -17,7 +17,15 @@
             $comandoSQL->bindParam(':ds_perfilProfissional', $this->dsProfissional);
             $comandoSQL->bindParam(':qt_areaAlcance', $this->qtAreaDeAlcance);
             $comandoSQL->execute();
-            $this->codigoAnunciante = $bancoDeDados->lastInsertId();            
+            $this->codePrestador = $bancoDeDados->lastInsertId();            
+        }
+        public function selecionarCategoria($codeCategoria){
+            $bancoDeDados = Database::getInstance();
+            $querySQL = "INSERT INTO categoriaPrestador (cd_prestadorDeServico, cd_categoria) VALUES (:cd_prestadorDeServico, :cd_categoria)";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_prestadorDeServico', $this->codePrestador);
+            $comandoSQL->bindParam(':cd_categoria', $codeCategoria);
+            $comandoSQL->execute();
         }
     }
 ?>

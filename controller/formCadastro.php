@@ -1,6 +1,7 @@
 <?php
     require_once('class/usuario.php');
     require_once('class/anunciante.php');
+    require_once('class/categoria.php');
     require_once('class/prestadorDeServico.php');
     require_once('class/login.php');
     require_once('class/endereco.php');
@@ -8,6 +9,13 @@
     class FormCadastro{
         
         public function __construct(){
+            $catest = new Categoria();
+            $disponiveis = $catest->carregarCategorias();
+            echo "Categorias Disponiveis: <br>";
+            foreach ($disponiveis as $row) {
+                print "Codigo: ".$row["cd_categoria"] . " | Nome: " . $row["nm_categoria"] . " | Descrição: " . $row["ds_categoria"] ."<br/>";
+            }  
+            
             if(isset($_POST['cadastrar'])){
             #   Passo 01 ----------------------------------------------------------------------------------------
             #   Neste passo estou verificando se o usuario efetudou o request POST pelo sumit 'cadastrar' que se 
@@ -58,6 +66,8 @@
                     $prestador = new PrestadoDeServico($valoresFormulario[nomeUser], $valoresFormulario[email], $valoresFormulario[tel], $endereco, $login, $valoresFormulario[ds_profissao], $valoresFormulario[qt_areaDeAlcance]);
                     $prestador->novoCadastro();
                     $prestador->novoPrestador();
+                    $prestador->selecionarCategoria(1);
+                    
                 }
                 
                 
