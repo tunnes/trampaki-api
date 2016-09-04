@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once('class/login.php');
+    require_once('model/login.php');
     if(isset($_GET['logout'])){
         if($_GET['logout'] == 'ok'){
             Login::deslogar();

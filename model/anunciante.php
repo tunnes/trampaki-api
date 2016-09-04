@@ -15,6 +15,9 @@
             $comandoSQL->execute();
             $this->codigoAnunciante = $bancoDeDados->lastInsertId();            
         }
+        public function getCodigoAnunciante(){
+            return $this->codigoAnunciante;
+        }
         public function selecionarPrestadorDeServico(Conexao $conexao, Anuncio $anuncio){
                 
         }

@@ -1,10 +1,11 @@
 <?php
-    require_once('class/usuario.php');
-    require_once('class/anunciante.php');
-    require_once('class/categoria.php');
-    require_once('class/prestadorDeServico.php');
-    require_once('class/login.php');
-    require_once('class/endereco.php');
+    require_once('model/usuario.php');
+    require_once('model/anunciante.php');
+    require_once('model/categoria.php');
+    require_once('model/prestadorDeServico.php');
+    require_once('model/login.php');
+    require_once('model/endereco.php');
+    require_once('model/anuncio.php');
     
     class FormCadastro{
         
@@ -61,6 +62,13 @@
                     $anunciante->novoCadastro();
                     $anunciante->novoAnunciante();
                     
+                #   Cadastrando um anuncio:
+                    $anuncio = new Anuncio("AnuncioTeste", "DescriçãoDoAnuncioTeste", "10000KM");
+                    
+                    $anuncio->novoAnuncio($anunciante->getCodigoAnunciante());
+                    
+                #   Cadastrando uma categoria ao anuncio:
+                    $anuncio->selecionarCategoria(1);
                 }else{
                     echo "<br> Eh um prestador focker mother";
                     $prestador = new PrestadoDeServico($valoresFormulario[nomeUser], $valoresFormulario[email], $valoresFormulario[tel], $endereco, $login, $valoresFormulario[ds_profissao], $valoresFormulario[qt_areaDeAlcance]);

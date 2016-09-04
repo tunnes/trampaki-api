@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require_once('class/dataBase.php');
-    require_once('class/login.php');
+    require_once('model/dataBase.php');
+    require_once('model/login.php');
     
     class FormLogin{
         

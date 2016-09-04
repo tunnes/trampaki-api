@@ -1,6 +1,6 @@
 <?php
 #   TESTE INSERT    
-    require_once('class/usuario.php');
+    require_once('model/usuario.php');
     
     Class Primeira{
         public  function __construct(){
