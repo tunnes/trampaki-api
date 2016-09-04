@@ -1,6 +1,7 @@
 <?php
     require_once('class/usuario.php');
     require_once('class/anunciante.php');
+    require_once('class/prestadorDeServico.php');
     require_once('class/login.php');
     require_once('class/endereco.php');
     
@@ -18,10 +19,24 @@
             #           sistema a função 'filter_input()'     
             
                 
-                $valoresFormulario = array("login"=>"cd_login","senha"=>"cd_senha","nmResidencia"=>"cd_numeroResidencia","cep"=>"cd_cep",
-                                           "cidade"=>"nm_cidade","estado"=>"sg_estado","long"=>"cd_longitude","lati"=>"cd_latitude",
-                                           "nomeUser"=>"nm_usuario","email"=>"nm_email","tel"=>"cd_telefone","tipo"=>"tipo", "ds_cat01"=>"ds_cat01",
-                                           "ds_cat02"=>"ds_cat02","ds_cat03"=>"ds_cat03","qt_areaDeAlcance"=>"qt_areaDeAlcance","ds_profissao"=>"ds_profissao");
+                $valoresFormulario = array( "login"=>"cd_login",
+                                            "senha"=>"cd_senha",
+                                            "nmResidencia"=>"cd_numeroResidencia",
+                                            "cep"=>"cd_cep",
+                                            "cidade"=>"nm_cidade",
+                                            "estado"=>"sg_estado",
+                                            "long"=>"cd_longitude",
+                                            "lati"=>"cd_latitude",
+                                            "nomeUser"=>"nm_usuario",
+                                            "email"=>"nm_email",
+                                            "tel"=>"cd_telefone",
+                                            "tipo"=>"tipo", 
+                                            "ds_cat01"=>"ds_cat01",
+                                            "ds_cat02"=>"ds_cat02",
+                                            "ds_cat03"=>"ds_cat03",
+                                            "qt_areaDeAlcance"=>"qt_areaDeAlcance",
+                                            "ds_profissao"=>"ds_profissao"
+                                            );
                                            
                 foreach($valoresFormulario as $campo => $valor) {
                     $valoresFormulario[$campo] = filter_input(INPUT_POST, $valoresFormulario[$campo], FILTER_SANITIZE_MAGIC_QUOTES);
@@ -40,8 +55,9 @@
                     
                 }else{
                     echo "<br> Eh um prestador focker mother";
-                
-                    
+                    $prestador = new PrestadoDeServico($valoresFormulario[nomeUser], $valoresFormulario[email], $valoresFormulario[tel], $endereco, $login, $valoresFormulario[ds_profissao], $valoresFormulario[qt_areaDeAlcance]);
+                    $prestador->novoCadastro();
+                    $prestador->novoPrestador();
                 }
                 
                 
