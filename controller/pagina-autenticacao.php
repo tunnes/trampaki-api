@@ -6,7 +6,7 @@
     class PaginaAutenticacao{
         
         public function __construct(){
-            if(isset($_POST['enviar'])){
+            if(isset($_POST["enviar"])){
             #   Passo 01 ----------------------------------------------------------------------------------------
             #   A função PHP 'filter_input()' tem como finalidade obter a variavel especifica do formulario.
             #   O 'FILTER_SANITIZE_MAGIC_QUOTES' retorna uma barra invertida na frente das aspas simples, neste
@@ -27,7 +27,7 @@
             
             #   --------------------------------------------------------------------------------------------------
             }
-            include('view/testeLogin.html');
+            include('view/pagina-autenticacao.html');
         }
     }
 ?>

@@ -1,7 +1,7 @@
 <?php
     class PaginaPrincipal{
         public  function __construct(){
-            include('view/pagina-principal.html');
+            include("view/pagina-principal.html");
         }
     }
 ?>

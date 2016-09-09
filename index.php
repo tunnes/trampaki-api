@@ -1,4 +1,5 @@
 <?php
+    
     include ('router.php');
     include ('controller/pagina-autenticacao.php');
     include ('controller/pagina-operacoes.php');
@@ -13,4 +14,5 @@
     $roteador -> novaRota('/novo-prestador','novoPrestador');
     $roteador -> novaRota('/painel-de-operacoes','painelDeOperacoes');
     $roteador -> rotear();
+
 ?>

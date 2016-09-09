@@ -9,7 +9,7 @@
     
         private function usuarioLogado(){
             $tipo = $this->verificaTipo();
-            switch ($_POST['acao']) {
+            switch ($_POST["acao"]) {
                 case 'carregarAnuncios':
                     $response = $this->carregarAnuncios();
                     header('Content-type: application/json');

@@ -22,5 +22,6 @@
         public function getCodigoAnunciante(){
             return $this->codigoAnunciante;
         }
+        
     }
 ?>

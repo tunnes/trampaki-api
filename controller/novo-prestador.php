@@ -5,7 +5,7 @@
     
     class novoPrestador{
         public function __construct(){
-            switch ($_POST['acao']) {
+            switch ($_POST["acao"]) {
                 case 'cadastrar':
                     $response = $this->validarDados();
                     header('Content-type: text/html');

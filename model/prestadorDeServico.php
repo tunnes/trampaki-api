@@ -1,4 +1,6 @@
 <?php
+    require_once 'usuario.php';
+
     class PrestadoDeServico extends UsuarioGenerico{
         private $codePrestador;
         private $dsProfissional;

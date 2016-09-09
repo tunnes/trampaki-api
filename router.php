@@ -21,7 +21,7 @@
             
             $chave = array_search($url, $this->arrayRotas);
             if($chave === false){
-                echo '<hr> Rota não encontrada';
+                include('view/pagina-404.html');
             }else{
             #   echo $this -> arrayAcoes[$chave];
                 new  $this -> arrayAcoes[$chave]();
