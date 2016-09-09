@@ -3,7 +3,7 @@
     require_once('model/dataBase.php');
     require_once('model/login.php');
     
-    class FormLogin{
+    class PaginaAutenticacao{
         
         public function __construct(){
             if(isset($_POST['enviar'])){
@@ -23,7 +23,7 @@
             #   inserido na String de seu parametro, neste passo verifico se o método 'efetuarLogin()' 
             #   retornou verdadeiro caso sim, o usuario sera direcionado para a tela principal:
             
-                $login->efetuarLogin() ? header("Location: controller/main.php") : print('Erro ao logar');
+                $login->efetuarLogin() ? header("Location: painel-de-operacoes") : print('Erro ao logar');
             
             #   --------------------------------------------------------------------------------------------------
             }

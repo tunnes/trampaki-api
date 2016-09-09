@@ -1,25 +1,37 @@
 <?php
     class Login{
-        public $login;
-        public $senha;
+        private $login;
+        private $senha;
         
         public function __construct($login, $senha){
             $this->login = $login;
             $this->senha = $senha;
         }
-        public function getSenha(){
-            return $this->senha;
-        }
-        public function getLogin(){
-            return $this->login;
+        public function novoLogin(){
+            $dataBase = DataBase::getInstance();
+            $querySQL = "INSERT INTO login (ds_login, ds_senha) VALUES (:ds_login, :ds_senha)";
+            $comandoSQL =  $dataBase->prepare($querySQL);
+            $comandoSQL -> bindParam(':ds_login', $this->login);
+            $comandoSQL -> bindParam(':ds_senha', $this->senha);
+            $comandoSQL->execute();
+            
+            return $dataBase->lastInsertId();
         }
         public function efetuarLogin(){
             $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM usuario WHERE cd_login = :cd_login AND cd_senha = :cd_senha");
-            $comandoSQL->bindParam(':cd_login', $this->login, PDO::PARAM_STR);
-            $comandoSQL->bindParam(':cd_senha', $this->senha, PDO::PARAM_STR);
+            $comandoSQL   = $bancoDeDados->prepare("SELECT usuario.*, login.* FROM login  
+                                                        INNER JOIN usuario ON usuario.cd_login = login.cd_login
+                                                        WHERE login.ds_login = :ds_login AND login.ds_senha = :ds_senha");
+            $comandoSQL->bindParam(':ds_login', $this->login, PDO::PARAM_STR);
+            $comandoSQL->bindParam(':ds_senha', $this->senha, PDO::PARAM_STR);
             $comandoSQL->execute();
-            return $comandoSQL->rowCount() == 1 ? $this->iniciarSessao($comandoSQL) : false;
+            if($comandoSQL->rowCount() == 1){
+                $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+                $codigoUsuario = $comandoSQL->cd_usuario;
+                return $this->iniciarSessao($codigoUsuario);
+            }else{
+                return false;
+            }
         }
         public function efetuarDeslog(){
             if(isset($_GET['logout'])){
@@ -28,14 +40,11 @@
                 header("Location: login");
             }
         }
-        private function iniciarSessao($comandoSQL){
-            # A função 'fetch(PDO::FETCH_OBJ)' retorna um objeto com todos os registros
-            # resgatados do banco de dados.
-            $usuario = $comandoSQL->fetch(PDO::FETCH_OBJ);
-            echo "Hum";        
+        public function iniciarSessao($codigoUsuario){
             # Para controle de acesso a paginas e restrição de acesso foi feito o uso de
-            # variaveis de sessão '$_SESSION[]' uma variavel global que é invocada.
-            $_SESSION['cd_usuario']  = $usuario->cd_usuario;
+            # variaveis de sessão '$_SESSION[]' uma variavel global que é invocada
+            
+            $_SESSION['codigoUsuario']  = $codigoUsuario;
             $_SESSION['logado'] = true;
             return true;
         }

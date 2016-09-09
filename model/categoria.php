@@ -14,11 +14,7 @@
     */
     #   public function novaCategoria()...
         public function carregarCategorias(){
-            $bancoDeDados = DataBase::getInstance(); 
-            $querySQL = "SELECT * FROM categoria";
-            $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->execute();
-            return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);    
+
         }
         
     }

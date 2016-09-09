@@ -1,19 +1,16 @@
 <?php
-    
-    include ('formLogin.php');
     include ('router.php');
-    include ('primeira.php');
-    include ('controller/paginaInicial.php');
-    include ('controller/formCadastro.php');
-    include ('controller/painelDeOperacoes.php');
+    include ('controller/pagina-autenticacao.php');
+    include ('controller/pagina-operacoes.php');
+    include ('controller/pagina-principal.php');
+    include ('controller/novo-prestador.php');
+    include ('controller/novo-anunciante.php');
+    
     $roteador =  new Router();
-    
-    $roteador -> novaRota('/','paginaInicial');
-    $roteador -> novaRota('/cadastro','formCadastro');
-    $roteador -> novaRota('/primeira','primeira');
-    $roteador -> novaRota('/login','formLogin');
+    $roteador -> novaRota('/','PaginaPrincipal');
+    $roteador -> novaRota('/login','PaginaAutenticacao');
+    $roteador -> novaRota('/novo-anunciante','novoAnunciante');
+    $roteador -> novaRota('/novo-prestador','novoPrestador');
     $roteador -> novaRota('/painel-de-operacoes','painelDeOperacoes');
-    #$roteador -> mapa();
     $roteador -> rotear();
-    
 ?>
