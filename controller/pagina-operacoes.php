@@ -4,9 +4,9 @@
         
         public function __construct(){
         #   Verificação de sessão:
-            $_SESSION['logado'] ? $this->usuarioLogado() : print("N logado");
+            $_SESSION['logado'] ? $this->usuarioLogado() : header('Location: login');
         }
-    
+        
         private function usuarioLogado(){
             $tipo = $this->verificaTipo();
             switch ($_POST["acao"]) {

@@ -9,12 +9,12 @@
     require_once 'dataBase.php';
     
     class Endereco{
-        public $estado;         
-        public $cidade;
-        public $CEP;
-        public $numeroResidencia;
-        public $longitude;
-        public $latitude;
+        private $estado;         
+        private $cidade;
+        private $CEP;
+        private $numeroResidencia;
+        private $longitude;
+        private $latitude;
         
         public function  __construct($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude){
             $this->estado = $estado;
@@ -59,7 +59,6 @@
             $comandoSQL->bindParam(':cd_endereco', $codigoEndereco);
             return $comandoSQL->execute();
         }
-
         
     }
 ?>

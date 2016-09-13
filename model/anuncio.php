@@ -1,9 +1,9 @@
 <?php
     class Anuncio{
-        public $titulo;
-        public $descricao;
-        public $areaDeAlcance;
-        public $codigoAnucio;
+        private $titulo;
+        private $descricao;
+        private $areaDeAlcance;
+        private $codigoAnucio;
         
         public function __construct($titulo, $descricao, $areaDeAlcance){
             $this->titulo = $titulo;
