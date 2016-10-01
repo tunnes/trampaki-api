@@ -13,27 +13,21 @@
             $this->endereco = $endereco;
             $this->login    = $login;
         }
-        protected function novoUsuario(){
-        #   Cadastrando um endereco e um login, recebendo assim seus atributos
-        #   identificadores do banco de dados tornar fisica o conceito de 
-        #   presente no projeto agregação:
-            $codLogin = $this->login->novoLogin();
-            $codEndereco = $this->endereco->novoEndereco();
-            
-            $querySQL = "INSERT INTO usuario (nm_usuario, ds_email, cd_login, cd_endereco, ds_telefone) 
-                                VALUES (:nm_usuario, :ds_email, :cd_login, :cd_endereco, :ds_telefone)";
-            $bancoDeDados = DataBase::getInstance();             
-            $comandoSQL   = $bancoDeDados->prepare($querySQL);
-            $comandoSQL -> bindParam(':ds_email', $this->email);
-            $comandoSQL -> bindParam(':nm_usuario', $this->nome);
-            $comandoSQL -> bindParam(':ds_telefone', $this->telefone);
-            $comandoSQL -> bindParam(':cd_login', $codLogin);
-            $comandoSQL -> bindParam(':cd_endereco', $codEndereco);
-            $comandoSQL->execute();
-            $codigoUsuario = $bancoDeDados->lastInsertId();
-            
-            $this->login->iniciarSessao($codigoUsuario);
-            return $codigoUsuario;
+
+        public function getNome(){
+            return $this->nome;
+        }
+        public function getEmail(){
+            return $this->email;
+        }
+        public function getTelefone(){
+            return $this->telefone;
+        }
+        public function getEndereco(){
+            return $this->endereco;
+        }
+        public function getLogin(){
+            return $this->login;
         }
     }
 ?>

@@ -6,11 +6,10 @@
     include ('controller/pagina-principal.php');
     include ('controller/novo-prestador.php');
     include ('controller/novo-anunciante.php');
-    include ('controller/deslog.php');
+
     
     $roteador =  new Router();
     $roteador -> novaRota('/','PaginaPrincipal');
-    $roteador -> novaRota('/deslogar','Deslog');
     $roteador -> novaRota('/login','PaginaAutenticacao');
     $roteador -> novaRota('/novo-anunciante','novoAnunciante');
     $roteador -> novaRota('/novo-prestador','novoPrestador');

@@ -1,7 +1,7 @@
 <?php
-    require_once('model/login.php');
-    require_once('model/endereco.php');
-    require_once('model/prestadorDeServico.php');
+    require_once('model/BPO/login.php');
+    require_once('model/BPO/endereco.php');
+    require_once('model/BPO/prestadorDeServico.php');
     
     class novoPrestador{
         public function __construct(){

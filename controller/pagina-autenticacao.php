@@ -1,7 +1,7 @@
 <?php
     session_start();
-    require_once('model/dataBase.php');
-    require_once('model/login.php');
+    require_once('configuration/dataBase.php');
+    require_once('model/BPO/login.php');
     
     class PaginaAutenticacao{
         

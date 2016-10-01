@@ -1,7 +1,7 @@
 <?php
     require_once 'usuario.php';
 
-    class PrestadoDeServico extends UsuarioGenerico{
+    class PrestadoDeServico extends Usuario{
         private $codePrestador;
         private $dsProfissional;
         private $qtAreaDeAlcance;

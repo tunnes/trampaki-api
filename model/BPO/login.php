@@ -7,15 +7,11 @@
             $this->login = $login;
             $this->senha = $senha;
         }
-        public function novoLogin(){
-            $dataBase = DataBase::getInstance();
-            $querySQL = "INSERT INTO login (ds_login, ds_senha) VALUES (:ds_login, :ds_senha)";
-            $comandoSQL =  $dataBase->prepare($querySQL);
-            $comandoSQL -> bindParam(':ds_login', $this->login);
-            $comandoSQL -> bindParam(':ds_senha', $this->senha);
-            $comandoSQL->execute();
-            
-            return $dataBase->lastInsertId();
+        public function getLogin(){
+            return $this->login;
+        }
+        public function getSenha(){
+            return $this->senha;
         }
         public function efetuarLogin(){
             $bancoDeDados = Database::getInstance();

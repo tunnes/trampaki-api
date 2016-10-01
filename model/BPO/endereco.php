@@ -6,7 +6,7 @@
 #   logica de um usuário no sistema é imprescindível que o mesmo possua um endereço contendo suas 
 #   respectivas cordenadas.
 
-    require_once 'dataBase.php';
+    require_once 'configuration/dataBase.php';
     
     class Endereco{
         private $estado;         
@@ -24,21 +24,7 @@
             $this->longitude = $longitude;
             $this->latitude = $latitude;
         }
-        public function  novoEndereco(){
-            $bancoDeDados = Database::getInstance();
-            $querySQL = "INSERT INTO endereco (cd_numResiden, cd_cep, nm_cidade, sg_estado, cd_lon, cd_lat) 
-                         VALUES (:cd_numResiden, :cd_cep, :nm_cidade, :sg_estado, :cd_lon, :cd_lat)";
-            $comandoSQL =  $bancoDeDados->prepare($querySQL);
-            $comandoSQL -> bindParam(':cd_numResiden', $this->numeroResidencia);
-            $comandoSQL -> bindParam(':cd_cep', $this->CEP);
-            $comandoSQL -> bindParam(':nm_cidade', $this->cidade);
-            $comandoSQL -> bindParam(':sg_estado', $this->estado);
-            $comandoSQL -> bindParam(':cd_lon', $this->longitude);
-            $comandoSQL -> bindParam(':cd_lat', $this->latitude);
-            $comandoSQL->execute();
-            
-            return $bancoDeDados->lastInsertId();
-        }
+       
         public function  verEndereco($codigoEndereco){
             $querySQL = "SELECT * FROM ENDERECO WHERE cd_endereco = :cd_endereco";
             $comandoSQL = dataBase::prepare($querySQL);
@@ -58,6 +44,25 @@
             $comandoSQL->bindParam(':cd_cep', $this->CEP);
             $comandoSQL->bindParam(':cd_endereco', $codigoEndereco);
             return $comandoSQL->execute();
+        }
+        
+        public function getEstado(){
+            return $this->estado;
+        }
+        public function getCidade(){
+            return $this->cidade;
+        }
+        public function getCEP(){
+            return $this->CEP;
+        }
+        public function getNumeroResidencia(){
+            return $this->numeroResidencia;
+        }
+        public function getLongitude(){
+            return $this->longitude;
+        }
+        public function getLatitude(){
+            return $this->latitude;
         }
         
     }

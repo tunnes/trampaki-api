@@ -1,7 +1,9 @@
 <?php
-    require_once('model/login.php');
-    require_once('model/endereco.php');
-    require_once('model/anunciante.php');
+    require_once('model/BPO/login.php');
+    require_once('model/BPO/endereco.php');
+    require_once('model/BPO/anunciante.php');
+    require_once('model/DAO/anuncianteDAO.php');
+    require_once('configuration/dataBase.php');
     
     class novoAnunciante{
         public function __construct(){
@@ -47,10 +49,14 @@
             if($erro){
             	return $erro;
             }else{
-                $objetoEndereco  = new Endereco($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude);
-                $objetoLogin     = new Login($login, $senha);
-                $prestador       = new Anunciante($nome, $email, $tel, $objetoEndereco, $objetoLogin);
-                $prestador->novoAnunciante();
+               
+                $objetoEndereco   = new Endereco($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude);
+                $objetoLogin      = new Login($login, $senha);
+                $objetoAnunciante = new Anunciante($nome, $email, $tel, $objetoEndereco, $objetoLogin);
+    
+                $anuncianteDAO  = AnuncianteDAO::getInstance();
+                $anuncianteDAO->novoAnunciante($objetoAnunciante);
+                
                 return "Cadastrado com sucesso.";
             }
 
