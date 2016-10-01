@@ -2,11 +2,10 @@
 #   O arquivo 'user.php' como o próprio nome já acusa, tem como finalidade 
 #   as interações genéricas dos usuários do sistema.
 
-    require_once 'dataBase.php';
+    require_once('configuration/dataBase.php');
     
-    class UsuarioGenerico{
+    abstract class Usuario{
         protected $nome, $email, $telefone, $endereco, $login;
-        
         protected function __construct($nome, $email, $telefone, Endereco $endereco, Login $login){
             $this->nome     = $nome;
             $this->email    = $email;
@@ -14,7 +13,7 @@
             $this->endereco = $endereco;
             $this->login    = $login;
         }
-        protected function novoCadastro(){
+        protected function novoUsuario(){
         #   Cadastrando um endereco e um login, recebendo assim seus atributos
         #   identificadores do banco de dados tornar fisica o conceito de 
         #   presente no projeto agregação:
