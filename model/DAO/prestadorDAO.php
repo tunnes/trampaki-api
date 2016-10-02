@@ -7,10 +7,10 @@
         }
         
     #   Funções de acesso ao banco ------------------------------------------------------------------------------
-        public function novoPrestador($objetoPrestador){
+        public function cadastrarPrestador($objetoPrestador){
         #   Cadastrando um usuário genérico e recebendo seu 
         #   atributo identificador do banco de dados:    
-            $codUsuario = $this->novoUsuario($objetoPrestador);
+            $codUsuario = $this->cadastrarUsuario($objetoPrestador, '1');
             
             $bancoDeDados = Database::getInstance();
             $querySQL = "INSERT INTO prestadorDeServico (cd_usuario, ds_perfilProfissional, qt_areaAlcance) 

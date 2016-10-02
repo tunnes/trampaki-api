@@ -12,9 +12,10 @@
             #   O 'FILTER_SANITIZE_MAGIC_QUOTES' retorna uma barra invertida na frente das aspas simples, neste
             #   passo estou recuperando os dados inseridos no formulario de login e verificando se são validos:
         
-                $DadosLogin = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
-                $DadosSenha = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
-                $login = new Login($DadosLogin, $DadosSenha);
+                $dadosLogin  = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
+                $dadosSenha  = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
+                $objetoLogin = new Login($dadosLogin, $dadosSenha);
+                $loginDAO    = LoginDAO::getInstance();
                 
             #   --------------------------------------------------------------------------------------------------
             
@@ -23,7 +24,7 @@
             #   inserido na String de seu parametro, neste passo verifico se o método 'efetuarLogin()' 
             #   retornou verdadeiro caso sim, o usuario sera direcionado para a tela principal:
             
-                $login->efetuarLogin() ? header("Location: painel-de-operacoes") : print('Erro ao logar');
+                $loginDAO->consultarLogin($objetoLogin) ? header("Location: painel-de-operacoes") : print('Erro ao logar');
             
             #   --------------------------------------------------------------------------------------------------
             }

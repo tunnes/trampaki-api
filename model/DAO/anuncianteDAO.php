@@ -9,18 +9,16 @@
         }
         
     #   Funções de acesso ao banco ------------------------------------------------------------------------------
-        public function novoAnunciante($objetoAnunciante){
+        public function cadastrarAnunciante(Anunciante $objetoAnunciante){
         #   Cadastrando um usuário genérico e recebendo seu 
         #   atributo identificador do banco de dados: 
-            $codUsuario = $this->novoUsuario($objetoAnunciante);
+            $codUsuario = $this->cadastrarUsuario($objetoAnunciante, '0');
             
             $bancoDeDados = Database::getInstance();
             $querySQL = "INSERT INTO anunciante (cd_usuario) VALUES (:cd_usuario)";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
             $comandoSQL->bindParam(':cd_usuario', $codUsuario);
             $comandoSQL->execute();
-            // $this->codigoAnunciante = $bancoDeDados->lastInsertId();
         }
-        
     }
 ?>

@@ -22,7 +22,11 @@ create table usuario(
     cd_endereco int not null,
     nm_usuario varchar(80),
     ds_email varchar(30),
-    ds_telefone varchar(20)
+    ds_telefone varchar(20),
+    cd_tipo enum('0','1','2') not null
+--  0 - ANUNCIANTE
+--  1 - PRESTADOR
+--  2 - HIBRIDO
 );
 
 create table prestador(

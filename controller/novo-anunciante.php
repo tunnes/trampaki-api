@@ -50,13 +50,12 @@
             if($erro){
             	return $erro;
             }else{
-               
                 $objetoEndereco   = new Endereco($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude);
                 $objetoLogin      = new Login($login, $senha);
                 $objetoAnunciante = new Anunciante($nome, $email, $tel, $objetoEndereco, $objetoLogin);
-                $anuncianteDAO  = AnuncianteDAO::getInstance();
-                $anuncianteDAO->novoAnunciante($objetoAnunciante);
+                $anuncianteDAO    = AnuncianteDAO::getInstance();
                 
+                $anuncianteDAO->cadastrarAnunciante($objetoAnunciante);
                 return "Cadastrado com sucesso.";
             }
 

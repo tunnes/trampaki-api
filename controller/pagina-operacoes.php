@@ -7,7 +7,7 @@
             $_SESSION['logado'] ? $this->usuarioLogado() : header('Location: login');
         }
         private function usuarioLogado(){
-            $tipo = $this->verificaTipo();
+           
             switch ($_POST["acao"]) {
                 case 'carregarAnuncios':
                     $response = $this->carregarAnuncios();
@@ -62,26 +62,6 @@
             $comandoSQL->execute();
             $anuncios = json_encode($comandoSQL->fetchAll(PDO::FETCH_ASSOC));
             return $anuncios;
-        }
-        private function verificaTipo(){
-            $this->ehPrestador()  && !$this->ehAnunciante() ? $tipo = "prestador"  : null;
-            $this->ehAnunciante() && !$this->ehPrestador()  ? $tipo = "anunciante" : null;
-            $this->ehPrestador()  && $this->ehAnunciante()  ? $tipo = "hibrido"    : null;
-            return $tipo;            
-        } 
-        private function ehAnunciante(){
-            $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anunciante WHERE cd_usuario = :cd_usuario");
-            $comandoSQL->bindParam(':cd_usuario', $_SESSION['codigoUsuario']);
-            $comandoSQL->execute();
-            return $comandoSQL->rowCount() == 1 ? true : false;
-        }
-        private function ehPrestador(){
-            $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM prestadorDeServico WHERE cd_usuario = :cd_usuario");
-            $comandoSQL->bindParam(':cd_usuario', $_SESSION['codigoUsuario']);
-            $comandoSQL->execute();
-            return $comandoSQL->rowCount() == 1 ? true : false;
         }
     }
 ?>
