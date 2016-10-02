@@ -1,9 +1,12 @@
 <?php
     require_once('model/BPO/login.php');
     require_once('model/BPO/endereco.php');
-    require_once('model/BPO/prestadorDeServico.php');
+    require_once('model/BPO/prestador.php');
+    require_once('model/BPO/prestador.php');
+    require_once('controller/novo-usuario.php');
     
-    class novoPrestador{
+    
+    class novoPrestador extends novoUsuario{
         public function __construct(){
             switch ($_POST["acao"]) {
                 case 'cadastrar':
@@ -54,36 +57,17 @@
             }else{
                 $objetoEndereco  = new Endereco($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude);
                 $objetoLogin     = new Login($login, $senha);
-                $prestador       = new PrestadoDeServico($nome, $email, $tel, $objetoEndereco, $objetoLogin, $desProf, $qntAlc);
-                $prestador->novoPrestador();
-                $prestador->selecionarCategoria($cat01);
-                $prestador->selecionarCategoria($cat02);
-                $prestador->selecionarCategoria($cat03);
+                $objetoPrestador = new PrestadoDeServico($nome, $email, $tel, $objetoEndereco, $objetoLogin, $desProf, $qntAlc);
+                
+                $prestadorDAO = PrestadorDAO::getInstance();
+                $codigoPrestador = $prestadorDAO->novoPrestador($objetoPrestador);
+                $prestadorDAO->selecionarCategoria($codigoPrestador, $cat01);
+                $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
+                $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
                 return "Cadastrado com sucesso.";
             }
 
         }
-        private function duplicidadeLogin($login){
-            $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM login WHERE ds_login = :ds_login");
-            $comandoSQL->bindParam(':ds_login', $login);
-            $comandoSQL->execute();
-            return $comandoSQL->rowCount() == 0 ? true : false;        
-        }
-        private function duplicidadeEmail($email){
-            $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM usuario WHERE ds_email = :ds_email");
-            $comandoSQL->bindParam(':ds_email', $email);
-            $comandoSQL->execute();
-            return $comandoSQL->rowCount() == 0 ? true : false;        
-        }
-        private function listarCategorias(){
-            $bancoDeDados = DataBase::getInstance(); 
-            $querySQL = "SELECT * FROM categoria";
-            $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->execute();
-            $categorias = json_encode($comandoSQL->fetchAll(PDO::FETCH_ASSOC));
-            return $categorias;
-        }
+
     }
 ?>

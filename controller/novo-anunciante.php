@@ -5,7 +5,8 @@
     require_once('model/DAO/anuncianteDAO.php');
     require_once('configuration/dataBase.php');
     
-    class novoAnunciante{
+    require_once('controller/novo-usuario.php');
+    class novoAnunciante extends novoUsuario{
         public function __construct(){
             switch ($_POST["acao"]) {
                 case 'cadastrar':
@@ -53,27 +54,12 @@
                 $objetoEndereco   = new Endereco($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude);
                 $objetoLogin      = new Login($login, $senha);
                 $objetoAnunciante = new Anunciante($nome, $email, $tel, $objetoEndereco, $objetoLogin);
-    
                 $anuncianteDAO  = AnuncianteDAO::getInstance();
                 $anuncianteDAO->novoAnunciante($objetoAnunciante);
                 
                 return "Cadastrado com sucesso.";
             }
 
-        }
-        private function duplicidadeLogin($login){
-            $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM login WHERE ds_login = :ds_login");
-            $comandoSQL->bindParam(':ds_login', $login);
-            $comandoSQL->execute();
-            return $comandoSQL->rowCount() == 0 ? true : false;        
-        }
-        private function duplicidadeEmail($email){
-            $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM usuario WHERE ds_email = :ds_email");
-            $comandoSQL->bindParam(':ds_email', $email);
-            $comandoSQL->execute();
-            return $comandoSQL->rowCount() == 0 ? true : false;        
         }
     }
 ?>
