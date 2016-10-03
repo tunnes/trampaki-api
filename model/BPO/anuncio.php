@@ -1,14 +1,17 @@
 <?php
     class Anuncio{
-        private $titulo;
-        private $descricao;
-        private $areaDeAlcance;
-        private $codigoAnucio;
+        private $codigoAnuncio, $codigoAnunciante, $titulo, $descricao, $areaAlcance, $codigoCat01, $codigoCat02, $codigoCat03;
         
-        public function __construct($titulo, $descricao, $areaDeAlcance){
-            $this->titulo = $titulo;
-            $this->descricao = $descricao;
-            $this->areaDeAlcance = $areaDeAlcance;
+        
+        public function __construct($codigoAnuncio, $codigoAnunciante, $titulo, $descricao, $areaAlcance, $codigoCat01, $codigoCat02, $codigoCat03){
+            $this->titulo           = $titulo;
+            $this->descricao        = $descricao;
+            $this->areaAlcance      = $areaAlcance;
+            $this->codigoCat01      = $codigoCat01;
+            $this->codigoCat02      = $codigoCat02;
+            $this->codigoCat03      = $codigoCat03;
+            $this->codigoAnuncio    = $codigoAnuncio;
+            $this->codigoAnunciante = $codigoAnunciante;
         }
         public function novoAnuncio($codigoAnunciante){
             $bancoDeDados = Database::getInstance();

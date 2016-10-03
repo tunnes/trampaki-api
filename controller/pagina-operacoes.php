@@ -63,5 +63,8 @@
             $anuncios = json_encode($comandoSQL->fetchAll(PDO::FETCH_ASSOC));
             return $anuncios;
         }
+        private function cadastrarAnuncio(){
+            
+        }
     }
 ?>
