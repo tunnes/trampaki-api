@@ -1,20 +1,22 @@
 <?php
     require_once('configuration/dataBase.php');
+    require_once('model/BPO/login.php');
     
-    class loginDAO{
+    class LoginDAO{
         private static $instance;
         public static function getInstance(){
             return !isset(self::$instance) ? self::$instance = new loginDAO() : self::$instance;
             
         }
-        public function cadastrarLogin($objetoLogin){
+        public function cadastrarLogin($login, $senha){
             $dataBase = DataBase::getInstance();
             $querySQL = "INSERT INTO login (ds_login, ds_senha) VALUES (:ds_login, :ds_senha)";
             $comandoSQL =  $dataBase->prepare($querySQL);
-            $comandoSQL -> bindParam(':ds_login', $objetoLogin->getLogin());
-            $comandoSQL -> bindParam(':ds_senha', $objetoLogin->getSenha());
+            $comandoSQL -> bindParam(':ds_login', $login);
+            $comandoSQL -> bindParam(':ds_senha', $senha);
             $comandoSQL->execute();
-            return $dataBase->lastInsertId();
+            $loginBPO = new LoginBPO($dataBase->lastInsertId(), $login, $senha); 
+            return $loginBPO; 
         }
         public function consultarLogin(Login $objetoLogin){
             $bancoDeDados = Database::getInstance();

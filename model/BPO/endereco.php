@@ -8,7 +8,8 @@
 
     require_once 'configuration/dataBase.php';
     
-    class Endereco{
+    class EnderecoBPO{
+        private $codigoEndereco;
         private $estado;         
         private $cidade;
         private $CEP;
@@ -16,7 +17,8 @@
         private $longitude;
         private $latitude;
         
-        public function  __construct($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude){
+        public function  __construct($codigoEndereco, $estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude){
+            $this->codigoEndereco = $codigoEndereco;
             $this->estado = $estado;
             $this->cidade = $cidade;
             $this->CEP = $CEP;
@@ -45,7 +47,9 @@
             $comandoSQL->bindParam(':cd_endereco', $codigoEndereco);
             return $comandoSQL->execute();
         }
-        
+        public function getCodigoEndereco(){
+            return $this->codigoEndereco;
+        }
         public function getEstado(){
             return $this->estado;
         }

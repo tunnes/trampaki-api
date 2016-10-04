@@ -6,7 +6,7 @@
     
     abstract class Usuario{
         protected $nome, $email, $telefone, $endereco, $login;
-        protected function __construct($nome, $email, $telefone, Endereco $endereco, Login $login){
+        protected function __construct($nome, $email, $telefone, EnderecoBPO $endereco, LoginBPO $login){
             $this->nome     = $nome;
             $this->email    = $email;
             $this->telefone = $telefone;

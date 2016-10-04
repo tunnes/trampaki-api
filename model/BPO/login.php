@@ -1,11 +1,16 @@
 <?php
-    class Login{
+    class LoginBPO{
+        private $codigoLogin;
         private $login;
         private $senha;
         
-        public function __construct($login, $senha){
+        public function __construct($codigoLogin, $login, $senha){
+            $this->codigoLogin = $codigoLogin;
             $this->login = $login;
             $this->senha = $senha;
+        }
+        public function getCodigoLogin(){
+            return $this->codigoLogin;
         }
         public function getLogin(){
             return $this->login;
@@ -20,13 +25,15 @@
                 header("Location: login");
             }
         }
-        public function iniciarSessao($codigoUsuario, $tipoUsuario){
+        public function iniciarSessao($objetoUsuario, $tipoUsuario){
             # Para controle de acesso a paginas e restrição de acesso foi feito o uso de
             # variaveis de sessão '$_SESSION[]' uma variavel global que é invocada
             
-            $_SESSION['codigoUsuario'] = $codigoUsuario;
-            $_SESSION['tipoUsuario']   = $tipoUsuario;
             $_SESSION['logado'] = true;
+            $_SESSION['tipoUsuario'] = $tipoUsuario;
+            $_SESSION['objetoUsuario'] = $objetoUsuario;
+            
+            
             return true;
         }
     }

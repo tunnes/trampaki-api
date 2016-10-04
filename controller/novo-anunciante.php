@@ -35,8 +35,8 @@
             }
             
         #   Verificando se longitude, latitude e area de alcance são numeros:
-            !is_numeric($latitude)  ? $erro = 'A latitude deve ser de valor númererico.' : null;
-            !is_numeric($longitude) ? $erro = 'A longitude deve ser de valor númererico.' : null;
+            !is_numeric($lati)      ? $erro = 'A latitude deve ser de valor númererico.' : null;
+            !is_numeric($long)      ? $erro = 'A longitude deve ser de valor númererico.' : null;
             !is_numeric($qntAlc)    ? $erro = 'A Area de alcance deve ser de valor númererico.' : null;
             
         #   Verificando a formatação do campo de email e possivel duplicidade:
@@ -50,12 +50,11 @@
             if($erro){
             	return $erro;
             }else{
-                $objetoEndereco   = new Endereco($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude);
-                $objetoLogin      = new Login($login, $senha);
-                $objetoAnunciante = new Anunciante($nome, $email, $tel, $objetoEndereco, $objetoLogin);
                 $anuncianteDAO    = AnuncianteDAO::getInstance();
                 
-                $anuncianteDAO->cadastrarAnunciante($objetoAnunciante);
+                $anuncianteBPO = $anuncianteDAO->cadastrarAnunciante($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati);
+                $login = $anuncianteBPO->getLogin();
+                $login->iniciarSessao($anuncianteBPO, '0');
                 return "Cadastrado com sucesso.";
             }
 
