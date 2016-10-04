@@ -4,7 +4,7 @@
     require_once('model/BPO/prestador.php');
     require_once('model/BPO/prestador.php');
     require_once('controller/novo-usuario.php');
-    
+    require_once('model/DAO/prestadorDAO.php');
     
     class novoPrestador extends novoUsuario{
         public function __construct(){
@@ -40,8 +40,8 @@
             }
             
         #   Verificando se longitude, latitude e area de alcance são numeros:
-            !is_numeric($latitude)  ? $erro = 'A latitude deve ser de valor númererico.' : null;
-            !is_numeric($longitude) ? $erro = 'A longitude deve ser de valor númererico.' : null;
+            !is_numeric($lati)  ? $erro = 'A latitude deve ser de valor númererico.' : null;
+            !is_numeric($long) ? $erro = 'A longitude deve ser de valor númererico.' : null;
             !is_numeric($qntAlc)    ? $erro = 'A Area de alcance deve ser de valor númererico.' : null;
             
         #   Verificando a formatação do campo de email e possivel duplicidade:
@@ -55,17 +55,14 @@
             if($erro){
             	return $erro;
             }else{
-                $objetoEndereco  = new Endereco($estado, $cidade, $CEP, $numeroResidencia, $longitude, $latitude);
-                $objetoLogin     = new Login($login, $senha);
-                $objetoPrestador = new PrestadoDeServico($nome, $email, $tel, $objetoEndereco, $objetoLogin, $desProf, $qntAlc);
-                
+
                 $prestadorDAO = PrestadorDAO::getInstance();
-                $codigoPrestador = $prestadorDAO->novoPrestador($objetoPrestador);
-                $prestadorDAO->selecionarCategoria($codigoPrestador, $cat01);
-                $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
-                $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
+                $prestadorBPO = $prestadorDAO->cadastrarPrestador($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati, $desProf, $qntAlc);
+                // $prestadorDAO->selecionarCategoria($codigoPrestador, $cat01);
+                // $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
+                // $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
                 return "Cadastrado com sucesso.";
-            }
+            }   
 
         }
 
