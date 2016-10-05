@@ -1,12 +1,17 @@
 <?php
-    abstract class novoUsuario{
+
+    abstract class NovoUsuario{
         public function listarCategorias(){
-            $bancoDeDados = DataBase::getInstance(); 
-            $querySQL = "SELECT * FROM categoria";
-            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL = $bancoDeDados->prepare("select * from categoria");
             $comandoSQL->execute();
-            $categorias = json_encode($comandoSQL->fetchAll(PDO::FETCH_ASSOC));
-            return $categorias;
+            $janta = $comandoSQL->fetchAll(PDO::FETCH_ASSOC);
+            echo "Categorias Disponiveis: <br>";
+            foreach ($janta as $row) {
+                print "Codigo: ".$row["cd_categoria"] . " | Nome: " . $row["nm_categoria"] . " | Descrição: " . $row["ds_categoria"] ."<br/>";
+                } 
+            return $janta;
+            
         }
         public function duplicidadeLogin($login){
             $bancoDeDados = Database::getInstance();

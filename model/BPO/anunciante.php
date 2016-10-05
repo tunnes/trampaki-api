@@ -1,5 +1,5 @@
 <?php
-#   Classe 'Anunciante'
+    require_once ('model/BPO/usuario.php');
     class AnuncianteBPO extends Usuario{
         
         private $codigoAnunciante;

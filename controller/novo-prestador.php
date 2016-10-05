@@ -1,12 +1,8 @@
 <?php
-    require_once('model/BPO/login.php');
-    require_once('model/BPO/endereco.php');
-    require_once('model/BPO/prestador.php');
-    require_once('model/BPO/prestador.php');
     require_once('controller/novo-usuario.php');
     require_once('model/DAO/prestadorDAO.php');
     
-    class novoPrestador extends novoUsuario{
+    class novoPrestador extends NovoUsuario{
         public function __construct(){
             switch ($_POST["acao"]) {
                 case 'cadastrar':
@@ -16,8 +12,8 @@
                     break;
                 case 'listarCategorias':
                     $response = $this->listarCategorias();
-                    header('Content-type: application/json');
-                    echo $response;
+                    header('Content-type: application/json;');
+                    echo json_encode($response);
                     break;
                 default:
                     include('view/novo-prestador.html');
@@ -58,9 +54,9 @@
 
                 $prestadorDAO = PrestadorDAO::getInstance();
                 $prestadorBPO = $prestadorDAO->cadastrarPrestador($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati, $desProf, $qntAlc);
-                // $prestadorDAO->selecionarCategoria($codigoPrestador, $cat01);
-                // $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
-                // $prestadorDAO->selecionarCategoria($codigoPrestador, $cat02);
+                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat01);
+                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat02);
+                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat03);
                 return "Cadastrado com sucesso.";
             }   
 

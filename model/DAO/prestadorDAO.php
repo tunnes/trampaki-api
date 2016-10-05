@@ -1,20 +1,16 @@
 <?php
     require_once('model/DAO/usuarioDAO.php');
-    require_once('model/DAO/loginDAO.php');
-    require_once('model/DAO/enderecoDAO.php');
-    
+    require_once('model/BPO/prestador.php');
 
     class PrestadorDAO extends UsuarioDAO{
-    #   Padrão de Projeto Singleton -----------------------------------------------------------------------------    
+    #   Padrão de Projeto Singleton ------------------------------------------------------------------------------------------------------------------------    
         private static $instance;
         public function getInstance(){
             return !isset(self::$instance) ? self::$instance = new prestadorDAO() : self::$instance;
         }
         
-    #   Funções de acesso ao banco ------------------------------------------------------------------------------
+    #   Funções de acesso ao banco -------------------------------------------------------------------------------------------------------------------------
         public function cadastrarPrestador($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati, $desProf, $qntAlc){
-        #   Cadastrando um usuário genérico e recebendo seu 
-        #   atributo identificador do banco de dados:
             $loginDAO     = LoginDAO::getInstance();
             $enderecoDAO  = EnderecoDAO::getInstance();
             $bancoDeDados = Database::getInstance();
@@ -28,14 +24,14 @@
                                 VALUES ('".$codigoUsuario."', '".$desProf."', '".$qntAlc."')";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
             $comandoSQL->execute();
-            $prestadorBPO = new PrestadorBPO($bancoDeDados->lastInsertId(), $email, $tel, $loginBPO, $enderecoBPO, $desProf, $qntAlc);
+            $prestadorBPO = new PrestadorBPO($bancoDeDados->lastInsertId(), $nome, $email, $tel, $loginBPO, $enderecoBPO, $desProf, $qntAlc);
             return $prestadorBPO;
         }
         public function selecionarCategoria($codigoPrestador, $codigoCategoria){
             $bancoDeDados = Database::getInstance();
-            $querySQL = "INSERT INTO categoriaPrestador (cd_prestadorDeServico, cd_categoria) VALUES (:cd_prestadorDeServico, :cd_categoria)";
+            $querySQL = "INSERT INTO categoriaPrestador (cd_prestador, cd_categoria) VALUES (:cd_prestador, :cd_categoria)";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->bindParam(':cd_prestadorDeServico', $codigoPrestador);
+            $comandoSQL->bindParam(':cd_prestador', $codigoPrestador);
             $comandoSQL->bindParam(':cd_categoria', $codigoCategoria);
             $comandoSQL->execute();
         }
