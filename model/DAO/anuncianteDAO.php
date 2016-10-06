@@ -23,7 +23,6 @@
             $loginBPO      = $loginDAO->cadastrarLogin($login, $senha);
             $enderecoBPO   = $enderecoDAO->cadastrarEndereco($estado, $cidade, $CEP, $numRes, $long, $lati);
             $codigoUsuario = $this->cadastrarUsuario($nome, $email, $loginBPO->getCodigoLogin(), $enderecoBPO->getCodigoEndereco(), $tel, '0');
-
             $comandoSQL = $bancoDeDados->prepare("INSERT INTO anunciante (cd_usuario) VALUES (:cd_usuario)");
             $comandoSQL->bindParam(':cd_usuario', $codigoUsuario);
             $comandoSQL->execute();
@@ -34,7 +33,7 @@
         }
         public function consultarAnunciante($codigoAnunciante){
             $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anunciante as A INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario WHERE U.cd_usuario = 1");
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anunciante as A INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario WHERE U.cd_usuario = :cd_usuario");
             $comandoSQL->bindParam(':cd_usuario', $codigoAnunciante);
             $comandoSQL->execute();
             $co = $comandoSQL->fetchAll(PDO::FETCH_OBJ);

@@ -35,6 +35,20 @@
             $comandoSQL->bindParam(':cd_categoria', $codigoCategoria);
             $comandoSQL->execute();
         }
+        public function consultarAnunciante($codigoPrestador){
+            $bancoDeDados = Database::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM prestador as P INNER JOIN usuario as U ON U.cd_usuario = P.cd_usuario WHERE U.cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_usuario', $codigoPrestador);
+            $comandoSQL->execute();
+            $co = $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+            $loginDAO      = LoginDAO::getInstance();
+            $enderecoDAO   = EnderecoDAO::getInstance();
+            
+            $loginBPO      = $loginDAO->consultarLogin($co->cd_login);
+            $enderecoBPO   = $enderecoDAO->consultarEndereco($co->cd_endereco);
+            $prestadorBPO = new PrestadorBPO($co->cd_prestador, $co->nm_prestador, $co->ds_email, $co->ds_telefone, $enderecoBPO, $loginBPO);
+            return $prestadorBPO; 
+        }
 
     }
 ?>
