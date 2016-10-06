@@ -2,7 +2,7 @@
     require_once('controller/novo-usuario.php');
     require_once('model/DAO/prestadorDAO.php');
     
-    class novoPrestador extends NovoUsuario{
+    class NovoPrestador extends NovoUsuario{
         public function __construct(){
             switch ($_POST["acao"]) {
                 case 'cadastrar':
@@ -36,9 +36,9 @@
             }
             
         #   Verificando se longitude, latitude e area de alcance são numeros:
-            !is_numeric($lati)  ? $erro = 'A latitude deve ser de valor númererico.' : null;
-            !is_numeric($long) ? $erro = 'A longitude deve ser de valor númererico.' : null;
-            !is_numeric($qntAlc)    ? $erro = 'A Area de alcance deve ser de valor númererico.' : null;
+            !is_numeric($lati)   ? $erro = 'A latitude deve ser de valor númererico.' : null;
+            !is_numeric($long)   ? $erro = 'A longitude deve ser de valor númererico.' : null;
+            !is_numeric($qntAlc) ? $erro = 'A Area de alcance deve ser de valor númererico.' : null;
             
         #   Verificando a formatação do campo de email e possivel duplicidade:
             !filter_var($email, FILTER_VALIDATE_EMAIL) ? $erro = 'Envie um email válido.' : null;
@@ -54,6 +54,7 @@
 
                 $prestadorDAO = PrestadorDAO::getInstance();
                 $prestadorBPO = $prestadorDAO->cadastrarPrestador($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati, $desProf, $qntAlc);
+            #   Obs: Tenho que otimizar o cadastro de categorias, tanto no banco quanto no back pois, a chave é composta.
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat01);
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat02);
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat03);

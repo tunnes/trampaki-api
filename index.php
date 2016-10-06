@@ -12,7 +12,7 @@
     $roteador -> novaRota('/','PaginaPrincipal');
     $roteador -> novaRota('/login','PaginaAutenticacao');
     $roteador -> novaRota('/novo-anunciante','novoAnunciante');
-    $roteador -> novaRota('/novo-prestador','novoPrestador');
+    $roteador -> novaRota('/novo-prestador','NovoPrestador');
     $roteador -> novaRota('/painel-de-operacoes','painelDeOperacoes');
     $roteador -> rotear();
 

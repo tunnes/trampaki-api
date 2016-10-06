@@ -2,6 +2,7 @@
     require_once('model/DAO/usuarioDAO.php');
     require_once('model/DAO/enderecoDAO.php');
     require_once('model/DAO/loginDAO.php');
+    require_once('model/BPO/anunciante.php');
     
     class AnuncianteDAO extends UsuarioDAO{
     #   Padrão de Projeto Singleton ---------------------------------------------------------------------------------------------------------    
@@ -30,6 +31,20 @@
             $anuncianteBPO = new AnuncianteBPO($codigoAnunciante, $nome, $email, $tel, $enderecoBPO, $loginBPO); 
             return $anuncianteBPO; 
             
+        }
+        public function consultarAnunciante($codigoAnunciante){
+            $bancoDeDados = Database::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anunciante as A INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario WHERE U.cd_usuario = 1");
+            $comandoSQL->bindParam(':cd_usuario', $codigoAnunciante);
+            $comandoSQL->execute();
+            $co = $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+            $loginDAO      = LoginDAO::getInstance();
+            $enderecoDAO   = EnderecoDAO::getInstance();
+            
+            $loginBPO      = $loginDAO->consultarLogin($co->cd_login);
+            $enderecoBPO   = $enderecoDAO->consultarEndereco($co->cd_endereco);
+            $anuncianteBPO = new AnuncianteBPO($co->cd_anunciante, $co->nm_anunciante, $co->ds_email, $co->ds_telefone, $enderecoBPO, $loginBPO);
+            return $anuncianteBPO; 
         }
     }
 ?>

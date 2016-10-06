@@ -6,7 +6,8 @@
     class PaginaAutenticacao{
         
         public function __construct(){
-            if(isset($_POST["enviar"])){
+            if($_POST["enviar"] == "true"){
+                
             #   Passo 01 ----------------------------------------------------------------------------------------
             #   A função PHP 'filter_input()' tem como finalidade obter a variavel especifica do formulario.
             #   O 'FILTER_SANITIZE_MAGIC_QUOTES' retorna uma barra invertida na frente das aspas simples, neste
@@ -14,21 +15,15 @@
         
                 $dadosLogin  = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
                 $dadosSenha  = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
-                $objetoLogin = new Login($dadosLogin, $dadosSenha);
-                $loginDAO    = LoginDAO::getInstance();
+                
+                $loginDAO = LoginDAO::getInstance();
+                $loginDAO->gerarAutenticacao($dadosLogin, $dadosSenha) ? header("Location: painel-de-operacoes") : print "login ou email invalido.";
                 
             #   --------------------------------------------------------------------------------------------------
-            
-            #   Passo 02 -----------------------------------------------------------------------------------------
-            #   A função 'header()' recebe como parametro um arquivo PHP e direciona o usuario até o endereço, 
-            #   inserido na String de seu parametro, neste passo verifico se o método 'efetuarLogin()' 
-            #   retornou verdadeiro caso sim, o usuario sera direcionado para a tela principal:
-            
-                $loginDAO->consultarLogin($objetoLogin) ? header("Location: painel-de-operacoes") : print('Erro ao logar');
-            
-            #   --------------------------------------------------------------------------------------------------
+            }else{
+                include('view/pagina-autenticacao.html');
             }
-            include('view/pagina-autenticacao.html');
+            
         }
     }
 ?>

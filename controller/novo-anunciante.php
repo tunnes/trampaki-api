@@ -1,11 +1,7 @@
 <?php
-    require_once('model/BPO/login.php');
-    require_once('model/BPO/endereco.php');
-    require_once('model/BPO/anunciante.php');
     require_once('model/DAO/anuncianteDAO.php');
-    require_once('configuration/dataBase.php');
-    
     require_once('controller/novo-usuario.php');
+    
     class novoAnunciante extends novoUsuario{
         public function __construct(){
             switch ($_POST["acao"]) {
