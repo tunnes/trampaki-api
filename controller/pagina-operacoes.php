@@ -1,4 +1,7 @@
 <?php
+    require_once("model/BPO/prestador.php");
+    require_once("model/DAO/anuncioDAO.php");
+    
     session_start();
     class PainelDeOperacoes{
         
@@ -7,22 +10,44 @@
             $_SESSION['logado'] ? $this->usuarioLogado() : header('Location: login');
         }
         private function usuarioLogado(){
-           
             switch ($_POST["acao"]) {
+                case 'carregarMeusAnuncios':
+                    break;
                 case 'carregarAnuncios':
+                #   Criar uma validação pra saber se o cara é prestador ou hibrido..
                     $response = $this->carregarAnuncios();
-                    header('Content-type: application/json');
-                    echo $response;
                     break;
                 case 'carregarPrestadores':
+                #   Criar uma validação pra saber se o cara é anunciante ou hibrido..
                     $response = $this->carregarPrestadores();
                     header('Content-type: application/json');
                     echo $response;
                     break;
                 case 'dadosPrestador':
+                #   Criar uma validação pra saber se o cara é prestador mesmo ou hibrido..
                     $response = $this->dadosPrestador();
                     header('Content-type: application/json');
                     echo $response;
+                    break;
+                case 'dadosAnunciante':
+                #   Criar uma validação pra saber se o cara é prestador mesmo ou hibrido..
+                    $response = $this->dadosAnunciante();
+                    header('Content-type: application/json');
+                    echo $response;                    
+                    break;
+                case 'dadosAnuncio':
+                    $response = $this->dadosAnuncio();
+                    header('Content-type: application/json');
+                    echo $response; 
+                    break;
+                case 'editarPrestador':
+                #   Basta executar um UPDATE..
+                    break;
+                case 'editarAnunciante':
+                #   Basta executar um UPDATE..
+                    break;
+                case 'editarAnuncio':
+                #   Basta executar um UPDATE..    
                     break;
                 default:
                     include('view/pagina-operacoes.html');
@@ -30,41 +55,40 @@
             }
         }
         private function dadosPrestador(){
-            $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT P.*, U.*, E.*, L.* 
-                                                    	FROM usuario as U 
-                                                    	INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
-                                                    	INNER JOIN login as L ON U.cd_login = L.cd_login
-                                                    	INNER JOIN prestadorDeServico as P ON U.cd_usuario = P.cd_usuario
-                                                        WHERE U.cd_usuario = :cd_usuario");
-            $comandoSQL->bindParam(':cd_usuario', $_SESSION['codigoUsuario']);
-            $comandoSQL->execute();
-            $dadosPrestador = json_encode($comandoSQL->fetchAll(PDO::FETCH_ASSOC));
-            return $dadosPrestador;       
+            $obj = unserialize($_SESSION['objetoUsuario']);
+            $prestadorDAO = PrestadorDAO::getInstance();
+            $response = $prestadorDAO->carregarPerfil($obj->getCodigoPrestador());
+            echo json_encode($response);
+        }
+        private function dadosAnunciante(){
+            $obj = unserialize($_SESSION['objetoUsuario']);
+            $anuncianteDAO = AnuncianteDAO::getInstance();
+            $response = $anuncianteDAO->carregarPerfil($obj->getCodigoAnunciante());
+            echo json_encode($response);
+        }
+        private function dadosAnuncio(){
+            $anuncioDAO = AnuncioDAO::getInstance();
+            $response = $anuncioDAO->consultarAnuncio($codigoAnuncio);
+            return json_encode($response);
         }
         private function carregarPrestadores(){
-            $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT P.cd_prestadorDeServico, U.nm_usuario, E.cd_lat, E.cd_lon 
-	                                                    FROM usuario as U 
-	                                                    INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
-	                                                    INNER JOIN prestadorDeServico as P ON U.cd_usuario = P.cd_usuario");
-            $comandoSQL->execute();
-            $prestadores = json_encode($comandoSQL->fetchAll(PDO::FETCH_ASSOC));
-            return $prestadores;            
+           $prestadorDAO = PrestadorDAO::getInstance();
+           $response = json_encode($prestadorDAO->listarPrestadores());
+           return $response; 
         }
         private function carregarAnuncios(){
-            $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT A.cd_anunciante, AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, E.cd_lat, E.cd_lon 
-                                                    FROM usuario as U 
-                                                    INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
-                                                    INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
-                                                    INNER JOIN anuncio as AN ON A.cd_anunciante = AN.cd_anunciante");
-            $comandoSQL->execute();
-            $anuncios = json_encode($comandoSQL->fetchAll(PDO::FETCH_ASSOC));
-            return $anuncios;
+            $anuncioDAO = AnuncioDAO::getInstance();
+            $response = $anuncioDAO->listarAnuncios();
+            header('Content-type: application/json');
+            echo json_encode($response);
         }
         private function cadastrarAnuncio(){
-            
+        #   Criar uma validação dos dados a serem inseridos..
+            $anuncioDAO = AnuncioDAO::getInstance();
+            $anuncioDAO->cadastrarAnuncio($codigoAnunciante, $titulo, $descricao, $areaAlcance);
         }
+        private function editarPrestador(){}
+        private function editarAnunciante(){}
+        private function editarAnuncio(){}
     }
 ?>

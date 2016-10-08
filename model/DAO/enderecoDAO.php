@@ -29,7 +29,7 @@
             $comandoSQL =  $dataBase->prepare($querySQL);
             $comandoSQL -> bindParam(':cd_endereco', $codigoEndereco);
             $comandoSQL->execute();
-            $co = $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+            $co = $comandoSQL->fetch(PDO::FETCH_OBJ);
             return new EnderecoBPO($co->cd_endereco, $co->nm_estado, $co->nm_cidade, $co->cd_CEP, $co->ds_rumRes, $co->cd_long, $co->cd_lati);   
         }
     }

@@ -31,9 +31,7 @@
             
             $_SESSION['logado'] = true;
             $_SESSION['tipoUsuario'] = $tipoUsuario;
-            $_SESSION['objetoUsuario'] = $objetoUsuario;
-            
-            
+            $_SESSION['objetoUsuario'] = serialize($objetoUsuario);
             return true;
         }
     }

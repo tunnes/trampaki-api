@@ -45,5 +45,17 @@
             $anuncianteBPO = new AnuncianteBPO($co->cd_anunciante, $co->nm_anunciante, $co->ds_email, $co->ds_telefone, $enderecoBPO, $loginBPO);
             return $anuncianteBPO; 
         }
+        public function carregarPerfil($codigoAnunciante){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT A.*, U.*, E.*, L.* 
+                                                    	FROM usuario as U 
+                                                    	INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
+                                                    	INNER JOIN login as L ON U.cd_login = L.cd_login
+                                                    	INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
+                                                        WHERE A.cd_anunciante = :cd_anunciante");
+            $comandoSQL->bindParam(':cd_anunciante', $codigoAnunciante);
+            $comandoSQL->execute();
+            return $comandoSQL->fetch(PDO::FETCH_OBJ);       
+        }
     }
 ?>

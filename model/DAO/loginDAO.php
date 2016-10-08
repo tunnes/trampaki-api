@@ -18,16 +18,17 @@
             $comandoSQL->execute();
                 
             if($comandoSQL->rowCount() == 1){
-                $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+                $comandoSQL = $comandoSQL->fetch(PDO::FETCH_OBJ);
                 switch ($comandoSQL->cd_tipo){
                     case 0:
                         $anuncianteDAO = AnuncianteDAO::getInstance();
                         $anuncianteBPO = $anuncianteDAO->consultarAnunciante($comandoSQL->cd_usuario);
+                     
                         $anuncianteBPO->getLogin()->iniciarSessao($anuncianteBPO, '0');
                         break;
                     case 1:
                         $prestadorDAO = PrestadorDAO::getInstance();
-                        $prestadorBPO->consultarPrestador($comandoSQL->cd_usuario);
+                        $prestadorBPO = $prestadorDAO->consultarPrestador($comandoSQL->cd_usuario);
                         $prestadorBPO->getLogin()->iniciarSessao($prestadorBPO, '1');
                         break;
                 }
@@ -53,7 +54,7 @@
             $comandoSQL =  $dataBase->prepare($querySQL);
             $comandoSQL -> bindParam(':cd_login', $codigoLogin);
             $comandoSQL->execute();
-            $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+            $comandoSQL->fetch(PDO::FETCH_OBJ);
             return new LoginBPO($comandoSQL->cd_login, $comandoSQL->ds_login, $comandoSQL->ds_senha);   
         }
         

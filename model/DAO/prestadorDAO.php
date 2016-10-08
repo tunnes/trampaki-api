@@ -35,20 +35,40 @@
             $comandoSQL->bindParam(':cd_categoria', $codigoCategoria);
             $comandoSQL->execute();
         }
-        public function consultarAnunciante($codigoPrestador){
+        public function consultarPrestador($codigoPrestador){
             $bancoDeDados = Database::getInstance();
             $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM prestador as P INNER JOIN usuario as U ON U.cd_usuario = P.cd_usuario WHERE U.cd_usuario = :cd_usuario");
             $comandoSQL->bindParam(':cd_usuario', $codigoPrestador);
             $comandoSQL->execute();
-            $co = $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+            $co = $comandoSQL->fetch(PDO::FETCH_OBJ);
             $loginDAO      = LoginDAO::getInstance();
             $enderecoDAO   = EnderecoDAO::getInstance();
             
             $loginBPO      = $loginDAO->consultarLogin($co->cd_login);
             $enderecoBPO   = $enderecoDAO->consultarEndereco($co->cd_endereco);
-            $prestadorBPO = new PrestadorBPO($co->cd_prestador, $co->nm_prestador, $co->ds_email, $co->ds_telefone, $enderecoBPO, $loginBPO);
+            $prestadorBPO = new PrestadorBPO($co->cd_prestador, $co->nm_prestador, $co->ds_email, $co->ds_telefone, $loginBPO, $enderecoBPO, $co->ds_profissional, $co->qt_areaAlcance);
             return $prestadorBPO; 
         }
-
+        public function listarPrestadores(){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT P.cd_prestador, U.nm_usuario, E.cd_longitude, E.cd_latitude 
+	                                                    FROM usuario as U 
+	                                                    INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
+	                                                    INNER JOIN prestador as P ON U.cd_usuario = P.cd_usuario");
+            $comandoSQL->execute();
+            return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);     
+        }
+        public function carregarPerfil($codigoPrestador){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT P.*, U.*, E.*, L.* 
+                                                    	FROM usuario as U 
+                                                    	INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
+                                                    	INNER JOIN login as L ON U.cd_login = L.cd_login
+                                                    	INNER JOIN prestador as P ON U.cd_usuario = P.cd_usuario
+                                                        WHERE P.cd_prestador = :cd_prestador");
+            $comandoSQL->bindParam(':cd_prestador', $codigoPrestador);
+            $comandoSQL->execute();
+            return $comandoSQL->fetch(PDO::FETCH_OBJ);       
+        }
     }
 ?>
