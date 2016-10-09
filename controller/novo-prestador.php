@@ -4,29 +4,15 @@
     
     class NovoPrestador extends NovoUsuario{
         public function __construct(){
-            switch ($_POST["acao"]) {
-                case 'cadastrar':
-                    $response = $this->validarDados();
-                    header('Content-type: text/html');
-                    echo $response;
-                    break;
-                case 'listarCategorias':
-                    $response = $this->listarCategorias();
-                    header('Content-type: application/json;');
-                    echo json_encode($response);
-                    break;
-                default:
-                    include('view/novo-prestador.html');
-                    break;
-            }
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->responsePOST() : include('view/novo-prestador.html');
         }
-        private function validarDados(){
+        private function responsePOST(){
         #   Variável que conterá informações 
         #   relativas ao erro de validação:
             $erro = false;
             
         #   Verificação de quantidade de parametros fornecidos no request:
-            count($_POST) != 17 ? $erro = "Quantidade de parametros invalida." : null;
+            count($_POST) != 16 ? $erro = "Quantidade de parametros invalida." : null;
         
         #   Criando variáveis dinamicamente, e removendo possiveis 
         #   tags HTML, espaços em branco e valores nulos:
@@ -49,7 +35,7 @@
         
         #   Se existir algum erro, mostra o erro   
             if($erro){
-            	return $erro;
+            	echo $erro;
             }else{
 
                 $prestadorDAO = PrestadorDAO::getInstance();
@@ -58,7 +44,7 @@
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat01);
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat02);
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat03);
-                return "Cadastrado com sucesso.";
+                echo "Cadastrado com sucesso.";
             }   
 
         }

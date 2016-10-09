@@ -8,5 +8,8 @@
             parent::__construct($nome, $email, $telefone, $endereco, $login);
             $this->codigoAnunciante = $codigoAnunciante;
         }
+        public function getCodigoAnunciante(){
+            return $this->codigoAnunciante;
+        }
     }
 ?>

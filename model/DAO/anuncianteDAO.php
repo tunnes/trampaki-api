@@ -33,10 +33,10 @@
         }
         public function consultarAnunciante($codigoAnunciante){
             $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anunciante as A INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario WHERE U.cd_usuario = :cd_usuario");
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anunciante as A INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario WHERE U.cd_usuario = :cd_usuario"); 
             $comandoSQL->bindParam(':cd_usuario', $codigoAnunciante);
             $comandoSQL->execute();
-            $co = $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+            $co = $comandoSQL->fetch(PDO::FETCH_OBJ);
             $loginDAO      = LoginDAO::getInstance();
             $enderecoDAO   = EnderecoDAO::getInstance();
             
