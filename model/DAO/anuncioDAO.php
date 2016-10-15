@@ -7,17 +7,16 @@
         }
     
     #   Funções de acesso ao banco ----------------------------------------------------------------------------------------------------------
-        public function cadastrarAnuncio($codigoAnunciante, $titulo, $descricao, $areaAlcance){
+        public function cadastrarAnuncio(Anuncio $anuncioBPO){
             $bancoDeDados = Database::getInstance();
             $querySQL   = "INSERT INTO anuncio (cd_anunciante, nm_titulo, ds_anuncio, qt_areaAlcance, cd_status) 
-                           VALUES (:cd_anunciante, :nm_titulo, :ds_anuncio, :qt_areaAlcance, '0')";
+                                        VALUES (:cd_anunciante, :nm_titulo, :ds_anuncio, :qt_areaAlcance, '0')";
             $comandoSQL =  $bancoDeDados->prepare($querySQL);
-            $comandoSQL -> bindParam(':cd_anunciante',  $codigoAnunciante);
-            $comandoSQL -> bindParam(':nm_titulo',      $titulo);
-            $comandoSQL -> bindParam(':ds_anuncio',     $descricao);
-            $comandoSQL -> bindParam(':qt_areaAlcance', $areaDeAlcance);
+            $comandoSQL -> bindParam(':cd_anunciante',  $anuncioBPO->getCodigoAnunciante());
+            $comandoSQL -> bindParam(':nm_titulo',      $anuncioBPO->getTitulo());
+            $comandoSQL -> bindParam(':ds_anuncio',     $anuncioBPO->getDescricao());
+            $comandoSQL -> bindParam(':qt_areaAlcance', $anuncioBPO->getAreaAlcance());
             $comandoSQL->execute();
-            $this->codigoAnucio = $bancoDeDados->lastInsertId();
         }
         public function listarAnuncios(){
             $bancoDeDados = DataBase::getInstance();
@@ -42,6 +41,19 @@
             $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);
             $comandoSQL->execute();
             return $comandoSQL->fetch(PDO::FETCH_OBJ);
+        }
+        public function editarAnuncio($codigoAnuncio, $titulo, $descricao, $areaAlcance, $status){
+            $bancoDeDados = Database::getInstance();
+            $querySQL   = "UPDATE anuncio SET 
+                           nm_titulo = :nm_titulo, ds_anuncio = :ds_anuncio, qt_areaAlcance = :qt_areaAlcance, cd_status = :cd_status  
+                           WHERE cd_anuncio = :cd_anuncio";
+            $comandoSQL =  $bancoDeDados->prepare($querySQL);
+            $comandoSQL -> bindParam(':nm_titulo',      $titulo);
+            $comandoSQL -> bindParam(':ds_anuncio',     $descricao);
+            $comandoSQL -> bindParam(':qt_areaAlcance', $areaAlcance);
+            $comandoSQL -> bindParam(':cd_status',      $status);
+            $comandoSQL -> bindParam(':cd_anuncio',     $codigoAnuncio);
+            $comandoSQL->execute();
         }
         
     }

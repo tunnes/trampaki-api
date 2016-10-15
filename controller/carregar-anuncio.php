@@ -5,7 +5,7 @@
     class CarregarAnuncio{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'POST' && is_numeric($_POST["codigoAnuncio"]) ? $this->validarSessao() : include('view/pagina-404.html');
+            $_SERVER['REQUEST_METHOD'] == 'GET' && is_numeric($_POST["codigoAnuncio"]) ? $this->validarSessao() : include('view/pagina-404.html');
         }
         private function validarSessao(){
             switch ($_SESSION['tipoUsuario']){

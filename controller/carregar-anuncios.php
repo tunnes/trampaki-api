@@ -5,7 +5,7 @@
     class CarregarAnuncios{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->responsePOST() : $this->responseGET();
+            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->responsePOST() : $this->responseGET();
         }
         private function carregarAnuncios(){
             $anuncioDAO = AnuncioDAO::getInstance();

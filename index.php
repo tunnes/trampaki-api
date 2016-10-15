@@ -1,5 +1,4 @@
 <?php
-    
     include ('router.php');
     include ('controller/pagina-autenticacao.php');
     include ('controller/pagina-operacoes.php');
@@ -12,8 +11,9 @@
     include ('controller/carregar-dados-anunciante.php');
     include ('controller/carregar-prestadores.php');
     include ('controller/carregar-meus-anuncios.php');
-
-    
+    include ('controller/editar-dados-anuncio.php');
+    include ('controller/editar-dados-anunciante.php');
+        
     $roteador =  new Router();
     $roteador -> novaRota('/','PaginaPrincipal');
     $roteador -> novaRota('/login','PaginaAutenticacao');
@@ -26,6 +26,8 @@
     $roteador -> novaRota('/carregar-dados-anunciante','CarregarDadosAnunciante');
     $roteador -> novaRota('/carregar-prestadores','CarregarPrestadores');
     $roteador -> novaRota('/carregar-meus-anuncios','CarregarMeusAnuncios');
+    $roteador -> novaRota('/editar-anuncio','EditarAnuncio');
+    $roteador -> novaRota('/editar-anunciante','EditarAnunciante');
     
     $roteador -> rotear();
 

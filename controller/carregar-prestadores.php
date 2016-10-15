@@ -5,9 +5,11 @@
     class CarregarPrestadores{
         public  function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->responsePOST() :  include('view/pagina-404.html');
+            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->responseGET() :  include('view/pagina-404.html');
+            header("Access-Control-Allow-Origin: *");
+            header('Content-type: application/json');
         }
-        private function responsePOST(){
+        private function responseGET(){
             switch ($_SESSION['tipoUsuario']){
                     case 0:
                     case 2:

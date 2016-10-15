@@ -17,5 +17,17 @@
             $comandoSQL->execute();
             return $bancoDeDados->lastInsertId();
         }
+        public function editarUsuario($codigoUsuario, $nome, $email, $tel){
+            $bancoDeDados = Database::getInstance();
+            $querySQL   = "UPDATE usuario SET 
+                           nm_usuario = :nm_usuario, ds_email = :ds_email, ds_telefone = :ds_telefone  
+                           WHERE cd_usuario = :cd_usuario";
+            $comandoSQL =  $bancoDeDados->prepare($querySQL);
+            $comandoSQL -> bindParam(':nm_usuario',  $nome);
+            $comandoSQL -> bindParam(':ds_email',    $email);
+            $comandoSQL -> bindParam(':ds_telefone', $tel);
+            $comandoSQL -> bindParam(':cd_usuario',  $codigoUsuario);
+            $comandoSQL->execute();
+        }
     }
 ?>
