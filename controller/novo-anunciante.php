@@ -1,6 +1,7 @@
 <?php
     require_once('controller/novo-usuario.php');
     require_once('model/DAO/anuncianteDAO.php');
+    require_once('model/BPO/anuncianteBPO.php');
     
     class novoAnunciante extends novoUsuario{
         public function __construct(){
@@ -37,8 +38,12 @@
             if($erro){
                 echo $erro;
             }else{
+                $loginBPO       = new LoginBPO(null, $login, $senha);
+                $enderecoBPO    = new EnderecoBPO(null, $estado, $cidade, $CEP, $numRes, $long, $lati);
+                $anuncianteBPO  = new AnuncianteBPO(null, $nome, $email, $tel, $enderecoBPO, $loginBPO);
+                
                 $anuncianteDAO    = AnuncianteDAO::getInstance();
-                $anuncianteBPO    = $anuncianteDAO->cadastrarAnunciante($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati);
+                $anuncianteBPO    = $anuncianteDAO->cadastrarAnunciante($anuncianteBPO);
                 $login = $anuncianteBPO->getLogin();
                 $login->iniciarSessao($anuncianteBPO, '0');
                 echo "Cadastrado com sucesso.";

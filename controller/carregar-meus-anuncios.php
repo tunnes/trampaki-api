@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once("model/BPO/anunciante.php");
+    require_once("model/BPO/anuncianteBPO.php");
     require_once("model/DAO/anuncianteDAO.php");
 
     class CarregarMeusAnuncios{

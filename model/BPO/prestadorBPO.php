@@ -1,5 +1,5 @@
 <?php
-    require_once 'usuario.php';
+    require_once 'usuarioBPO.php';
 
     class PrestadorBPO extends Usuario{
         private $codigoPrestador;
@@ -15,7 +15,7 @@
         public function getCodigoPrestador(){
             return $this->codigoPrestador;
         }
-        public function getDescricaoProfissional(){
+        public function getDescricao(){
             return $this->dsProfissional; 
         }
         public function getAreaAlcance(){

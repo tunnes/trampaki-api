@@ -1,6 +1,6 @@
 <?php
     require_once('model/DAO/usuarioDAO.php');
-    require_once('model/BPO/prestador.php');
+    require_once('model/BPO/prestadorBPO.php');
 
     class PrestadorDAO extends UsuarioDAO{
     #   Padrão de Projeto Singleton ------------------------------------------------------------------------------------------------------------------------    
@@ -10,21 +10,40 @@
         }
         
     #   Funções de acesso ao banco -------------------------------------------------------------------------------------------------------------------------
-        public function cadastrarPrestador($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati, $desProf, $qntAlc){
+        public function cadastrarPrestador(PrestadorBPO $prestadorBPO){
+            $bancoDeDados = Database::getInstance();
             $loginDAO     = LoginDAO::getInstance();
             $enderecoDAO  = EnderecoDAO::getInstance();
-            $bancoDeDados = Database::getInstance();
-        
-            $loginBPO      = $loginDAO->cadastrarLogin($login, $senha);
-            $enderecoBPO   = $enderecoDAO->cadastrarEndereco($estado, $cidade, $CEP, $numRes, $long, $lati);
-            $codigoUsuario = $this->cadastrarUsuario($nome, $email, $loginBPO->getCodigoLogin(), $enderecoBPO->getCodigoEndereco(), $tel, '1');
             
+            $loginBPO      = $loginDAO->cadastrarLogin($prestadorBPO->getLogin());
+            $enderecoBPO   = $enderecoDAO->cadastrarEndereco($prestadorBPO->getEndereco());
+            $codigoUsuario = $this->cadastrarUsuario(
+                $prestadorBPO->getNome(), 
+                $prestadorBPO->getEmail(), 
+                $loginBPO->getCodigoLogin(), 
+                $enderecoBPO->getCodigoEndereco(), 
+                $prestadorBPO->getTelefone(),
+                '0'
+            );
             
             $querySQL = "INSERT INTO prestador (cd_usuario, ds_perfilProfissional, qt_areaAlcance) 
-                                VALUES ('".$codigoUsuario."', '".$desProf."', '".$qntAlc."')";
+                                VALUES (:cd_usuario, :ds_perfilProfissional, :qt_areaAlcance)";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL -> bindParam(':cd_usuario',             $codigoUsuario);
+            $comandoSQL -> bindParam(':ds_perfilProfissional',  $prestadorBPO->getDescricao());
+            $comandoSQL -> bindParam(':qt_areaAlcance',         $prestadorBPO->getAreaAlcance());            
             $comandoSQL->execute();
-            $prestadorBPO = new PrestadorBPO($bancoDeDados->lastInsertId(), $nome, $email, $tel, $loginBPO, $enderecoBPO, $desProf, $qntAlc);
+            
+            $prestadorBPO = new PrestadorBPO(
+                $bancoDeDados->lastInsertId(), 
+                $prestadorBPO->getNome(),
+                $prestadorBPO->getEmail(), 
+                $prestadorBPO->getTelefone(), 
+                $loginBPO, 
+                $enderecoBPO, 
+                $prestadorBPO->getDescricao(), 
+                $prestadorBPO->getAreaAlcance()
+            );
             return $prestadorBPO;
         }
         public function selecionarCategoria($codigoPrestador, $codigoCategoria){

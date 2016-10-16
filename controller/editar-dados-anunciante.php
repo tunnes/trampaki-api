@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once("model/DAO/anuncianteDAO.php");
-    require_once("model/BPO/anunciante.php");
+    require_once("model/BPO/anuncianteBPO.php");
 
     class EditarAnunciante{
         public function __construct(){

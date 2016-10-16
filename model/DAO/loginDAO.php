@@ -1,6 +1,6 @@
 <?php
     require_once('configuration/dataBase.php');
-    require_once('model/BPO/login.php');
+    require_once('model/BPO/loginBPO.php');
     
     class LoginDAO{
         private static $instance;
@@ -38,14 +38,14 @@
                 return false;
             }
         }
-        public function cadastrarLogin($login, $senha){
+        public function cadastrarLogin(LoginBPO $loginBPO){
             $dataBase = DataBase::getInstance();
             $querySQL = "INSERT INTO login (ds_login, ds_senha) VALUES (:ds_login, :ds_senha)";
             $comandoSQL =  $dataBase->prepare($querySQL);
-            $comandoSQL -> bindParam(':ds_login', $login);
-            $comandoSQL -> bindParam(':ds_senha', $senha);
+            $comandoSQL -> bindParam(':ds_login', $loginBPO->getLogin());
+            $comandoSQL -> bindParam(':ds_senha', $loginBPO->getSenha());
             $comandoSQL->execute();
-            $loginBPO = new LoginBPO($dataBase->lastInsertId(), $login, $senha); 
+            $loginBPO = new LoginBPO($dataBase->lastInsertId(), $loginBPO->getLogin(), $loginBPO->getSenha()); 
             return $loginBPO; 
         }
         public function consultarLogin($codigoLogin){

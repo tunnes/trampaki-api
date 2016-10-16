@@ -1,6 +1,6 @@
 <?php
     session_start();
-    require_once("model/BPO/prestador.php");
+    require_once("model/BPO/prestadorBPO.php");
     require_once("model/DAO/prestadorDAO.php");
 
     class CarregarDadosPrestador{

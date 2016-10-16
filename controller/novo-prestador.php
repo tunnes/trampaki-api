@@ -37,9 +37,13 @@
             if($erro){
             	echo $erro;
             }else{
-
+                $loginBPO       = new LoginBPO(null, $login, $senha);
+                $enderecoBPO    = new EnderecoBPO(null, $estado, $cidade, $CEP, $numRes, $long, $lati);
+                $prestadorBPO   = new PrestadorBPO(null, $nome, $email, $tel, $loginBPO, $enderecoBPO, $desProf, $qntAlc);
+                
                 $prestadorDAO = PrestadorDAO::getInstance();
-                $prestadorBPO = $prestadorDAO->cadastrarPrestador($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati, $desProf, $qntAlc);
+                $prestadorBPO = $prestadorDAO->cadastrarPrestador($prestadorBPO);
+                
             #   Obs: Tenho que otimizar o cadastro de categorias, tanto no banco quanto no back pois, a chave é composta.
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat01);
                 $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat02);
