@@ -7,31 +7,37 @@
         }
     
     #   Funções de acesso ao banco ----------------------------------------------------------------------------------------------------------
-        public function cadastrarAnuncio(Anuncio $anuncioBPO){
+        public function cadastrarAnuncio(AnuncioBPO $anuncioBPO){
             $bancoDeDados = Database::getInstance();
-            $querySQL   = "INSERT INTO anuncio (cd_anunciante, nm_titulo, ds_anuncio, qt_areaAlcance, cd_status) 
-                                        VALUES (:cd_anunciante, :nm_titulo, :ds_anuncio, :qt_areaAlcance, '0')";
+            $querySQL   = "INSERT INTO anuncio (cd_usuario, nm_titulo, ds_anuncio, qt_areaAlcance, cd_status) 
+                                        VALUES (:cd_usuario, :nm_titulo, :ds_anuncio, :qt_areaAlcance, '0')";
             $comandoSQL =  $bancoDeDados->prepare($querySQL);
-            $comandoSQL -> bindParam(':cd_anunciante',  $anuncioBPO->getCodigoAnunciante());
+            $comandoSQL -> bindParam(':cd_usuario',     $anuncioBPO->getCodigoAnunciante());
             $comandoSQL -> bindParam(':nm_titulo',      $anuncioBPO->getTitulo());
             $comandoSQL -> bindParam(':ds_anuncio',     $anuncioBPO->getDescricao());
             $comandoSQL -> bindParam(':qt_areaAlcance', $anuncioBPO->getAreaAlcance());
             $comandoSQL->execute();
+            
+            $codigoAnuncio = $bancoDeDados->lastInsertId();
+            
+            $this->selecionarCategoria($codigoAnuncio, $anuncioBPO->getCodigoCat01());
+            $this->selecionarCategoria($codigoAnuncio, $anuncioBPO->getCodigoCat02());
+            $this->selecionarCategoria($codigoAnuncio, $anuncioBPO->getCodigoCat03());
         }
         public function listarAnuncios(){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT A.cd_anunciante, AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, E.cd_latitude, E.cd_longitude 
+            $comandoSQL   = $bancoDeDados->prepare("SELECT A.cd_usuario, AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, E.cd_latitude, E.cd_longitude 
                                                     FROM usuario as U 
                                                     INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
                                                     INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
-                                                    INNER JOIN anuncio as AN ON A.cd_anunciante = AN.cd_anunciante");
+                                                    INNER JOIN anuncio as AN ON A.cd_usuario = AN.cd_usuario");
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);
         }
         public function listarMeusAnuncios($codigoAnunciante){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anuncio WHERE cd_anunciante = :cd_anunciante");
-            $comandoSQL->bindParam(':cd_anunciante', $codigoAnunciante);
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anuncio WHERE cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_usuario', $codigoAnunciante);
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_OBJ);     
         }
@@ -55,6 +61,16 @@
             $comandoSQL -> bindParam(':cd_anuncio',     $codigoAnuncio);
             $comandoSQL->execute();
         }
-        
+        public function selecionarCategoria($codigoAnuncio, $codigoCategoria){
+            $bancoDeDados = Database::getInstance();
+            $querySQL = "INSERT INTO categoriaAnuncio (cd_anuncio, cd_categoria) VALUES (:cd_anuncio, :cd_categoria)";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);
+            $comandoSQL->bindParam(':cd_categoria', $codigoCategoria);
+            $comandoSQL->execute();
+        }
+        public function novaConexao(){
+            
+        }
     }
 ?>

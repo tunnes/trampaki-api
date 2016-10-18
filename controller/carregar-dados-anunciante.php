@@ -23,11 +23,25 @@
             }
         }
         private function carregarDadosAnunciante(){
-            $anuncianteBPO = unserialize($_SESSION['objetoUsuario']);
-            $anuncianteDAO = AnuncianteDAO::getInstance();
-            $response = $anuncianteDAO->carregarPerfil($anuncianteBPO->getCodigoAnunciante());
-            header('Content-type: application/json');    
-            echo json_encode($response);
+            $anuncianteBPO  = unserialize($_SESSION['objetoUsuario']);
+            header('Content-type: application/json');
+            echo json_encode(array(
+                'cd_usuario' => $anuncianteBPO->getCodigoUsuario(),
+                'nm_usuario' => $anuncianteBPO->getNome(),
+                'ds_email' => $anuncianteBPO->getEmail(),
+                'ds_telefone' => $anuncianteBPO->getTelefone(),
+                'cd_tipo' => 0,
+                'cd_login' => $anuncianteBPO->getLogin()->getLogin(),
+                'ds_login' => $anuncianteBPO->getLogin()->getLogin(),
+                'ds_senha' => $anuncianteBPO->getLogin()->getSenha(),
+                'cd_endereco' => $anuncianteBPO->getEndereco()->getCodigoEndereco(),
+                'sg_estado' => $anuncianteBPO->getEndereco()->getEstado(),
+                'nm_cidade' => $anuncianteBPO->getEndereco()->getCidade(),
+                'cd_cep' => $anuncianteBPO->getEndereco()->getCEP(),
+                'cd_numeroResidencia' => $anuncianteBPO->getEndereco()->getNumeroResidencia(),
+                'cd_logitude' => $anuncianteBPO->getEndereco()->getLongitude(),
+                'cd_latitude' => $anuncianteBPO->getEndereco()->getLatitude(),
+            ));
         }
     }
 ?>

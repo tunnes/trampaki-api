@@ -27,7 +27,7 @@
             !is_numeric($qntAlc) ? $erro = 'A Area de alcance deve ser de valor númererico.' : null;
             
         #   Verificando a formatação do campo de email e possivel duplicidade:
-            !filter_var($email, FILTER_VALIDATE_EMAIL) ? $erro = 'Envie um email válido.' : null;
+            !filter_var($email, FILTER_VALIDATE_EMAIL) ? $erro = 'E '.$email.' nvie um email válido.' : null;
             !$this->duplicidadeEmail($email)           ? $erro = "Email já cadastrado." : null;
             
         #   Verificando se o login já foi cadastrado:
@@ -45,9 +45,9 @@
                 $prestadorBPO = $prestadorDAO->cadastrarPrestador($prestadorBPO);
                 
             #   Obs: Tenho que otimizar o cadastro de categorias, tanto no banco quanto no back pois, a chave é composta.
-                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat01);
-                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat02);
-                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoPrestador(), $cat03);
+                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoUsuario(), $cat01);
+                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoUsuario(), $cat02);
+                $prestadorDAO->selecionarCategoria($prestadorBPO->getCodigoUsuario(), $cat03);
                 echo "Cadastrado com sucesso.";
             }   
 

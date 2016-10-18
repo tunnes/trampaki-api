@@ -42,16 +42,6 @@
         public function getCodigoStatus(){
             return $this->codigoStatus;
         }
-        
-    #   Tem que ver direitinho o que é isso aqui embaixo..
-        public function selecionarCategoria($codeCategoria){
-            $bancoDeDados = Database::getInstance();
-            $querySQL = "INSERT INTO categoriaAnuncio (cd_anuncio, cd_categoria) VALUES (:cd_anuncio, :cd_categoria)";
-            $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->bindParam(':cd_anuncio', $this->codigoAnucio);
-            $comandoSQL->bindParam(':cd_categoria', $codeCategoria);
-            $comandoSQL->execute();
-        }
     }
 
 ?>

@@ -6,7 +6,7 @@
     class CarregarMeusAnuncios{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarSessao() : include('view/pagina-404.html');
+            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarSessao() : include('view/pagina-404.html');
         }
         private function validarSessao(){
             switch ($_SESSION['tipoUsuario']){
@@ -25,7 +25,7 @@
         private function carregarMeusAnuncios(){
             $anuncianteBPO = unserialize($_SESSION['objetoUsuario']);
             $anuncioDAO = AnuncioDAO::getInstance();
-            $response = $anuncioDAO->listarMeusAnuncios($anuncianteBPO->getCodigoAnunciante());
+            $response = $anuncioDAO->listarMeusAnuncios($anuncianteBPO->getCodigoUsuario());
             header('Content-type: application/json');    
             echo json_encode($response);
         }

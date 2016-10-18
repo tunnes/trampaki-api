@@ -17,17 +17,32 @@
             $comandoSQL->execute();
             return $bancoDeDados->lastInsertId();
         }
-        public function editarUsuario($codigoUsuario, $nome, $email, $tel){
+        protected function editarUsuario($objetoUsuario){
             $bancoDeDados = Database::getInstance();
             $querySQL   = "UPDATE usuario SET 
                            nm_usuario = :nm_usuario, ds_email = :ds_email, ds_telefone = :ds_telefone  
                            WHERE cd_usuario = :cd_usuario";
             $comandoSQL =  $bancoDeDados->prepare($querySQL);
-            $comandoSQL -> bindParam(':nm_usuario',  $nome);
-            $comandoSQL -> bindParam(':ds_email',    $email);
-            $comandoSQL -> bindParam(':ds_telefone', $tel);
-            $comandoSQL -> bindParam(':cd_usuario',  $codigoUsuario);
+            $comandoSQL -> bindParam(':nm_usuario',  $objetoUsuario->getNome());
+            $comandoSQL -> bindParam(':ds_email',    $objetoUsuario->getEmail());
+            $comandoSQL -> bindParam(':ds_telefone', $objetoUsuario->getTelefone());
+            $comandoSQL -> bindParam(':cd_usuario',  $objetoUsuario->getCodigoUsuario());
             $comandoSQL->execute();
+        }
+        protected function novaConexao($codigoPrestador, $codigoAnuncio){
+            $bancoDeDados = Database::getInstance();
+            $querySQL = "INSERT INTO conexao (cd_usuario, cd_anuncio, cd_status) 
+                                VALUES (".$codigoPrestador.", ".$codigoAnuncio.", '0')";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->execute();                
+        }
+        protected function aceitarConexao($codigoConexao){
+            $bancoDeDados = Database::getInstance();
+            $querySQL = "UPDATE conexao SET cd_status = '1' 
+                                WHERE cd_conexao = ".$codigoConexao.")";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->execute();                
+                        
         }
     }
 ?>

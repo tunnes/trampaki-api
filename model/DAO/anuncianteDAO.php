@@ -12,16 +12,16 @@
         }
         
     #   Funções de acesso ao banco ----------------------------------------------------------------------------------------------------------
+    
         public function cadastrarAnunciante(AnuncianteBPO $anuncianteBPO){
-        #   Cadastrando um endereco e um login, recebendo assim seus atributos
-        #   identificadores do banco de dados tornar fisica o conceito de presente
-        #   no projeto agregação:
-            $bancoDeDados  = Database::getInstance();
+        #   Cadastrando um endereco e um login, recebendo assim seus atributos, identificadores do banco de dados tornar fisica o conceito 
+        #   de presente no projeto agregação:
             $loginDAO      = LoginDAO::getInstance();
-            $enderecoDAO   = EnderecoDAO::getInstance();
-            
             $loginBPO      = $loginDAO->cadastrarLogin($anuncianteBPO->getLogin());
+            
+            $enderecoDAO   = EnderecoDAO::getInstance();
             $enderecoBPO   = $enderecoDAO->cadastrarEndereco($anuncianteBPO->getEndereco());
+            
             $codigoUsuario = $this->cadastrarUsuario(
                 $anuncianteBPO->getNome(), 
                 $anuncianteBPO->getEmail(), 
@@ -30,43 +30,70 @@
                 $anuncianteBPO->getTelefone(), 
                 '0'
             );
-            $comandoSQL = $bancoDeDados->prepare("INSERT INTO anunciante (cd_usuario) VALUES (:cd_usuario)");
+            $bancoDeDados  = Database::getInstance();
+            $comandoSQL = $bancoDeDados->prepare();
             $comandoSQL->bindParam(':cd_usuario', $codigoUsuario);
             $comandoSQL->execute();
-            $anuncianteBPO = new AnuncianteBPO(
-                $bancoDeDados->lastInsertId(), 
+            return $anuncianteBPO = new AnuncianteBPO(
+                $codigoUsuario, 
                 $anuncianteBPO->getNome(), 
                 $anuncianteBPO->getEmail(), 
                 $anuncianteBPO->getTelefone(), 
                 $enderecoBPO, 
                 $loginBPO
-            ); 
-            return $anuncianteBPO; 
-            
+            );
         }
-        public function consultarAnunciante($codigoAnunciante){
-            $bancoDeDados = Database::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anunciante as A INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario WHERE U.cd_usuario = :cd_usuario"); 
-            $comandoSQL->bindParam(':cd_usuario', $codigoAnunciante);
-            $comandoSQL->execute();
-            $co = $comandoSQL->fetch(PDO::FETCH_OBJ);
+        public function editarAnunciante(AnuncianteBPO $anuncianteBPO){
+            $bancoDeDados  = Database::getInstance();
             $loginDAO      = LoginDAO::getInstance();
             $enderecoDAO   = EnderecoDAO::getInstance();
             
-            $loginBPO      = $loginDAO->consultarLogin($co->cd_login);
-            $enderecoBPO   = $enderecoDAO->consultarEndereco($co->cd_endereco);
-            $anuncianteBPO = new AnuncianteBPO($co->cd_anunciante, $co->nm_anunciante, $co->ds_email, $co->ds_telefone, $enderecoBPO, $loginBPO);
-            return $anuncianteBPO; 
+            $loginBPO      = $loginDAO->editarLogin($anuncianteBPO->getLogin());
+            $enderecoBPO   = $enderecoDAO->editarEndereco($anuncianteBPO->getEndereco());
+            
+            $this->editarUsuario($anuncianteBPO);
         }
-        public function carregarPerfil($codigoAnunciante){
+        public function carregarSolicitacoes(AnuncianteBPO $anuncianteBPO){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao AS c INNER JOIN anuncio AS a ON c.cd_anuncio = a.cd_anuncio 
+                                                    WHERE a.cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_usuario', $anuncianteBPO->getCodigoUsuario());                                                    
+            $comandoSQL->execute();
+            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);              
+        }
+        public function consultarAnunciante($codigoUsuario){
+            $bancoDeDados = Database::getInstance();
+            $comandoSQL = $bancoDeDados->prepare("SELECT * FROM anunciante as A INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario WHERE U.cd_usuario = :cd_usuario"); 
+            $comandoSQL->bindParam(':cd_usuario', $codigoUsuario);
+            $comandoSQL->execute();
+            
+            $consulta = $comandoSQL->fetch(PDO::FETCH_OBJ);
+            
+            $loginDAO = LoginDAO::getInstance();
+            $loginBPO = $loginDAO->consultarLogin($consulta->cd_login);
+            
+            $enderecoDAO = EnderecoDAO::getInstance();
+            $enderecoBPO = $enderecoDAO->consultarEndereco($consulta->cd_endereco);
+            
+            return $anuncianteBPO = new AnuncianteBPO(
+                $consulta->cd_usuario,
+                $consulta->nm_usuario, 
+                $consulta->ds_email, 
+                $consulta->ds_telefone, 
+                $enderecoBPO, 
+                $loginBPO
+            );
+            
+        }
+        public function carregarPerfil($codigoUsuario){
             $bancoDeDados = DataBase::getInstance();
             $comandoSQL   = $bancoDeDados->prepare("SELECT A.*, U.*, E.*, L.* 
                                                     	FROM usuario as U 
                                                     	INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
                                                     	INNER JOIN login as L ON U.cd_login = L.cd_login
                                                     	INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
-                                                        WHERE A.cd_anunciante = :cd_anunciante");
-            $comandoSQL->bindParam(':cd_anunciante', $codigoAnunciante);
+                                                        WHERE A.cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_usuario', $codigoUsuario);
             $comandoSQL->execute();
             return $comandoSQL->fetch(PDO::FETCH_OBJ);       
         }

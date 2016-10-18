@@ -24,7 +24,7 @@
         private function carregarDadosPrestador(){
             $prestadorBPO = unserialize($_SESSION['objetoUsuario']);
             $prestadorDAO = PrestadorDAO::getInstance();
-            $response = $prestadorDAO->carregarPerfil($prestadorBPO->getCodigoPrestador());
+            $response = $prestadorDAO->carregarPerfil($prestadorBPO->getCodigoUsuario());
             header('Content-type: application/json');    
             echo json_encode($response);
         }

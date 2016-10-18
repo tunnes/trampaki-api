@@ -3,7 +3,7 @@
     require_once('model/DAO/anuncianteDAO.php');
     require_once('model/BPO/anuncianteBPO.php');
     
-    class novoAnunciante extends novoUsuario{
+    class NovoAnunciante extends NovoUsuario{
         public function __construct(){
             $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->responsePOST() : include('view/novo-anunciante.html'); 
         }

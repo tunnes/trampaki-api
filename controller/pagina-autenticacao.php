@@ -18,13 +18,15 @@
             $dadosSenha  = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
                 
             $loginDAO = LoginDAO::getInstance();
-            $loginDAO->gerarAutenticacao($dadosLogin, $dadosSenha) ? header("Location: painel-de-operacoes") : print "login ou email invalido.";
+            $loginDAO->gerarAutenticacao($dadosLogin, $dadosSenha) ? $this->redirecionar() : print "login ou email invalido.";
+        }
+        private function teste(){
+            $anuncianteBPO = unserialize($_SESSION['objetoUsuario']);
+            echo $anuncianteBPO->getNome();
         }
         private function redirecionar(){
             header('HTTP/1.1 301 Moved Permanently');
             header("Location: painel-de-operacoes");
         }
-            
-        
     }
 ?>
