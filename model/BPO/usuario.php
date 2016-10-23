@@ -30,4 +30,7 @@
             return $this->login;
         }
     }
+
+    abstract function solicitarConexao(Usuario $u);
+    abstract function aceitarConexao(Chat $c);
 ?>

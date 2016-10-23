@@ -8,5 +8,12 @@
             parent::__construct($nome, $email, $telefone, $endereco, $login);
             $this->codigoAnunciante = $codigoAnunciante;
         }
+
+        public function solicitarConexao(PrestadorBPO $u) {
+            return Chat::abrirChat($u);
+        }
+        public function aceitarConexao(Chat $c) {
+            return Chat::aceitarChat($c);
+        }
     }
 ?>

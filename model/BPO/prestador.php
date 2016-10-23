@@ -22,5 +22,11 @@
             return $this->qtAreaDeAlcance;
         }
 
+        public function solicitarConexao(AnuncianteBPO $u) {
+            return Chat::abrirChat($u);
+        }
+        public function aceitarConexao(Chat $c) {
+            return Chat::aceitarChat($c);
+        }
     }
 ?>
