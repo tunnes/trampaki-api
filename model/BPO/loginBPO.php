@@ -28,7 +28,6 @@
         public function iniciarSessao($objetoUsuario, $tipoUsuario){
             # Para controle de acesso a paginas e restrição de acesso foi feito o uso de
             # variaveis de sessão '$_SESSION[]' uma variavel global que é invocada
-            
             $_SESSION['logado'] = true;
             $_SESSION['tipoUsuario'] = $tipoUsuario;
             $_SESSION['objetoUsuario'] = serialize($objetoUsuario);

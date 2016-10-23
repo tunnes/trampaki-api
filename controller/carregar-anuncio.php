@@ -2,22 +2,16 @@
     session_start();
     require_once("model/DAO/anuncioDAO.php");
 
-    class CarregarAnuncios{
+    class CarregarAnuncio{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->responsePOST() : $this->responseGET();
+            $_SERVER['REQUEST_METHOD'] == 'POST' && is_numeric($_POST["codigoAnuncio"]) ? $this->validarSessao() : include('view/pagina-404.html');
         }
-        private function carregarAnuncios(){
-            $anuncioDAO = AnuncioDAO::getInstance();
-            $response = $anuncioDAO->listarAnuncios();
-            header('Content-type: application/json');
-            echo json_encode($response);
-        }
-        private function responsePOST(){
+        private function validarSessao(){
             switch ($_SESSION['tipoUsuario']){
                     case 1:
                     case 2:
-                        $this->carregarAnuncios(); break;
+                        $this->carregarAnuncio($_POST["codigoAnuncio"]);
                         break;
                     case 0:
                         echo 'voce não possui privilegio para isto malandrãoo!';
@@ -27,8 +21,11 @@
                         break;
             }
         }
-        private function responseGET(){
-            include('view/pagina-404.html');
+        private function carregarAnuncio($codigoAnuncio){
+            $anuncioDAO = AnuncioDAO::getInstance();
+            $response = $anuncioDAO->consultarAnuncio($codigoAnuncio);
+            header('Content-type: application/json');
+            echo json_encode($response);
         }
     }
 ?>

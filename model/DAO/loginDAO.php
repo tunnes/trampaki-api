@@ -1,6 +1,6 @@
 <?php
     require_once('configuration/dataBase.php');
-    require_once('model/BPO/login.php');
+    require_once('model/BPO/loginBPO.php');
     
     class LoginDAO{
         private static $instance;
@@ -23,7 +23,6 @@
                     case 0:
                         $anuncianteDAO = AnuncianteDAO::getInstance();
                         $anuncianteBPO = $anuncianteDAO->consultarAnunciante($comandoSQL->cd_usuario);
-                     
                         $anuncianteBPO->getLogin()->iniciarSessao($anuncianteBPO, '0');
                         break;
                     case 1:
@@ -38,15 +37,24 @@
                 return false;
             }
         }
-        public function cadastrarLogin($login, $senha){
+        public function cadastrarLogin(LoginBPO $loginBPO){
             $dataBase = DataBase::getInstance();
             $querySQL = "INSERT INTO login (ds_login, ds_senha) VALUES (:ds_login, :ds_senha)";
             $comandoSQL =  $dataBase->prepare($querySQL);
-            $comandoSQL -> bindParam(':ds_login', $login);
-            $comandoSQL -> bindParam(':ds_senha', $senha);
+            $comandoSQL -> bindParam(':ds_login', $loginBPO->getLogin());
+            $comandoSQL -> bindParam(':ds_senha', $loginBPO->getSenha());
             $comandoSQL->execute();
-            $loginBPO = new LoginBPO($dataBase->lastInsertId(), $login, $senha); 
+            $loginBPO = new LoginBPO($dataBase->lastInsertId(), $loginBPO->getLogin(), $loginBPO->getSenha()); 
             return $loginBPO; 
+        }
+        public function editarLogin(LoginBPO $loginBPO){
+            $dataBase = DataBase::getInstance();
+            $querySQL = "UPDATE login SET ds_login = :ds_login, ds_senha = :ds_senha WHERE cd_login = :cd_login";
+            $comandoSQL =  $dataBase->prepare($querySQL);
+            $comandoSQL -> bindParam(':cd_login', $loginBPO->getCodigoLogin());
+            $comandoSQL -> bindParam(':ds_login', $loginBPO->getLogin());
+            $comandoSQL -> bindParam(':ds_senha', $loginBPO->getSenha());
+            $comandoSQL->execute(); 
         }
         public function consultarLogin($codigoLogin){
             $dataBase = DataBase::getInstance();
@@ -54,8 +62,8 @@
             $comandoSQL =  $dataBase->prepare($querySQL);
             $comandoSQL -> bindParam(':cd_login', $codigoLogin);
             $comandoSQL->execute();
-            $comandoSQL->fetch(PDO::FETCH_OBJ);
-            return new LoginBPO($comandoSQL->cd_login, $comandoSQL->ds_login, $comandoSQL->ds_senha);   
+            $consulta = $comandoSQL->fetch(PDO::FETCH_OBJ);
+            return new LoginBPO($consulta->cd_login, $consulta->ds_login, $consulta->ds_senha);   
         }
         
     }

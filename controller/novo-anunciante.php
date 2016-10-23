@@ -1,27 +1,20 @@
 <?php
-    require_once('model/DAO/anuncianteDAO.php');
     require_once('controller/novo-usuario.php');
+    require_once('model/DAO/anuncianteDAO.php');
+    require_once('model/BPO/anuncianteBPO.php');
     
-    class novoAnunciante extends novoUsuario{
+    class NovoAnunciante extends NovoUsuario{
         public function __construct(){
-            switch ($_POST["acao"]) {
-                case 'cadastrar':
-                    $response = $this->validarDados();
-                    header('Content-type: text/html');
-                    echo $response;
-                    break;
-                default:
-                    include('view/novo-anunciante.html');
-                    break;
-            }
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->responsePOST() : include('view/novo-anunciante.html'); 
         }
-        private function validarDados(){
+        
+        private function responsePOST(){
         #   Variável que conterá informações 
         #   relativas ao erro de validação:
             $erro = false;
             
         #   Verificação de quantidade de parametros fornecidos no request:
-            count($_POST) != 13 ? $erro = "Quantidade de parametros invalida." : null;
+            count($_POST) != 11 ? $erro = "Quantidade de parametros invalida." : null;
         
         #   Criando variáveis dinamicamente, e removendo possiveis 
         #   tags HTML, espaços em branco e valores nulos:
@@ -30,10 +23,9 @@
             	empty($valor) ? $erro = "Existem campos em branco." : null;
             }
             
-        #   Verificando se longitude, latitude e area de alcance são numeros:
+        #   Verificando se longitude, latitude são numeros:
             !is_numeric($lati)      ? $erro = 'A latitude deve ser de valor númererico.' : null;
             !is_numeric($long)      ? $erro = 'A longitude deve ser de valor númererico.' : null;
-            !is_numeric($qntAlc)    ? $erro = 'A Area de alcance deve ser de valor númererico.' : null;
             
         #   Verificando a formatação do campo de email e possivel duplicidade:
             !filter_var($email, FILTER_VALIDATE_EMAIL) ? $erro = 'Envie um email válido.' : null;
@@ -44,14 +36,17 @@
         
         #   Se existir algum erro, mostra o erro   
             if($erro){
-            	return $erro;
+                echo $erro;
             }else{
-                $anuncianteDAO    = AnuncianteDAO::getInstance();
+                $loginBPO       = new LoginBPO(null, $login, $senha);
+                $enderecoBPO    = new EnderecoBPO(null, $estado, $cidade, $CEP, $numRes, $long, $lati);
+                $anuncianteBPO  = new AnuncianteBPO(null, $nome, $email, $tel, $enderecoBPO, $loginBPO);
                 
-                $anuncianteBPO = $anuncianteDAO->cadastrarAnunciante($nome, $email, $tel, $login, $senha, $estado, $cidade, $CEP, $numRes, $long, $lati);
+                $anuncianteDAO    = AnuncianteDAO::getInstance();
+                $anuncianteBPO    = $anuncianteDAO->cadastrarAnunciante($anuncianteBPO);
                 $login = $anuncianteBPO->getLogin();
                 $login->iniciarSessao($anuncianteBPO, '0');
-                return "Cadastrado com sucesso.";
+                echo "Cadastrado com sucesso.";
             }
 
         }

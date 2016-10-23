@@ -5,15 +5,18 @@
     require_once('configuration/dataBase.php');
     
     abstract class Usuario{
-        protected $nome, $email, $telefone, $endereco, $login;
-        protected function __construct($nome, $email, $telefone, EnderecoBPO $endereco, LoginBPO $login){
+        protected $codigoUsuario, $nome, $email, $telefone, $endereco, $login;
+        protected function __construct($codigoUsuario, $nome, $email, $telefone, EnderecoBPO $endereco, LoginBPO $login){
+            $this->codigoUsuario = $codigoUsuario;
             $this->nome     = $nome;
             $this->email    = $email;
             $this->telefone = $telefone;
             $this->endereco = $endereco;
             $this->login    = $login;
         }
-
+        public function getCodigoUsuario(){
+            return $this->codigoUsuario;
+        }
         public function getNome(){
             return $this->nome;
         }
