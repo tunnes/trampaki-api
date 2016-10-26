@@ -23,4 +23,4 @@
     RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
 
 #   Habilitando o 'CORS'    
-    Header set Access-Control-Allow-Origin "*"
+#    Header set Access-Control-Allow-Origin "*"
