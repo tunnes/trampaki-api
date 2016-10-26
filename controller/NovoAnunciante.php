@@ -37,8 +37,8 @@
                 echo $erro;
             }else{
                 $loginBPO       = new LoginBPO(null, $login, $senha);
-                $enderecoBPO    = new EnderecoBPO(null, $estado, $cidade, $CEP, $numRes, $long, $lati);
-                $anuncianteBPO  = new AnuncianteBPO(null, $nome, $email, $tel, $enderecoBPO, $loginBPO);
+                $enderecoBPO    = new EnderecoBPO(null, $sigla_estado, $cidade, $codigo_postal, $num_residencial, $long, $lati);
+                $anuncianteBPO  = new AnuncianteBPO(null, $nome, $email, $telefone, $enderecoBPO, $loginBPO);
                 
                 $anuncianteDAO    = AnuncianteDAO::getInstance();
                 $anuncianteBPO    = $anuncianteDAO->cadastrarAnunciante($anuncianteBPO);
