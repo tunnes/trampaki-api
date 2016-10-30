@@ -12,12 +12,28 @@ function mapEngine(){
     //  O JSON 'configuracoes' carrega as informações para renderização do mapa, sendo 'zoom' em relação ao nivel inicial
     //  o 'center' para o centro da tela, e o 'mapTypeId' para o tipo de visão do mapa, e o 'disableDefaultUI' desativa
     //  os controles padrões que o Google oferece em seus mapas.
-    
+        var noFeatures = [
+            {
+            featureType: "poi",
+            stylers: [
+                { visibility: "off" }
+            ]   
+             },
+                                  {
+                                    featureType: "transit",
+                                    stylers: [
+                                      { visibility: "off" }
+                                    ]   
+                                  }
+        ];
+
+
         var configuracoes = {
             zoom: 13,
             center: posicaoAtual,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
+
             mapTypeControlOptions: {
                 mapTypeIds: [google.maps.MapTypeId.ROADMAP, 'map_style']
             }
@@ -28,7 +44,9 @@ function mapEngine(){
             var styles = [
                 {stylers: [{hue: "#FF8C1F"}, {saturation: 60}, { lightness: -20 }, { gamma: 1.51 }]},
                 {featureType: "road", elementType: "geometry", stylers: [{lightness: 100}, {visibility: "simplified"}]},
-                {featureType: "road", elementType: "labels"}
+                {featureType: "road", elementType: "labels"},
+                {featureType: "poi", stylers: [ { visibility: "off" }]},
+                {featureType: "transit.station.bus", stylers: [{ visibility: "off" }]}
             ];
             var styledMap = new google.maps.StyledMapType(styles, {name: "Mapa Style"});
             
@@ -36,39 +54,13 @@ function mapEngine(){
             mapa.setMapTypeId('map_style');
         }
         
-    //  Alcance do Usuario --------------------------------------------------------------------------------------------------        
-        function circuloCentral(){
-            var circulo = new google.maps.Circle({
-                strokeColor: '#FF3110',
-                strokeOpacity: 0.35,
-                strokeWeight: 1,
-                fillColor: '#FF3110',
-                fillOpacity: 0.01,
-                map: mapa,
-                center: {lat: -23.96425614, lng: -46.38520819},
-                radius:  3000
-            });
-            var teste = 0.01;
-
-            setInterval(function() {
-                if(circulo.getRadius() >= 5000){
-                   circulo.setRadius(500);
-                   teste = 0.80
-                }else{
-                    circulo.setRadius(circulo.getRadius() + 40);
-                    teste > 0.006 ? teste = teste - 0.006 : teste = 0.006;
-                }
-                
-                circulo.setOptions({fillOpacity: teste });
-                }, 80);
-        }
-        
+    //  Alcance do Usuario --------------------------------------------------------------------------------------------------
         mapa = new google.maps.Map(document.getElementById("mapa"), configuracoes);
+        mapa.setOptions({styles: noFeatures});
         estiloDoMapa();
-        //circuloCentral();
     }
-    
-//  CARREGAR MARCADORES -----------------------------------------------------------------------------------------------------    
+
+//  CARREGAR MARCADORES -----------------------------------------------------------------------------------------------------
     function marcadores(){
             $.ajax({
                 type: "GET",
@@ -83,7 +75,7 @@ function mapEngine(){
         function carregarMarcadores(data){
                 data = JSON.parse(data);
             var arrayResponse = [].slice.call(data);
-
+                var arrayMarcadores = [];
                 arrayResponse.forEach(function(anuncio){
                     
                     var marcador = new google.maps.Marker({
@@ -96,13 +88,16 @@ function mapEngine(){
                         descricaoSimples: anuncio.ds_anuncio,
                         estrelas: anuncio.estrelas,
                         titulo: anuncio.nm_titulo,
-                        codigo: anuncio.nm_anuncio
+                        codigo: anuncio.cd_anuncio
                     });
                     marcador.addListener('click', function(){
                         ultimo.getAnimation() != null ? ultimo.setAnimation(null) : null;
                         carregarVisualizacao(marcador);
                     });
+                    arrayMarcadores.push(marcador);
                 });
+                    var markerCluster = new MarkerClusterer(mapa, arrayMarcadores,
+            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         }
         
         
@@ -112,6 +107,9 @@ function mapEngine(){
             document.getElementById('info-moldura').style.height = "auto";
             document.getElementById('info-fundo-imagem').style.backgroundImage = "url(" +marcador.imagem+")";
             document.getElementById('descricao').textContent = marcador.descricaoSimples;
+            $( "#pain" ).click(function(){ visualizaAnuncio(marcador.codigo) ;});
+            
+
             marcador.setAnimation(google.maps.Animation.BOUNCE);
             ultimo = marcador;
             mapa.addListener('click', function(){
@@ -126,5 +124,3 @@ function mapEngine(){
     inicializar();
     marcadores();
 }
-
-

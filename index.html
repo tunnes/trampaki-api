@@ -5,8 +5,10 @@
         <title>Trampaki</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
         <link rel="stylesheet" href="css/mapEngine.css" type="text/css"/>
         <script src="js/barraLateral.js"></script>
+        <script src="js/ajax_visualizar_anuncio.js"></script>
     </head>
     <body>
         <!-- Marcador Expandido =========================================================================== -->
@@ -25,7 +27,7 @@
                         sed diam nonummy nibh euismod tincidunt ut laoreet dolore
                         magna aliquam erat volutpat.
                     </div>
-                    <button id="pain" type="button" onclick="alert('Trollei!')">Mais Detalhes</button>
+                    <button id="pain" type="button" >Mais Detalhes</button>
                     <button type="button" onclick="alert('Já sabe né?')">Me conectar!</button>
                 </div>
             </div>
@@ -40,8 +42,9 @@
             </div>
             <div class="main">
                 <div id="painel">
-                    <span>OPÇÕES DE PERFIL</span>
-                    <span>MEUS ANUNCIOS</span>
+                    <span>MEU PERFIL</span>
+                    <span>MEUS SERVIÇOS</span>
+                    <span>OPÇÕES</span>
                     <span>SAIR</span>
                 </div>
                 <div id="chat">
@@ -50,7 +53,7 @@
             </div>
         </div>
         <!-- ============================================================================================== -->
-        
+
         <!-- Elemento que recebe o mapa e as informações ================================================== -->
         <div id="mapa"></div>
         <!-- ============================================================================================== -->
