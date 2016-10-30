@@ -65,41 +65,38 @@ function mapEngine(){
         
         mapa = new google.maps.Map(document.getElementById("mapa"), configuracoes);
         estiloDoMapa();
-        circuloCentral();
+        //circuloCentral();
     }
     
 //  CARREGAR MARCADORES -----------------------------------------------------------------------------------------------------    
     function marcadores(){
-        function loadJSON(path, success, error){
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function(){
-                if (xhr.readyState === XMLHttpRequest.DONE){
-                    if (xhr.status === 200) {
-                        if (success)
-                            success(JSON.parse(xhr.responseText));
-                    } else {
-                        if (error)
-                            error(xhr);
-                    }
+            $.ajax({
+                type: "GET",
+                url:  "http://trampaki-tunnes.c9users.io/carregar-anuncios",
+                headers:{
+                    "Authorization":"QXlydG9uVGVzdGU6MTIz"
+                },
+                complete: function(data){   
+                    carregarMarcadores(data.responseText);
                 }
-            };
-            xhr.open("GET", path, true);
-            xhr.send();
-        }
-        loadJSON('js/responseMark.json', function(data){ carregarMarcadores(data);}, function(xhr){console.error(xhr);});
+            });
         function carregarMarcadores(data){
-            var arrayResponse = [].slice.call(data)
-                arrayResponse.forEach(function(objeto){
+                data = JSON.parse(data);
+            var arrayResponse = [].slice.call(data);
+
+                arrayResponse.forEach(function(anuncio){
+                    
                     var marcador = new google.maps.Marker({
-                        position: new google.maps.LatLng(objeto.latitude, objeto.longitude),
-                        title: objeto.titulo,
-                        icon: "../img/blackHoleSun.png",
+                        position: new google.maps.LatLng(anuncio.cd_longitude, anuncio.cd_latitude),
+                        title: anuncio.titulo,
+                        icon: "../trampaki/img/blackHoleSun.png",
                         map: mapa,
                         animation: google.maps.Animation.DROP,
-                        imagem: objeto.imagem,
-                        descricaoSimples: objeto.descricaoSimples,
-                        estrelas: objeto.estrelas,
-                        titulo: objeto.titulo
+                        imagem: 'https://trampaki-tunnes.c9users.io/carregar-imagem/'+anuncio.cd_imagem01+'',
+                        descricaoSimples: anuncio.ds_anuncio,
+                        estrelas: anuncio.estrelas,
+                        titulo: anuncio.nm_titulo,
+                        codigo: anuncio.nm_anuncio
                     });
                     marcador.addListener('click', function(){
                         ultimo.getAnimation() != null ? ultimo.setAnimation(null) : null;
@@ -107,10 +104,10 @@ function mapEngine(){
                     });
                 });
         }
+        
+        
         function carregarVisualizacao(marcador){
             document.getElementById('titulo').textContent = marcador.titulo;
-            //document.getElementById('info-moldura').style.display = "block";
-
             document.getElementById('info-moldura').style.opacity = 1;
             document.getElementById('info-moldura').style.height = "auto";
             document.getElementById('info-fundo-imagem').style.backgroundImage = "url(" +marcador.imagem+")";
