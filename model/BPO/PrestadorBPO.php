@@ -20,11 +20,8 @@
             return $this->qtAreaDeAlcance;
         }
 
-        public function solicitarConexao(AnuncianteBPO $u) {
-            return Chat::abrirChat($u);
-        }
-        public function aceitarConexao(Chat $c) {
-            return Chat::aceitarChat($c);
+        public function abrirChat(AnuncianteBPO $u) {
+            return Chat::aceitarChat(Chat::abrirChat($this, $u));
         }
 
         public function getCategorias(){

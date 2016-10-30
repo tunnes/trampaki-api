@@ -10,12 +10,8 @@
             return get_object_vars($this);
         }
 
-        public function solicitarConexao(PrestadorBPO $u) {
-            return Chat::abrirChat($u);
+        public function abrirChat(PrestadorBPO $u) {
+            return Chat::aceitarChat(Chat::abrirChat($this, $u));
         }
-        public function aceitarConexao(Chat $c) {
-            return Chat::aceitarChat($c);
-        }
-
     }
 ?>

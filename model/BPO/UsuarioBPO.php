@@ -37,6 +37,5 @@
         }  
     }
 
-    abstract function solicitarConexao(Usuario $u);
-    abstract function aceitarConexao(Chat $c);
+    abstract function abrirChat(Usuario $s, Usuario $u);
 ?>
