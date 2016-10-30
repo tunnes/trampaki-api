@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+    </head>
+    <body>
+        <h1>Bem vindo ao trampaki..</h1>
+        <ul>
+            <li><a href="">Login</a></li>
+            <li><a href="">Novo Anunciante </a></li>
+            <li><a href="https://trampaki-tunnes.c9users.io/novo-prestador">Novo Prestador de Servico</a></li>
+            <li><a href="">FAQ</a></li>
+        </ul>
+        	<div id='um'></div>
+	<button>=D</button>
+
+	<script>
+		$("button").click(function(){
+		    $.ajax({
+		        type: "GET",
+		        url:  "https://trampaki-tunnes.c9users.io/carregar-anuncios",
+		        complete: function(data){	
+		        	console.log(data);
+		        }
+		    });
+	    });
+	</script>
+    </body>
+</html>
