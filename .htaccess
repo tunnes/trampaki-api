@@ -20,7 +20,7 @@
     RewriteCond %{REQUEST_FILENAME} !-l
 
 #   No fim definimos a regra que queremos exibir como URL:
-    RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
-
-#   Habilitando o 'CORS'    
-#    Header set Access-Control-Allow-Origin "*"
+#   Não to entendo que caralhos esta acontecendo aqui..
+    # RewriteRule ^(.+)/?([0-9]+)/?$ index.php?url=$1&param=$2 [QSA]
+    
+    RewriteRule ^([^/]*)/?(.*)$ index.php?url=$1&param=$2 
