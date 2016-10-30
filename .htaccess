@@ -21,3 +21,6 @@
 
 #   No fim definimos a regra que queremos exibir como URL:
     RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]
+
+#   Habilitando o 'CORS'    
+    Header set Access-Control-Allow-Origin "*"

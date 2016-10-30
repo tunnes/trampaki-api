@@ -1,6 +1,5 @@
 <?php
-    require_once('model/DAO/prestadorDAO.php');
-    require_once('model/BPO/prestadorBPO.php');
+    require_once 'configuration/autoload-geral.php';
     
     class NovaConexaoPrestador{
         public function __construct(){
