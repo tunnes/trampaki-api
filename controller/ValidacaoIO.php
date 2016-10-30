@@ -24,6 +24,22 @@
             
             return $comandoSQL->rowCount() == 0 ? $array = $this->addERRO($array, 808 , 'Categoria: '.$dadoImpuro.' não existe.') : $array;   
         }
+        public function validarCategorias($arrayErro, $arrayCate){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT cd_categoria FROM categoria");
+            $comandoSQL->execute();
+            $arrayDoBanco = $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+            
+            $arrayLImpo = array();
+            foreach ($arrayDoBanco as $row => $valor){ array_push( $arrayLImpo, $valor->cd_categoria); }            
+
+            $result = array_diff($arrayCate, $arrayLImpo);
+            
+            if(count($result) > 0){
+                foreach($result as $categoria){ $arrayErro = $this->addERRO($arrayErro, 808 , 'Categoria: '.$categoria.' não existe.'); }
+            }
+            return $arrayErro;
+        }
         public function validarCoordenada($array, $dadoImpuro){
             return !is_numeric($dadoImpuro) ? $array = $this->addERRO($array, 802 , 'A coordenada deve ser númererica') : $array;
         }

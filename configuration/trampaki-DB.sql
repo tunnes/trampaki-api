@@ -13,7 +13,8 @@ create table endereco(
 create table login(
     cd_login int Primary Key auto_increment,
     ds_senha varchar(15),
-    ds_login varchar(15)
+    ds_login varchar(15),
+    cd_token varchar(100)
 );
 
 create table usuario(
@@ -23,7 +24,8 @@ create table usuario(
     nm_usuario varchar(80),
     ds_email varchar(30),
     ds_telefone varchar(20),
-    cd_tipo enum('0','1','2') not null
+    cd_tipo enum('0','1','2') not null,
+    cd_imagem int
 --  0 - ANUNCIANTE
 --  1 - PRESTADOR
 --  2 - HIBRIDO
@@ -51,7 +53,10 @@ create table anuncio(
     nm_titulo varchar(80),
     ds_anuncio varchar(600),
     qt_areaAlcance double,
-    cd_status enum('0','1','2','3')
+    cd_status enum('0','1','2','3'),
+    cd_imagem01 int,
+    cd_imagem02 int,
+    cd_imagem03 int
 --  0 - ABERTO
 --  1 - ENCERRADO
 --  2 - CANCELADO
@@ -81,6 +86,10 @@ create table avaliacao(
     cd_conexao int not null,
     qt_avaliacao double
 
+);
+create table imagem(
+    cd_imagem int Primary Key auto_increment,
+    ds_imagem blob
 );
 --  =========================================================================================================================================
 ALTER TABLE `usuario` ADD CONSTRAINT `fk_usuario_login` FOREIGN KEY ( `cd_login` ) REFERENCES `login` ( `cd_login` ) ;
@@ -112,3 +121,13 @@ ALTER TABLE `conexao` ADD CONSTRAINT `fk_conexao_anuncio` FOREIGN KEY ( `cd_anun
 ALTER TABLE `avaliacao` ADD CONSTRAINT `fk_avaliacao_prestador` FOREIGN KEY ( `cd_usuario` ) REFERENCES `prestador` ( `cd_usuario` ) ;
 
 ALTER TABLE `avaliacao` ADD CONSTRAINT `fk_avaliacao_conexao` FOREIGN KEY ( `cd_conexao` ) REFERENCES `conexao` ( `cd_conexao` ) ;
+
+--  =========================================================================================================================================
+
+ALTER TABLE `usuario` ADD CONSTRAINT `fk_usuario_imagem` FOREIGN KEY ( `cd_imagem` ) REFERENCES `imagem` ( `cd_imagem` ) ;
+
+ALTER TABLE `anuncio` ADD CONSTRAINT `fk_anuncio_imagem01` FOREIGN KEY ( `cd_imagem01` ) REFERENCES `imagem` ( `cd_imagem` ) ;
+
+ALTER TABLE `anuncio` ADD CONSTRAINT `fk_anuncio_imagem02` FOREIGN KEY ( `cd_imagem02` ) REFERENCES `imagem` ( `cd_imagem` ) ;
+
+ALTER TABLE `anuncio` ADD CONSTRAINT `fk_anuncio_imagem03` FOREIGN KEY ( `cd_imagem03` ) REFERENCES `imagem` ( `cd_imagem` ) ;

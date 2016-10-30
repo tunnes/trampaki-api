@@ -22,7 +22,8 @@
                 $loginBPO->getCodigoLogin(), 
                 $enderecoBPO->getCodigoEndereco(), 
                 $prestadorBPO->getTelefone(),
-                '1'
+                '1',
+                $prestadorBPO->getCodigoImagem()
             );
             
             $querySQL = "INSERT INTO prestador (cd_usuario, ds_perfilProfissional, qt_areaAlcance) 
@@ -49,7 +50,8 @@
                 $enderecoBPO, 
                 $prestadorBPO->getDescricao(), 
                 $prestadorBPO->getAreaAlcance(),
-                $categoriasBPO
+                $categoriasBPO,
+                $prestadorBPO->getCodigoImagem()
             );
             return $prestadorBPO;
         }
@@ -120,7 +122,8 @@
             $loginBPO = new LoginBPO(
                 $row->cd_login, 
                 $row->ds_login, 
-                $row->ds_senha
+                $row->ds_senha,
+                $row->cd_token
             );
             $prestadorBPO = new PrestadorBPO(
                 $row->cd_usuario, 
@@ -131,7 +134,8 @@
                 $enderecoBPO, 
                 $row->ds_perfilProfissional, 
                 $row->qt_areaAlcance,
-                $categoriasBPO
+                $categoriasBPO,
+                $row->cd_imagem
             );
                 
             return $prestadorBPO;                         

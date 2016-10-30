@@ -24,7 +24,8 @@
                 $loginBPO->getCodigoLogin(), 
                 $enderecoBPO->getCodigoEndereco(), 
                 $anuncianteBPO->getTelefone(), 
-                '0'
+                '0',
+                $anuncianteBPO->getCodigoImagem()
             );
             $bancoDeDados  = Database::getInstance();
             $comandoSQL = $bancoDeDados->prepare('INSERT INTO anunciante (cd_usuario) VALUES (:cd_usuario)');
@@ -36,7 +37,8 @@
                 $anuncianteBPO->getEmail(), 
                 $anuncianteBPO->getTelefone(), 
                 $enderecoBPO, 
-                $loginBPO
+                $loginBPO,
+                $anuncianteBPO->getCodigoImagem()
             );
         }
         public function editarAnunciante(AnuncianteBPO $anuncianteBPO){
@@ -72,8 +74,8 @@
                 return $row;
             }else{
                 $enderecoBPO = new EnderecoBPO($row->cd_endereco, $row->sg_estado, $row->nm_cidade, $row->cd_cep, $row->cd_numeroResidencia, $row->cd_logitude, $row->cd_latitude);
-                $loginBPO = new LoginBPO($row->cd_login, $row->ds_login, $row->ds_senha);
-                $anuncianteBPO = new AnuncianteBPO($row->cd_usuario, $row->nm_usuario, $row->ds_email, $row->ds_telefone, $enderecoBPO, $loginBPO);
+                $loginBPO = new LoginBPO($row->cd_login, $row->ds_login, $row->ds_senha, $row->cd_token);
+                $anuncianteBPO = new AnuncianteBPO($row->cd_usuario, $row->nm_usuario, $row->ds_email, $row->ds_telefone, $enderecoBPO, $loginBPO, $row->cd_imagem);
                 return $anuncianteBPO;
             }
             

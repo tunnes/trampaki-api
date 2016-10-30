@@ -1,22 +1,16 @@
 <?php
-    session_start();
     require_once 'configuration/autoload-geral.php';
 
     class CarregarCategorias{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->responsePOST() : $this->responseGET();
+            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->response200() : header('HTTP/1.1 400 Bad Request');
         }
-        private function responsePOST(){
-            $bancoDeDados = DataBase::getInstance();
-            $comandoSQL = $bancoDeDados->prepare("select * from categoria");
-            $comandoSQL->execute();
-            $janta = $comandoSQL->fetchAll(PDO::FETCH_ASSOC);
+        private function response200(){
+            header('HTTP/1.1 200 OK');
             header('Content-type: application/json');
-            echo json_encode($janta);
-        }
-        private function responseGET(){
-            include('view/pagina-404.html');
+            $response = CategoriaDAO::getInstace()->consultarTodas();
+            echo json_encode($response);
         }
     }
 ?>
