@@ -81,7 +81,7 @@ function mapEngine(){
                     var marcador = new google.maps.Marker({
                         position: new google.maps.LatLng(anuncio.cd_longitude, anuncio.cd_latitude),
                         title: anuncio.titulo,
-                        icon: "../trampaki/img/blackHoleSun.png",
+                        icon: "../img/blackHoleSun.png",
                         map: mapa,
                         animation: google.maps.Animation.DROP,
                         imagem: 'https://trampaki-tunnes.c9users.io/carregar-imagem/'+anuncio.cd_imagem01+'',
