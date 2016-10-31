@@ -5,6 +5,17 @@ html, body{
     font-family: 'Open Sans', sans-serif;
 }
 
+/* JANELA CENTRAL -------------------------------------------------------------- */
+#janela{
+    float:left;
+    width: 65%;
+    display: none;
+    margin: 0px 0px 0px 40px;
+}
+#janela img{
+    width: 90px;
+}
+
 /* MAPA ------------------------------------------------------------------------ */
 #mapa{
     float:left;
