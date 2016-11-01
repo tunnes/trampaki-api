@@ -4,8 +4,6 @@
     header("Access-Control-Allow-Headers: Authorization");
 //  header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
     
- 
-    
     require_once 'router.php';
     require_once 'configuration/autoload-geral.php';
 
@@ -35,10 +33,5 @@
     );
     
     foreach ($rotas as $URL => $CLASS) { $roteador -> novaRota($URL, $CLASS); }
-    // echo 'URL: '.$_GET['url'];
-    // echo '<hr>';
-    // echo 'PARAM: '.$_GET['param'];
-    // echo '<hr>';
-    
     $roteador -> rotear();
 ?>
