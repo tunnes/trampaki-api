@@ -1,0 +1,156 @@
+/* GLOBAL ---------------------------------------------------------------------- */
+html, body{
+	height: 100%;
+	margin: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* MAPA ------------------------------------------------------------------------ */
+#mapa{
+    float:left;
+    width: 85%;
+    min-height: 100%;
+}
+
+/* JANELAS DE INFORMAÇÃO ------------------------------------------------------- */
+#info-moldura{
+    transition: width 2s;
+    transition: opacity 1s ease-out;
+    opacity: 0; 
+    height: 0;
+    overflow: hidden;
+
+	position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+}
+#info-fundo{
+    background-color: black;
+    height: 130px;
+    width: 398px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: -1;
+}
+#info-conteudo{
+    height: 130px;
+    width: 398px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    z-index: 1;
+    color: white;
+}
+#info-centro{
+    margin-top: 20px;
+    margin-left: 80px;
+    margin-right: 5px;
+    font-size: 11px;
+    position:absolute;
+}
+#info-conteudo #titulo{
+
+    font-size: 15px;
+    font-weight: 800;
+}
+#info-centro button{
+    z-index: 1;
+    padding-left: 15px;
+    padding-right: 15px;
+    height: 22px;
+    margin-top: 14px;
+    border: 1px Solid White; 
+    border-radius: 0px;
+    background-color: black;
+    color:white;
+}
+#info-moldura-imagem{ 
+  width: 527px; 
+  height: 170px; 
+  overflow: hidden;
+}
+#info-triangulo-imagem{
+  position: relative;
+  overflow: hidden;
+  transform: rotate(45deg) skew(10deg,10deg);
+  border-bottom: 1px solid #000;
+  border-right: 1px solid #000;
+  width: 200px;
+  height: 159px;
+  margin:-100px 0 0 16px;
+}
+#info-fundo-imagem{
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background-size: 100%;
+  transform: skew(-10deg,-10deg) rotate(-45deg) ;
+  transition: .3s;
+}
+
+/* MENU LATERAL ---------------------------------------------------------------- */
+#barraLateral{
+    margin: 0px;
+    float:left;
+    background-color: black;
+    width: 15%;
+    min-height: 100%;
+}
+#menu-painel{
+   border-bottom: 2px solid white;
+}
+#barraLateral .nav{
+    margin-top: 30px;
+    margin-left: 10px;
+}
+#barraLateral .nav span{
+    color: white;
+    font-weight: 800;
+    font-size: 12px;
+    padding-top: 10px;
+    padding-bottom: 1px;
+    margin-left: 10px;
+    
+}
+#chat{
+    margin-top: 5px;
+    font-size: 17px;
+    font-weight: 100;
+    display: block;
+    color: white;
+}
+/* CORPO ----------------------------------------------------------------------- */
+#barraLateral .main{
+    margin-top: 40px;
+    margin-left: 20px;
+}
+
+/* CHAT ------------------------------------------------------------------------ */
+#barraLateral .main input{
+    margin-top:10px;
+    width: 90%;
+    height: 25px;
+    border-radius: 2px;
+    background-color: black;
+    border: 1px solid white;
+    font-size: 20px;
+    color:white;
+}
+::-webkit-input-placeholder {
+    font-size: 15px;
+    font-weight: 800;
+}
+#chat{
+    display: none;
+}
+#painel span{
+    margin-top: 5px;
+    font-size: 17px;
+    font-weight: 100;
+    display: block;
+    color: white;
+}
+
+
