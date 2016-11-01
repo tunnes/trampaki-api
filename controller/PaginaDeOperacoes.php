@@ -1,9 +1,7 @@
 <?php
-    session_start();
     class PaginaDeOperacoes{
         public function __construct(){
-        #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'GET' && $_SESSION['logado'] != null ? include('view/pagina-operacoes.html') : include('view/pagina-autenticacao.html');
+             include('view/painel-prestador.html');
         }
     }
 ?>
