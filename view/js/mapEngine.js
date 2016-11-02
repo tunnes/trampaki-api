@@ -107,12 +107,16 @@ function mapEngine(){
             document.getElementById('info-moldura').style.height = "auto";
             document.getElementById('info-fundo-imagem').style.backgroundImage = "url(" +marcador.imagem+")";
             document.getElementById('descricao').textContent = marcador.descricaoSimples;
-            $( "#pain" ).click(function(){ visualizaAnuncio(marcador.codigo) ;});
-            
-
+           
             marcador.setAnimation(google.maps.Animation.BOUNCE);
             ultimo = marcador;
             mapa.addListener('click', function(){
+                document.getElementById('info-moldura').style.opacity = 0;
+                document.getElementById('info-moldura').style.height = 1;
+                ultimo.setAnimation(null);
+            });
+            $( "#pain" ).click(function(){ 
+                visualizaAnuncio(marcador.codigo);
                 document.getElementById('info-moldura').style.opacity = 0;
                 document.getElementById('info-moldura').style.height = 1;
                 ultimo.setAnimation(null);

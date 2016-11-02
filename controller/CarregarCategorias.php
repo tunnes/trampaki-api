@@ -9,7 +9,7 @@
         private function response200(){
             header('HTTP/1.1 200 OK');
             header('Content-type: application/json');
-            $response = CategoriaDAO::getInstace()->consultarTodas();
+            $response = CategoriaDAO::getInstance()->consultarTodas();
             echo json_encode($response);
         }
     }

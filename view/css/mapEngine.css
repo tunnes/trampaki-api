@@ -165,3 +165,87 @@ html, body{
 }
 
 
+/* JANELA-ANUNCIO -------------------------------------------------------------- */
+#buttons{
+    margin-right:40px;
+}
+
+#wrapper-anuncio button{
+    float: right;
+    border-color: black;
+    font-size: 12px;
+    border-radius: 0px;
+    margin-right: 8px;
+    background-color: white;
+    border-width: 1px;
+    padding: 8px 15px 8px 15px;
+}
+#wrapper-anuncio p{
+    font-size: 11px;
+}
+
+#wrapper-anuncio h1{
+    font-size: 35px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+#wrapper-anuncio h2{
+    width: 140px;
+    margin-top: 25px;
+    font-size: 15px;
+    font-weight: 800;
+    padding-bottom: 4px;
+    border-bottom: 2px solid black;
+}
+#imagem{
+    border-style: solid;
+    border-width: 1px 8px 1px 1px;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    background-image:url('https://trampaki-tunnes.c9users.io/view/img/anunc.jpg');
+    background-repeat:no-repeat;
+    background-size: cover;
+    /*border-radius: 50%;*/
+    float: left;
+}
+#informacoes{
+    display: inline-block;
+    margin-left: 20px;
+    margin-top: 7px;
+}
+#informacoes strong, p{
+    margin: 0px;
+}
+.categoria{
+    font-size: 11px;
+    display: inline-block;
+    border: 1px solid black;
+    padding: 2px 15px 2px 15px;
+    background-color: red;
+    margin-left: 5px;
+}
+
+#wrapper-imagens-anuncio{
+    width: 100%;
+    height: 180px;
+}
+#wrapper-imagens-anuncio div{
+    width:30%;
+    border-style: solid;
+    border-width: 1px 12px 1px 1px;
+    height: 180px;
+    display: inline-block;
+    background-repeat:no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+#imagem01{
+    background-image:url('https://trampaki-tunnes.c9users.io/view/img/no_image.jpeg');
+}
+#imagem02{
+    background-image:url('https://trampaki-tunnes.c9users.io/view/img/no_image.jpeg');
+}
+#imagem03{
+    background-image:url('https://trampaki-tunnes.c9users.io/view/img/no_image.jpeg');
+}
