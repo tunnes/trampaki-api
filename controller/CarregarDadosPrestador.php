@@ -1,28 +1,16 @@
 <?php
-    session_start();
     require_once 'configuration/autoload-geral.php';
 
     class CarregarDadosPrestador{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarSessao() : include('view/pagina-404.html');
+            $_SERVER['REQUEST_METHOD'] == 'GET'? $this->validarToken() : header('HTTP/1.1 400 Bad Request');
         }
-        private function validarSessao(){
-            switch ($_SESSION['tipoUsuario']){
-                    case 2:
-                    case 1:
-                        $this->retornar200();
-                        break;
-                    case 0:
-                        echo 'voce não possui privilegio para isto malandrãoo!';
-                        break;
-                    default:
-                        header('Location: login');  
-                        break;
-            }
+        private function validarToken(){
+            $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
+            $prestadorBPO instanceof PrestadorBPO ? $this->retornar200($prestadorBPO) : header('HTTP/1.1 401 Unauthorized');
         }
-        private function retornar200(){
-            $prestadorBPO  = unserialize($_SESSION['objetoUsuario']); 
+        private function retornar200($prestadorBPO){
             $prestadorBPO  = PrestadorDAO::getInstance()->consultar($prestadorBPO->getCodigoUsuario());
             header('HTTP/1.1 200 OK');
             header('Content-type: application/json');
