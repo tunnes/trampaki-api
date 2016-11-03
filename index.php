@@ -1,0 +1,44 @@
+<?php
+#   Configuração de requisições ao servidor:
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Authorization");
+//  header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
+    
+ 
+    
+    require_once 'router.php';
+    require_once 'configuration/autoload-geral.php';
+
+    $roteador =  new Router();
+    $rotas = array(
+        '/'                         =>'PaginaPrincipal',
+        '/login'                    =>'PaginaAutenticacao',
+        '/painel-de-operacoes'      =>'PaginaDeOperacoes',
+        '/novo-anuncio'             =>'NovoAnuncio',
+        '/novo-prestador'           =>'NovoPrestador',
+        '/novo-anunciante'          =>'NovoAnunciante',
+        '/nova-conexao-prestador'   =>'NovaConexaoPrestador',
+        '/nova-conexao-anunciante'  =>'NovaConexaoAnunciante',
+        '/nova-categoria'           =>'NovaCategoria',
+        '/editar-anuncio'           =>'EditarAnuncio',
+        '/editar-anunciante'        =>'EditarAnunciante',
+        '/editar-prestador'         =>'EditarPrestador',
+        '/carregar-anuncio'         =>'CarregarAnuncio',
+        '/carregar-anuncios'        =>'CarregarAnuncios',
+        '/carregar-imagem'          =>'CarregarImagem',
+        '/carregar-categorias'      =>'CarregarCategorias',
+        '/carregar-prestadores'     =>'CarregarPrestadores',
+        '/carregar-solicitacoes'    =>'CarregarSolicitacoes',
+        '/carregar-meus-anuncios'   =>'CarregarMeusAnuncios',
+        '/carregar-dados-prestador' =>'CarregarDadosPrestador',
+        '/carregar-dados-anunciante'=>'CarregarDadosAnunciante',
+    );
+    
+    foreach ($rotas as $URL => $CLASS) { $roteador -> novaRota($URL, $CLASS); }
+    // echo 'URL: '.$_GET['url'];
+    // echo '<hr>';
+    // echo 'PARAM: '.$_GET['param'];
+    // echo '<hr>';
+    
+    $roteador -> rotear();
+?>
