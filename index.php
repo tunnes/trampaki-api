@@ -26,6 +26,7 @@
         '/carregar-imagem'          =>'CarregarImagem',
         '/carregar-categorias'      =>'CarregarCategorias',
         '/carregar-prestadores'     =>'CarregarPrestadores',
+        '/meus-servicos'            =>'CarregarMeusServicos',
         '/carregar-solicitacoes'    =>'CarregarSolicitacoes',
         '/carregar-meus-anuncios'   =>'CarregarMeusAnuncios',
         '/carregar-dados-prestador' =>'CarregarDadosPrestador',

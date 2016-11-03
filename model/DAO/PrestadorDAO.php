@@ -155,8 +155,18 @@
             $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            
             $comandoSQL->execute();
         }
-        private function consultarCategoria($codigoCategoria){
-            
+        public function meusServicos(PrestadorBPO $prestadorBPO){
+            $bancoDeDados = Database::getInstance();
+            $querySQL = "SELECT A.cd_imagem01, C.cd_anuncio, A.cd_status, A.nm_titulo, E.sg_estado, E.nm_cidade  
+                         FROM conexao as C 
+                         INNER JOIN anuncio as A ON A.cd_anuncio = C.cd_anuncio 
+                         INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario 
+                         INNER JOIN endereco as E ON E.cd_endereco = U.cd_endereco 
+                         WHERE C.cd_usuario = :cd_usuario AND C.cd_status = '1'";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_usuario',  $prestadorBPO->getCodigoUsuario());
+            $comandoSQL->execute();
+            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);     
         }
     }
 ?>

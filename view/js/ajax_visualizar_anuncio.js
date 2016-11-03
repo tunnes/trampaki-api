@@ -1,7 +1,8 @@
 function visualizaAnuncio(codigoAnuncio){
+	
 //	CARREGANDO PÁGINA VIA AJAX ------------------------------------
 	console.log(codigoAnuncio + 'fatorial');  
-	$("#janela").load("view/js/teste.html");
+	$("#janela").load("view/ajax/prestador-anuncio.html");
 	$("#janela").show();
 	$("#mapa").hide();
 	//$("#info-moldura").hide();
@@ -9,7 +10,7 @@ function visualizaAnuncio(codigoAnuncio){
         type: "GET",
         url:  "https://trampaki-tunnes.c9users.io/carregar-anuncio/"+codigoAnuncio,
         headers:{
-            "Authorization":"QXlydG9uVGVzdGU6MTIz"
+            "Authorization": sessionStorage.getItem("authorization")
                 },
                 complete: function(data){
                 	

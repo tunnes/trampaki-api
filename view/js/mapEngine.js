@@ -66,7 +66,7 @@ function mapEngine(){
                 type: "GET",
                 url:  "https://trampaki-tunnes.c9users.io/carregar-anuncios",
                 headers:{
-                    "Authorization":"QXlydG9uVGVzdGU6MTIz"
+                    "Authorization": sessionStorage.getItem("authorization")
                 },
                 complete: function(data){   
                     carregarMarcadores(data.responseText);

@@ -167,6 +167,7 @@ html, body{
 
 /* JANELA-ANUNCIO -------------------------------------------------------------- */
 #buttons{
+    margin-top: 30px;
     margin-right:40px;
 }
 
@@ -350,7 +351,7 @@ html, body{
     display: inline-block;
 }
 #wrapper-perfil-prestador button{
-    margin-top: 25px;
+    margin-top: 35px;
     float: right;
     border-color: black;
     font-size: 12px;
@@ -371,4 +372,45 @@ html, body{
 }
 #profissional h2{
     width: 220px;
+}
+
+/* MEUS SERVICOS --------------------------------------------------------------------------------------- */
+#wrapper-meus-servicos h1{
+    font-size: 44px;
+    text-transform: uppercase;
+}
+
+.servicos{
+    display: inline-block;
+}
+
+.item_servico{
+    margin-right: 6px;
+    width: 270px;
+    height: 90px;
+    border: 1px Solid Black;
+    border-right-width: 8px;
+}
+.imagem_servico{
+    border-right: 1px Solid Black;
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+    background-image:url('https://trampaki-tunnes.c9users.io/view/img/anunc.jpg');
+    background-repeat:no-repeat;
+    background-size: cover;
+    float: left;
+}
+
+.info_servico{
+    margin-top: 11px;
+    margin-left: 15px;
+    float: left;
+}
+.info_servico strong{
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.info_servico p{
+    font-size: 12px;
 }
