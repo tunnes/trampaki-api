@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Trampaki</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800" rel="stylesheet">
+        <link rel="stylesheet" href="view/css/mapEngine.css" type="text/css"/>
+        <script src="view/js/barraLateral.js"></script>
+        <script src="view/js/ajax_visualizar_anuncio.js"></script>
+    </head>
+    <body>
+        <!-- Marcador Expandido =========================================================================== -->
+        <div id="info-moldura">
+            <div id="info-moldura-imagem">
+                <div id="info-triangulo-imagem">
+                    <div id="info-fundo-imagem"></div>
+                </div>
+            </div>
+            <div id="info-fundo"></div>
+            <div id="info-conteudo">
+                <div id="info-centro">
+                    <span id="titulo">Ayrton Felipe</span>
+                    <div id="descricao">
+                        Lorem ipsum dolor sit amet, consectetuer adipiscing elit,
+                        sed diam nonummy nibh euismod tincidunt ut laoreet dolore
+                        magna aliquam erat volutpat.
+                    </div>
+                    <button id="pain" type="button" >Mais Detalhes</button>
+                    <button type="button" onclick="alert('Já sabe né?')">Me conectar!</button>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================================================== -->
+        
+        <!-- Barra latereal para chat e configurações do sistema ========================================== -->
+        <div id="barraLateral">
+            <div class="nav">
+                <span id="configuracaoAjax" href="#" onclick="barraLateralMensagens()" >MENSAGENS</span>
+                <span id="menu-painel" href="#" onclick="barraLateralPainel()">PAINEL</span>
+            </div>
+            <div class="main">
+                <div id="painel">
+                    <span>MEU PERFIL</span>
+                    <span>MEUS SERVIÇOS</span>
+                    <span>OPÇÕES</span>
+                    <span>SAIR</span>
+                </div>
+                <div id="chat">
+                    <span>INCOMPLETO...</span>   
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================================================== -->
+        <div id="janela"></div>
+        <!-- Elemento que recebe o mapa e as informações ================================================== -->
+        <div id="mapa"></div>
+        <!-- ============================================================================================== -->
+        
+        <!-- Chamada da MapEngine Trampaki ================================================================ -->
+        <script src="view/js/mapEngine.js"></script>
+        <!-- ============================================================================================== -->
+        
+        <!-- Chamada da API JavaScript do Google Maps com minha chave -->
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOgRKKdJv0sJSZYLFQQUUjII20mGsbLj4&callback=mapEngine"></script>
+        
+    </body>
+</html>
