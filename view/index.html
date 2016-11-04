@@ -2,7 +2,7 @@
 <html lang="pt">
 
 <head>
-    <title>Parallax full responsive</title>
+    <title>Trampaki</title>
 
     <meta charset="utf-8">
     <meta name="description" content="Página parallax totalmente responsiva">
@@ -20,15 +20,15 @@
 <body>
     <nav class="navbar navbar-trans navbar-fixed-top">
         <div class="container">
-            <div class="navbar-header">
+            <!-- <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand text-danger" href="#home">TRAMPAKI</a>
-            </div>
+                <a class="navbar-brand text-danger" href="#home"></a>
+            </div>-->
             <div class="navbar-collapse collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#home">HOME</a></li>
@@ -42,14 +42,14 @@
 
     <section class="container-fluid" id="home">
         <div class="container v-center">
-            <h1 class="text-center alinhar-esq">HOME</h1>
+            <h1 class="text-center alinhar-esq"><img src="img/tramp.png"/></h1>
             <p class="alinhar-esq">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates laboriosam dolorem veritatis molestiae? Assumenda nam, quidem doloremque eum, dolore earum iste consequuntur illo nostrum explicabo incidunt magnam quae pariatur modi!</p>
         </div>
     </section>
 
     <section class="container-fluid  mini-section" id="work">
         <div class="container v-center">
-            <h2 class="text-center">Disponível em</h2>
+            <h2 class="text-center">COMO FUNCIONA?</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint atque consequatur provident? Excepturi eveniet quidem voluptatem aperiam amet aliquid fugit nisi aliquam aut quisquam. In doloremque est ratione quaerat perspiciatis!</p>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam hic, cupiditate eligendi totam similique animi odit accusantium laudantium, iste sunt. Iste, sed nemo est alias iusto incidunt ipsam quo tempore!</p>
         </div>
@@ -59,7 +59,7 @@
         <div class="container v-center">
             <div class="row">
                 <h2 class="text-center">Comece agora</h2>
-                <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum aliquam obcaecati praesentium quod repudiandae quia, tempore omnis voluptatum eius at dicta ullam ab adipisci accusamus alias voluptatibus a nulla! Eius?</p>
+                <p class="text-center">Para achar interessados no serviço que você tem a oferecer, cadastre um serviço para que a vaga seja preenchida. Caso tenha um serviço a oferecer e deixar a disposição dos anunciantes, divulgue seus serviços. </p>
 
                 <div class="col-md-12 text-center">
                     <a href="#!" class="btn btn-outline">Cadastre um serviço</a>
@@ -73,7 +73,30 @@
     <section class="container-fluid" id="contato">
         <div class="container v-center">
             <h1 class="text-center">CONTATO</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quam laborum a cumque voluptatibus magnam asperiores fugiat, ducimus aspernatur, rerum laboriosam tempora. Laudantium dolorum inventore eveniet facilis libero, animi quis nulla.</p>
+                <form class="form-horizontal">
+                  <div class="control-group">
+                    <label class="control-label input-large" for="inputNome">Nome</label>
+                    <div class="controls">
+                      <input type="text" id="inputNome" placeholder="Digite seu nome">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                    <label class="control-label" for="inputEmail">E-mail</label>
+                    <div class="controls">
+                      <input type="email" id="inputEmail" placeholder="Digite seu e-mail">
+                    </div>
+                  </div>
+                  <div class="control-group">
+                     <label class="control-label">Deixe sua mensagem</label>
+                        <div class="controls">  
+                        <textarea rows="5"></textarea>
+                        <div class="form-actions">
+                          <button type="submit" class="btn btn-primary">Enviar</button>
+                          <button type="reset" class="btn">Cancelar</button>
+                        </div>
+                    </div>
+                  </div>
+                </form>
         </div>
     </section>
 
