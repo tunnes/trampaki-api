@@ -5,7 +5,7 @@
     <title>Trampaki</title>
 
     <meta charset="utf-8">
-    <meta name="description" content="Página parallax totalmente responsiva">
+    <meta name="description" content="Webiste do Trampaki">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Bootstrap -->
@@ -20,15 +20,15 @@
 <body>
     <nav class="navbar navbar-trans navbar-fixed-top">
         <div class="container">
-            <!-- <div class="navbar-header">
+            <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand text-danger" href="#home"></a>
-            </div>-->
+                <a class="navbar-brand text-danger" href="#home">TRAMPAKI</a>
+            </div>
             <div class="navbar-collapse collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#home">HOME</a></li>
@@ -42,7 +42,7 @@
 
     <section class="container-fluid" id="home">
         <div class="container v-center">
-            <h1 class="text-center alinhar-esq"><img src="img/tramp.png"/></h1>
+            <h1 class="text-center alinhar-esq"><img src="img/tramp.png" class="img-responsive"></h1>
             <p class="alinhar-esq">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates laboriosam dolorem veritatis molestiae? Assumenda nam, quidem doloremque eum, dolore earum iste consequuntur illo nostrum explicabo incidunt magnam quae pariatur modi!</p>
         </div>
     </section>
@@ -73,30 +73,31 @@
     <section class="container-fluid" id="contato">
         <div class="container v-center">
             <h1 class="text-center">CONTATO</h1>
-                <form class="form-horizontal">
-                  <div class="control-group">
+            <form class="form-horizontal">
+                <div class="control-group">
                     <label class="control-label input-large" for="inputNome">Nome</label>
                     <div class="controls">
-                      <input type="text" id="inputNome" placeholder="Digite seu nome">
+                        <input type="text" id="inputNome" class="form-control" placeholder="Digite seu nome" maxlength="30">
                     </div>
-                  </div>
-                  <div class="control-group">
+                </div>
+                <div class="control-group">
                     <label class="control-label" for="inputEmail">E-mail</label>
                     <div class="controls">
-                      <input type="email" id="inputEmail" placeholder="Digite seu e-mail">
+                        <input type="email" id="inputEmail" class="form-control" placeholder="Digite seu e-mail" maxlength="25">
                     </div>
-                  </div>
-                  <div class="control-group">
-                     <label class="control-label">Deixe sua mensagem</label>
-                        <div class="controls">  
-                        <textarea rows="5"></textarea>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Deixe sua mensagem</label>
+                    <div class="controls">
+                        <textarea rows="5" class="form-control" placeholder="Digite sua mensagem" maxlength="250"></textarea>
+                        <br>
                         <div class="form-actions">
-                          <button type="submit" class="btn btn-primary">Enviar</button>
-                          <button type="reset" class="btn">Cancelar</button>
+                            <button type="submit" class="btn btn-outline">Enviar</button>
+                            <button type="reset" class="btn btn-outline">Reset</button>
                         </div>
                     </div>
-                  </div>
-                </form>
+                </div>
+            </form>
         </div>
     </section>
 
