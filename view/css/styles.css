@@ -222,6 +222,7 @@ footer .nav>li>a:hover {
     color:black;
 }
 
+
 .btn-outline:hover{
     background-color: darkorange;
     opacity: 0.8;
@@ -231,4 +232,40 @@ footer .nav>li>a:hover {
 .sublinhar{
     text-decoration: underline;
     text-decoration-color: #ff8c00;
+}
+
+#pop{
+    display:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    margin-left:-150px;
+    margin-top:100px;
+    padding:10px;
+    width:300px;
+    height:auto;
+    border:1px solid #d0d0d0;
+    background-color: white;
+    color:black;
+}
+
+#check{
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+#fechar{
+    float:right;
+}
+
+#fechar:hover{
+    color:darkorange;
+}
+
+#login:hover{
+    color:darkorange;
+}
+
+.col-md-4{
+    margin-left:140px;
 }

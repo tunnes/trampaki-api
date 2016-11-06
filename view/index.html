@@ -30,7 +30,31 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand text-danger" href="#home">TRAMPAKI</a>
+                <a class="navbar-brand text-danger" id="login" onclick="document.getElementById('pop').style.display='block';">LOGIN</a>
+                    <div id="pop">
+                        <a href="#" id="fechar" onclick="document.getElementById('pop').style.display='none';">[Fechar]</a>
+                        <br />
+	                       <form class="form-horizontal">
+                              <div class="control-group">
+                                <label class="control-label" for="inputEmail">E-mail</label>
+                                <div class="controls">
+                                    <input type="email" id="inputEmail" class="form-control" placeholder="Digite seu e-mail" maxlength="25">
+                                </div>
+                              </div>
+                              <div class="control-group">
+                                <label class="control-label" for="inputPassword">Senha</label>
+                                <div class="controls">
+                                  <input type="password" id="inputPassword" class="form-control" placeholder="Digite sua senha" maxlength="25">
+                                </div>
+                              </div>
+                              <div class="control-group">
+                                <div class="controls">
+                                  <label id="check" class="checkbox"><input type="checkbox"  />Lembrar senha</label>
+                                  <button class="btn btn-outline" type="submit">Acessar</button>
+                                </div>
+                              </div>
+                            </form>
+                    </div>
             </div>
             <div class="navbar-collapse collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
@@ -46,7 +70,7 @@
     <section class="container-fluid" id="home">
         <div class="container v-center">
             <h1 class="text-center alinhar-esq"><img src="img/tramp.png" class="img-responsive"></h1>
-            <p class="alinhar-esq">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptates laboriosam dolorem veritatis molestiae? Assumenda nam, quidem doloremque eum, dolore earum iste consequuntur illo nostrum explicabo incidunt magnam quae pariatur modi!</p>
+            <p class="alinhar-esq">Especialista em te mostrar o caminho para o que você está procurando! Está procurando emprego? Está procurando prestadores de serviços? Você encontra aqui. </p>
         </div>
     </section>
 
@@ -60,9 +84,9 @@
     <section class="container-fluid" id="work">
         <div class="container v-center">
             <h2 class="text-center sublinhar">COMO FUNCIONA?</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint atque consequatur provident? Excepturi eveniet quidem voluptatem aperiam amet aliquid fugit nisi aliquam aut quisquam. In doloremque est ratione quaerat perspiciatis!</p>
+            <p>Promovemos o encontro de anunciantes e prestadores de serviços. Nosso sistema é composto por um cadastro simples e com o uso de um mapa, um chat e categorias de trabalho previamente determinadas, podemos oferecer a oportunidade de negocias seu serviço de forma simples, agradável e usual. Quanto a taxas, fique tranquilo, nosso serviço é totalmente gratuito e manteremos suas informações seguras.</p>
             <br>
-            <div class="col-md-4">
+            <!--<div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4><i class="fa fa-fw fa-smile-o"></i> Lorem</h4>
@@ -72,26 +96,26 @@
                         <a href="#" class="btn btn-default">Learn More</a>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-wrench"></i> Lorem</h4>
+                        <h4><i class="fa fa-fw fa-user"></i>Anunciante</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, sequi deserunt. Veniam quia corporis, itaque vel perspiciatis fugit sunt nisi cumque omnis voluptate nobis autem cupiditate ab quos eaque nulla.</p>
-                        <a href="#" class="btn btn-default">Learn More</a>
+                        <p>Com nosso cadastro de anunciantes você pode criar anuncios, vizualizar prestadores de serviços e negocias diretamente com eles.
+                        Caso queira prestar serviços e anunciar, sinta-se a vontade, pois nosso sistema também lhe oferece esse recurso. Basta selecionar após feito o cadastro a opção de usuário hibrido.</p>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4><i class="fa fa-fw fa-user"></i> Lorem</h4>
+                        <h4><i class="fa fa-fw fa-wrench"></i>Prestadores de Serviços</h4>
                     </div>
                     <div class="panel-body">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
-                        <a href="about.html" class="btn btn-default">Conheça nossos profissionais</a>
+                        <p>Com nosso cadastro de prestador de serviços você pode visualizar anuncios de suas categorias e negociar diretamente com anunciantes.
+                        Caso queira prestar serviços e anunciar, sinta-se a vontade, pois nosso sistema também lhe oferece este recurso, basta selecionar após feito um cadastro a opção de usuário hibrido.</p>
                     </div>
                 </div>
             </div>
