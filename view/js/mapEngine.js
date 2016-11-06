@@ -141,11 +141,14 @@ function mapEngine(){
                 document.getElementById('info-moldura').style.height = 1;
                 ultimo.setAnimation(null);
             });
-            $( "#pain" ).click(function(){ 
+            $("#pain" ).click(function(){ 
                 visualizaAnuncio(marcador.codigo);
                 document.getElementById('info-moldura').style.opacity = 0;
                 document.getElementById('info-moldura').style.height = 1;
                 ultimo.setAnimation(null);
+            });
+            $("#momo" ).click(function(){ 
+                enviarSolicitacao(marcador.codigo);
             });
         }
     }

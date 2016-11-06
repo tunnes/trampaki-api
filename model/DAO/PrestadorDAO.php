@@ -142,14 +142,14 @@
         }
         public function carregarSolicitacoes(PrestadorBPO $prestadorBPO){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao WHERE cd_usuario = :cd_usuario");
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao WHERE cd_usuario = :cd_usuario and cd_status = '0' and cd_solicitante = '1'");
             $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
             $comandoSQL->execute();
-            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);              
+            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);
         }
         public function novaConexao(PrestadorBPO $prestadorBPO, $codigoAnuncio){
             $bancoDeDados = Database::getInstance();
-            $querySQL = "INSERT INTO conexao (cd_usuario, cd_anuncio) VALUES (:cd_usuario, :cd_anuncio)";
+            $querySQL = "INSERT INTO conexao (cd_anuncio, cd_usuario, cd_status, cd_solicitante) VALUES (:cd_anuncio, :cd_usuario, '0', '1')";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
             $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
             $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            

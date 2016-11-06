@@ -39,6 +39,10 @@ function visualizaAnuncio(codigoAnuncio){
                 	var imagem03 = document.getElementById('imagem03');
                 		data.cd_imagem_03 != null ? imagem03.style.backgroundImage = "url(https://trampaki-tunnes.c9users.io/carregar-imagem/" +data.cd_imagem_03+")" : null;
                 		
+                    $('#conectar').click(function(){
+                        enviarSolicitacao(codigoAnuncio);
+                        console.log('teste');
+                    });
                 }
     });
 	
@@ -50,3 +54,21 @@ function visualizaAnuncio(codigoAnuncio){
 		$("#mapa").show();
 		// $("#info-moldura").show();
 	}
+	
+function enviarSolicitacao(codigoAnuncio){
+	$.ajax({
+        type:"POST",
+        url:"https://trampaki-tunnes.c9users.io/nova-conexao-prestador",
+        headers:{
+            "Authorization": sessionStorage.getItem("authorization")
+        },
+        data:{
+        	codigo_anuncio: codigoAnuncio
+        },
+    	statusCode:{
+    		201: function(){
+    			alert('Solicitacao enviada');
+    		}
+    	}
+    });
+}
