@@ -29,7 +29,6 @@
             if($usuario instanceof AnuncianteBPO){
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
-                header("Trampaki-user: 0");
             }
             elseif($usuario instanceof PrestadorBPO){
                 header('HTTP/1.1 200 OK');

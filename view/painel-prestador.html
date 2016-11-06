@@ -9,8 +9,9 @@
         <link rel="stylesheet" href="view/css/mapEngine.css" type="text/css"/>
         <script src="view/js/barraLateral.js"></script>
         <script src="view/js/ajax_visualizar_anuncio.js"></script>
+        <script src="view/js/main.js"></script>
     </head>
-    <body>
+    <body onload="bodyOnloadHandler()">
         <!-- Marcador Expandido =========================================================================== -->
         <div id="info-moldura">
             <div id="info-moldura-imagem">
@@ -43,8 +44,8 @@
             <div class="main">
                 <div id="painel">
                     <span id="meu_perfil" onclick='meuPerfil()'>MEU PERFIL</span>
+                    <span onclick='solicitacoes()'>SOLICITAÇÕES</span>
                     <span id='meus_servicos' onclick='meusServicos()'>MEUS SERVIÇOS</span>
-                    <!--<span>OPÇÕES</span>-->
                     <span>SAIR</span>
                 </div>
                 <div id="chat">

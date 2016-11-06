@@ -96,6 +96,32 @@ function mapEngine(){
                     });
                     arrayMarcadores.push(marcador);
                 });
+                
+                // var clusterStyles = [
+                //   {
+                //     textColor: 'white',
+                //     url: 'path/to/smallclusterimage.png',
+                //     height: 50,
+                //     width: 50
+                //   },
+                //  {
+                //     textColor: 'white',
+                //     url: 'path/to/mediumclusterimage.png',
+                //     height: 50,
+                //     width: 50
+                //   },
+                //  {
+                //     textColor: 'white',
+                //     url: 'path/to/largeclusterimage.png',
+                //     height: 50,
+                //     width: 50
+                //   }
+                // ];
+                // var mcOptions = {
+                //     gridSize: 50,
+                //     styles: clusterStyles,
+                //     maxZoom: 15
+                // };
                     var markerCluster = new MarkerClusterer(mapa, arrayMarcadores,
             {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
         }

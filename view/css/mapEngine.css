@@ -168,7 +168,7 @@ html, body{
 /* JANELA-ANUNCIO -------------------------------------------------------------- */
 #buttons{
     margin-top: 30px;
-    margin-right:40px;
+    /*margin-right:40px;*/
 }
 
 #wrapper-anuncio button{
@@ -176,7 +176,7 @@ html, body{
     border-color: black;
     font-size: 12px;
     border-radius: 0px;
-    margin-right: 8px;
+    margin-left: 8px;
     background-color: white;
     border-width: 1px;
     padding: 8px 15px 8px 15px;
@@ -356,22 +356,19 @@ html, body{
     border-color: black;
     font-size: 12px;
     border-radius: 0px;
-    margin-right: 8px;
+    margin-left: 8px;
     background-color: white;
     border-width: 1px;
     padding: 8px 15px 8px 15px;
 }
 
 #wrapper-perfil-prestador h2{
-    width: 140px;
+    width: 100%;
     margin-top: 25px;
     font-size: 15px;
     font-weight: 800;
     padding-bottom: 4px;
-    border-bottom: 2px solid black;
-}
-#profissional h2{
-    width: 220px;
+    border-bottom: 1px solid #b0b0b0;
 }
 
 /* MEUS SERVICOS --------------------------------------------------------------------------------------- */
@@ -412,5 +409,73 @@ html, body{
     text-transform: uppercase;
 }
 .info_servico p{
+    font-size: 12px;
+}
+
+.filtro-servicos button{
+    background-color: white;
+    border: 1px solid black;
+}
+
+#buttonsTIAO{
+    position: fixed;
+    bottom: 40px;
+    right: 230px;
+}
+
+#buttonsTIAO button{
+    margin-top: 35px;
+    float: right;
+    border-color: black;
+    font-size: 12px;
+    border-radius: 0px;
+    margin-left: 8px;
+    background-color: white;
+    border-width: 1px;
+    padding: 8px 15px 8px 15px;
+}
+
+/* SOLICITACOES ---------------------------------------------------------------------------------------- */
+.item_solicitacao {
+    float:left;
+    margin-right: 6px;
+    width: 45%;
+    height: 90px;
+    margin-top: 10px;
+    border: 1px Solid Black;
+    border-right-width: 8px;
+}
+.item_solicitacao button{
+    margin-right: 2px;
+    font-size: 10px;
+    background-color: white;
+    border: 1px solid black;
+    padding: 3px 9px 3px 9px;
+}
+.buttons_solicitacao{
+    float: right;
+    margin-right: 10px;
+}
+.imagem_solicitacao{
+    border-right: 1px Solid Black;
+    display: inline-block;
+    width: 90px;
+    height: 90px;
+    background-image:url('https://trampaki-tunnes.c9users.io/view/img/anunc.jpg');
+    background-repeat:no-repeat;
+    background-size: cover;
+    float: left;
+}
+
+.info_solicitacao{
+    margin-top: 11px;
+    margin-left: 15px;
+    float: left;
+}
+.info_solicitacao strong{
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.info_solicitacao p{
     font-size: 12px;
 }

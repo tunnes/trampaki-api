@@ -93,7 +93,7 @@ function barraLateralPainel(){
     
 //  MEUS-SERVICOS ---------------------------------------------------------------------------------------------
     function meusServicos(){
-        alert(sessionStorage.getItem("authorization"));
+        // alert(sessionStorage.getItem("authorization"));
         document.getElementById('info-moldura').style.opacity = 0;
         document.getElementById('info-moldura').style.height = 1;
         $("#janela").load("/view/ajax/prestador-servicos.html");
@@ -146,4 +146,13 @@ function barraLateralPainel(){
                 }
     });
 	    
+    }
+
+//  SOLICITAÇÕES ----------------------------------------------------------------------------------------------
+    function solicitacoes(){
+        document.getElementById('info-moldura').style.opacity = 0;
+        document.getElementById('info-moldura').style.height = 1;
+        $("#janela").load("/view/ajax/prestador-solicitacoes.html");
+	    $("#janela").show().hide().fadeIn('slow');;
+	    $("#mapa").hide();
     }
