@@ -382,6 +382,8 @@ html, body{
 }
 
 .item_servico{
+    float: left;
+    margin-top: 10px;
     margin-right: 6px;
     width: 270px;
     height: 90px;
@@ -453,6 +455,7 @@ html, body{
     padding: 3px 9px 3px 9px;
 }
 .buttons_solicitacao{
+    margin-top: 15px;
     float: right;
     margin-right: 10px;
 }

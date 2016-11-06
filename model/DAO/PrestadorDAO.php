@@ -142,7 +142,14 @@
         }
         public function carregarSolicitacoes(PrestadorBPO $prestadorBPO){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao WHERE cd_usuario = :cd_usuario and cd_status = '0' and cd_solicitante = '1'");
+            $querySQL = "SELECT C.cd_conexao, C.cd_anuncio, A.cd_imagem01, A.nm_titulo, E.nm_cidade, E.sg_estado, C.cd_status, C.cd_solicitante 
+                        	FROM conexao AS C 
+                        	INNER JOIN anuncio AS A ON C.cd_anuncio = A.cd_anuncio
+                        	INNER JOIN usuario AS U ON A.cd_usuario = U.cd_usuario
+                        	INNER JOIN endereco AS E ON U.cd_endereco = E.cd_endereco
+                         WHERE C.cd_usuario = :cd_usuario and C.cd_status = '0'";
+                         
+            $comandoSQL   = $bancoDeDados->prepare($querySQL);
             $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_OBJ);

@@ -37,13 +37,11 @@
             $comandoSQL = $bancoDeDados->prepare($querySQL);
             $comandoSQL->execute();                
         }
-        protected function aceitarConexao($codigoConexao){
+        public function aceitarConexao($codigoConexao){
             $bancoDeDados = Database::getInstance();
-            $querySQL = "UPDATE conexao SET cd_status = '1' 
-                                WHERE cd_conexao = ".$codigoConexao.")";
-            $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->execute();                
-                        
+            $comandoSQL = $bancoDeDados->prepare("UPDATE conexao SET cd_status = '1' WHERE cd_conexao = :cd_conexao");
+            $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
+            $comandoSQL->execute();       
         }
     }
 ?>

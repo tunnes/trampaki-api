@@ -100,7 +100,7 @@ function barraLateralPainel(){
 	    $("#janela").show().hide().fadeIn('slow');;
 	    $("#mapa").hide();
 	    
-	            $.ajax({
+	   $.ajax({
         type: "GET",
         url:  "https://trampaki-tunnes.c9users.io/meus-servicos",
         headers:{
@@ -109,6 +109,7 @@ function barraLateralPainel(){
                 complete: function(data){
                 	data = JSON.parse(data.responseText);
                 	var servicos = document.getElementById('servicos');
+                	    servicos.innerHTML = '';
                 	[].slice.call(data).forEach(function(servico){
                         var item_servico = document.createElement("div");
                         var imagem_servico = document.createElement("div");
@@ -149,10 +150,90 @@ function barraLateralPainel(){
     }
 
 //  SOLICITAÇÕES ----------------------------------------------------------------------------------------------
+    function aceitarConexao(codigoConexao){
+        $.ajax({
+            type:"PUT",
+            url:"https://trampaki-tunnes.c9users.io/aceitar-conexao",
+            headers:{
+                "Authorization": sessionStorage.getItem("authorization"),
+            },
+            data:{
+                cd_conexao: codigoConexao
+            },
+            statusCode:{
+                200:function(){
+                    alert('Servico aceito com sucesso.')
+                }
+            }
+        });
+    }
     function solicitacoes(){
         document.getElementById('info-moldura').style.opacity = 0;
         document.getElementById('info-moldura').style.height = 1;
         $("#janela").load("/view/ajax/prestador-solicitacoes.html");
 	    $("#janela").show().hide().fadeIn('slow');;
 	    $("#mapa").hide();
+	    
+	    $.ajax({
+            type:"GET",
+            url:"https://trampaki-tunnes.c9users.io/carregar-solicitacoes",
+            headers:{
+                "Authorization": sessionStorage.getItem("authorization"),
+                "TrampakiUser":"1"
+            },
+            complete: function(data){
+                data = JSON.parse(data.responseText);
+                var solicitacoesDOM = document.getElementById('solicitacoes');
+                solicitacoesDOM.innerHTML = '';
+                [].slice.call(data).forEach(function(solicitacao){
+                    var buttons_solicitacao = document.createElement("div");
+                    
+                    
+                    var item_solicitacao = document.createElement("div");
+                    var imagem_solicitacao = document.createElement("div");
+                        solicitacao.cd_imagem01 != null ? imagem_solicitacao.style.backgroundImage = "url(https://trampaki-tunnes.c9users.io/carregar-imagem/" +solicitacao.cd_imagem01+")" : null;
+                    
+                        var info_solicitacao = document.createElement("div");
+                        var titulo = document.createElement("strong");
+                            titulo.innerHTML = solicitacao.nm_titulo;
+                        var cidade = document.createElement("p");
+                            cidade.innerHTML = solicitacao.nm_cidade +', '+ solicitacao.sg_estado;
+                        var button_aceitar = document.createElement("button");
+                            button_aceitar.innerHTML = 'ACEITAR';
+                            button_aceitar.onclick=function(){
+                                aceitarConexao(solicitacao.cd_conexao);
+                            }
+                        
+                        var button_recusar = document.createElement("button");
+                            button_recusar.innerHTML = 'RECUSAR';
+                            button_recusar.onclick=function(){
+                                recusarConexao(solicitacao.cd_conexao);
+                            }
+                            
+                            imagem_solicitacao.onclick=function(){
+                                visualizaAnuncio(solicitacao.cd_anuncio)
+                            }
+                        
+                        item_solicitacao.className = 'item_solicitacao';
+                        imagem_solicitacao.className = 'imagem_solicitacao';
+                        info_solicitacao.className = 'info_solicitacao';
+                        buttons_solicitacao.className = 'buttons_solicitacao';
+                        
+                        info_solicitacao.appendChild(titulo);
+                        info_solicitacao.appendChild(cidade);
+                        
+                        
+                        item_solicitacao.appendChild(imagem_solicitacao);
+                        item_solicitacao.appendChild(info_solicitacao);
+                        
+                        buttons_solicitacao.appendChild(button_aceitar);
+                        buttons_solicitacao.appendChild(button_recusar);
+                        item_solicitacao.appendChild(buttons_solicitacao);                        
+                        
+                        solicitacoesDOM.appendChild(item_solicitacao);   
+                });
+            }
+        });
     }
+    
+    
