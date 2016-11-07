@@ -3,6 +3,7 @@ html, body{
 	height: 100%;
 	margin: 0px;
     font-family: 'Open Sans', sans-serif;
+    
 }
 
 /* JANELA CENTRAL -------------------------------------------------------------- */
@@ -11,6 +12,8 @@ html, body{
     width: 65%;
     display: none;
     margin: 0px 0px 0px 40px;
+    height: 100%;
+    position: relative; 
 }
 #janela img{
     width: 90px;
@@ -184,20 +187,6 @@ html, body{
 #wrapper-anuncio p{
     font-size: 11px;
 }
-
-#wrapper-anuncio h1{
-    font-size: 35px;
-    font-weight: 800;
-    text-transform: uppercase;
-}
-#wrapper-anuncio h2{
-    width: 140px;
-    margin-top: 25px;
-    font-size: 15px;
-    font-weight: 800;
-    padding-bottom: 4px;
-    border-bottom: 2px solid black;
-}
 #imagem{
     border-style: solid;
     border-width: 1px 8px 1px 1px;
@@ -232,14 +221,15 @@ html, body{
     height: 180px;
 }
 #wrapper-imagens-anuncio div{
-    width:30%;
+    width: 31%;
     border-style: solid;
-    border-width: 1px 12px 1px 1px;
+    border-width: 1px 14px 1px 1px;
     height: 180px;
     display: inline-block;
     background-repeat:no-repeat;
     background-size: cover;
     background-position: center;
+    margin-left: 2px;
 }
 #imagem01{
     background-image:url('https://trampaki-tunnes.c9users.io/view/img/no_image.jpeg');
@@ -372,11 +362,6 @@ html, body{
 }
 
 /* MEUS SERVICOS --------------------------------------------------------------------------------------- */
-#wrapper-meus-servicos h1{
-    font-size: 44px;
-    text-transform: uppercase;
-}
-
 .servicos{
     display: inline-block;
 }
@@ -385,7 +370,7 @@ html, body{
     float: left;
     margin-top: 10px;
     margin-right: 6px;
-    width: 270px;
+    width: 31%;
     height: 90px;
     border: 1px Solid Black;
     border-right-width: 8px;
@@ -412,29 +397,6 @@ html, body{
 }
 .info_servico p{
     font-size: 12px;
-}
-
-.filtro-servicos button{
-    background-color: white;
-    border: 1px solid black;
-}
-
-#buttonsTIAO{
-    position: fixed;
-    bottom: 40px;
-    right: 230px;
-}
-
-#buttonsTIAO button{
-    margin-top: 35px;
-    float: right;
-    border-color: black;
-    font-size: 12px;
-    border-radius: 0px;
-    margin-left: 8px;
-    background-color: white;
-    border-width: 1px;
-    padding: 8px 15px 8px 15px;
 }
 
 /* SOLICITACOES ---------------------------------------------------------------------------------------- */
@@ -481,4 +443,52 @@ html, body{
 }
 .info_solicitacao p{
     font-size: 12px;
+}
+
+/* GENERICO */
+/*#wrapper-anuncio h1{*/
+/*    font-size: 35px;*/
+/*    font-weight: 800;*/
+/*    text-transform: uppercase;*/
+/*}*/
+.wrapper_janela h1{
+    font-size: 42px;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+.wrapper_janela hr{
+    border-width: 0px 0px 1px 0px; 
+    border-bottom-color: #a09f9f;
+    border-style: solid;
+}
+.fiter_tags button{
+    background-color: white;
+    border: 1px solid black;
+}
+.buttons_bugados{
+    position: absolute;
+    right: 0px;
+    bottom: 24px;
+    
+}
+.buttons_bugados button{
+     margin-top: 35px;
+    float: right;
+    border-color: black;
+    font-size: 12px;
+    border-radius: 0px;
+    margin-left: 8px;
+    background-color: white;
+    border-width: 1px;
+    padding: 8px 15px 8px 15px;
+
+}
+
+.wrapper_janela h2{
+    width: 100%;
+    margin-top: 25px;
+    font-size: 15px;
+    font-weight: 800;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #b0b0b0;
 }

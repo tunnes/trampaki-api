@@ -14,6 +14,7 @@
             $es = array();
             $es = $IO->validarConsisten($es, $_POST["codigo_anuncio"]);
             $es = $IO->validarAnuncio($es,   $_POST["codigo_anuncio"]);
+            $es = $IO->redundanciaConexao($es, $prestadorBPO->getCodigoUsuario(), $_POST["codigo_anuncio"]);
             
             $es ? $IO->retornar400($es) : $this->retornar201($prestadorBPO);
         }
