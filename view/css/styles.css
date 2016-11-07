@@ -1,10 +1,10 @@
 html,
 body {
     height: 100%;
-    background: center no-repeat fixed url('http://cdn.wallpapersafari.com/87/5/KAPmVR.jpg');
+    background: center no-repeat fixed url('img/fundo.jpg');
     background-size: cover;
     color: #444;
-    font-family: 'Lato', sans-serif;
+    font-family: 'Asap', sans-serif;
 }
 
 @media (min-width:768px) {
@@ -33,7 +33,7 @@ a.text-danger {
 }
 
 .btn-danger {
-    background-color: #ff0;
+    background-color: #FF8C00;
 }
 
 .btn-huge {
@@ -59,13 +59,13 @@ a.text-danger {
 
 .navbar-trans li>a:focus,
 .navbar-trans li.active {
-    background-color: #ff0;
+    background-color: #FF8C00;
     color: #000;
     opacity: 0.8;
 }
 
 .navbar-trans li>a:hover {
-    background-color: #ff0;
+    background-color: #FF8C00;
     color: #000;
     opacity: 0.5;
 }
@@ -117,7 +117,7 @@ a.text-danger {
 }
 
 section {
-    padding-top: 70px;
+    padding-top: 60px;
     padding-bottom: 50px;
     min-height: 100%;
     min-height: calc(100% - 0);
@@ -130,18 +130,13 @@ section {
     background-color: #f44d3c;
     color: #000;
     min-height: 280px;
-    padding-top: 70px;
+    padding-top: 60px;
     padding-bottom: 40px;
     align-content: center;
 }
 
-.mini-section h2 {
-    color: #ddd;
-    text-transform: uppercase;
-}
-
-.mini-section p {
-    color: #ddd;
+.mini-section .alaranjar {
+    color: #ff8c00;
     text-transform: uppercase;
 }
 
@@ -162,13 +157,12 @@ section {
     background-color: #fff;
 }
 
-#work {
+#about {
     background-color: rgba(0, 0, 0, 0.6);
     color: #fff;
-    font-family: 'Bitter', serif;
 }
 
-#work {
+#about {
     background-color: rgba(0, 0, 0, 0.8);
 }
 
@@ -176,9 +170,17 @@ section {
     background-color: #fff;
 }
 
+#work {
+    background-color: #fff;
+}
+
 #contato {
-    color: #ff0;
+    color: #FF8C00;
     background-color: rgba(0, 0, 0, 0.8);
+}
+
+#contato h2 {
+    color: #FF8C00;
 }
 
 h2 {
@@ -192,7 +194,7 @@ p {
 
 footer {
     background-color: #2b2b2b;
-    color: #ddd;
+    color: #fff;
     min-height: 50px;
     padding-top: 10px;
 }
@@ -203,7 +205,7 @@ footer a:hover {
 
 footer .nav>li>a {
     padding: 3px;
-    color: #ff0;
+    color: #FF8C00;
 }
 
 footer .nav>li>a:hover {
@@ -215,7 +217,23 @@ footer .nav>li>a:hover {
     float: left;
 }
 
-.btn-outline,
-.btn-outline:hover {
+.btn-outline {
   border-color: currentcolor;
+    color:black;
+}
+
+
+.btn-outline:hover{
+    background-color: darkorange;
+    opacity: 0.8;
+    color:black;
+}
+
+.sublinhar{
+    text-decoration: underline;
+    text-decoration-color: #ff8c00;
+}
+
+#login:hover{
+    color:darkorange;
 }
