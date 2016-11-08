@@ -59,3 +59,23 @@ a:hover{
 .btn:hover{
     background-color: darkorange;
 }
+
+.form_bg {
+    background-color:#eee;
+    color:#666;
+    padding:20px;
+    border-radius:10px;
+    border:1px solid #fff;
+    margin: auto;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 380px;
+    height: 380px;
+}
+
+.align-center {
+
+    text-align:center;
+}
