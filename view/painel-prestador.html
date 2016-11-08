@@ -8,8 +8,11 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,800" rel="stylesheet">
         
         <link rel="stylesheet" href="view/css/mapEngine.css" type="text/css"/>
+        <link rel="stylesheet" href="view/css/modal.css" type="text/css"/>
+        <script src="view/js/modal.js"></script>
         <script src="view/js/barraLateral.js"></script>
         <script src="view/js/main.js"></script>
+               
     </head>
     <body>
         <!-- Marcador Expandido =========================================================================== -->
@@ -35,6 +38,22 @@
         </div>
         <!-- ============================================================================================== -->
         
+        <!-- Modal ======================================================================================== -->
+        <div id="modal_principal" class="modal">
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id='modal_titulo'>Solicitacao Efetuada</h2>
+                </div>
+                <div class="modal-body">
+                    <p id='modal_descricao'></p>
+                </div>
+                <div class="modal-footer">
+                    <button id='modal_retornar'>RETORNAR</button>
+                </div>
+            </div>
+        </div>
+        
         <!-- Barra latereal para chat e configurações do sistema ========================================== -->
         <div id="barraLateral">
             <div class="nav">
@@ -46,7 +65,8 @@
                     <span id="meu_perfil" onclick='meuPerfil()'>MEU PERFIL</span>
                     <span onclick='solicitacoes()'>SOLICITAÇÕES</span>
                     <span id='meus_servicos' onclick='meusServicos()'>MEUS SERVIÇOS</span>
-                    <span>SAIR</span>
+                    <span id='sair'>SAIR</span>
+                     
                 </div>
                 <div id="chat">
                     <span>INCOMPLETO...</span>   

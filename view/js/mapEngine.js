@@ -81,7 +81,9 @@ function mapEngine(){
                     var marcador = new google.maps.Marker({
                         position: new google.maps.LatLng(anuncio.cd_longitude, anuncio.cd_latitude),
                         title: anuncio.titulo,
-                        icon: "view/img/blackHoleSun.png",
+                        icon: "view/img/other_marker.png",
+                        // icon: "view/img/more_marker.png",
+                        // icon: "view/img/blackHoleSun.png",
                         map: mapa,
                         animation: google.maps.Animation.DROP,
                         imagem: 'https://trampaki-tunnes.c9users.io/carregar-imagem/'+anuncio.cd_imagem01+'',
@@ -97,33 +99,34 @@ function mapEngine(){
                     arrayMarcadores.push(marcador);
                 });
                 
-                // var clusterStyles = [
-                //   {
-                //     textColor: 'white',
-                //     url: 'path/to/smallclusterimage.png',
-                //     height: 50,
-                //     width: 50
-                //   },
-                //  {
-                //     textColor: 'white',
-                //     url: 'path/to/mediumclusterimage.png',
-                //     height: 50,
-                //     width: 50
-                //   },
-                //  {
-                //     textColor: 'white',
-                //     url: 'path/to/largeclusterimage.png',
-                //     height: 50,
-                //     width: 50
-                //   }
-                // ];
-                // var mcOptions = {
-                //     gridSize: 50,
-                //     styles: clusterStyles,
-                //     maxZoom: 15
-                // };
-                    var markerCluster = new MarkerClusterer(mapa, arrayMarcadores,
-            {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
+                var clusterStyles = [
+                  {
+                    textColor: 'white',
+                    url: 'view/img/patrick_cluster.png',
+                    height: 53,
+                    width: 53
+                  },
+                 {
+                    textColor: 'white',
+                    url: 'view/img/patrick_cluster.png',
+                    height: 53,
+                    width: 53
+                  },
+                 {
+                    textColor: 'white',
+                    url: 'view/img/patrick_cluster.png',
+                    height: 53,
+                    width: 53
+                  }
+                ];
+                var mcOptions = {
+                    gridSize: 50,
+                    styles: clusterStyles,
+                    maxZoom: 15
+                };
+                var markerclusterer = new MarkerClusterer(mapa, arrayMarcadores, mcOptions);
+            //         var markerCluster = new MarkerClusterer(mapa, arrayMarcadores,
+            // {imagePath: 'view/img/patrick_cluster.png'});
         }
         
         
@@ -149,6 +152,9 @@ function mapEngine(){
             });
             $("#momo" ).click(function(){ 
                 enviarSolicitacao(marcador.codigo);
+                document.getElementById('info-moldura').style.opacity = 0;
+                document.getElementById('info-moldura').style.height = 1;
+                ultimo.setAnimation(null);
             });
         }
     }

@@ -76,15 +76,13 @@
             	codigo_anuncio: codigoAnuncio
             },
         	statusCode:{
-        		201: function(){
-        			alert('Solicitacao enviada');
+        		400: function(){
+        		    modalConectar(400);
         		}
         	}
         });
     }
 
-    
-    
     function barraLateralMensagens(){
     document.getElementById('configuracaoAjax').style.borderBottom = '2px solid white';
     document.getElementById('menu-painel').style.borderBottom = 'none';
@@ -150,6 +148,7 @@
     }
     
 //  MEUS-SERVICOS ---------------------------------------------------------------------------------------------
+
     function meusServicos(){
         novaJanela("/view/ajax/prestador-servicos.html");
 	    
@@ -163,6 +162,7 @@
             	data = JSON.parse(data.responseText);
                 var servicos = document.getElementById('servicos');
                 	servicos.innerHTML = ' ';
+                var sx = ['ABERTO','ENCERRADO','CANCELADO','SUSPENSO'];
                 [].slice.call(data).forEach(function(servico){
                     var item_servico = document.createElement("div");
                     var imagem_servico = document.createElement("div");
@@ -171,9 +171,10 @@
                     var titulo = document.createElement("strong");
                         titulo.innerHTML = servico.nm_titulo;
                     var cidade = document.createElement("p");
-                        cidade.innerHTML = servico.nm_cidade  + ', ' + servico.sg_estado;
+                        cidade.innerHTML = servico.nm_cidade;
                     var status = document.createElement("p");
-                        status.innerHTML = servico.cd_status;
+                        
+                        status.innerHTML = sx[parseInt(servico.cd_status)];
                         
                     item_servico.onclick=function(){
                         visualizaAnuncio(servico.cd_anuncio);

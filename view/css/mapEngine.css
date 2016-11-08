@@ -14,6 +14,8 @@ html, body{
     margin: 0px 0px 0px 40px;
     height: 100%;
     position: relative; 
+    margin-left: 15%;
+    padding-left: 5%;
 }
 #janela img{
     width: 90px;
@@ -24,6 +26,7 @@ html, body{
     float:left;
     width: 85%;
     min-height: 100%;
+    margin-left: 15%;
 }
 
 /* JANELAS DE INFORMAÇÃO ------------------------------------------------------- */
@@ -41,7 +44,8 @@ html, body{
 }
 #info-fundo{
     background-color: black;
-    height: 130px;
+    border-bottom: 1px solid black;
+    height: 129px;
     width: 398px;
     position: absolute;
     right: 0px;
@@ -59,26 +63,42 @@ html, body{
 }
 #info-centro{
     margin-top: 20px;
-    margin-left: 80px;
-    margin-right: 5px;
+    margin-left: 95px;
     font-size: 11px;
     position:absolute;
 }
 #info-conteudo #titulo{
-
+    text-transform: uppercase;
     font-size: 15px;
     font-weight: 800;
+    text-decoration: none; 
+    text-overflow: ellipsis; 
+    display: block; 
+    overflow: hidden; 
+    white-space: nowrap;
+    width: 180px;
+}
+
+#descricao{
+    text-decoration: none; 
+    text-overflow: ellipsis; 
+    display: block; 
+    overflow: hidden; 
+    white-space: nowrap;
+    width: 220px; 
+    height: 32px;
 }
 #info-centro button{
+    text-transform: uppercase;
     z-index: 1;
     padding-left: 15px;
     padding-right: 15px;
     height: 22px;
-    margin-top: 14px;
-    border: 1px Solid White; 
+    font-size: 10px;
+    border: 1px Solid white; 
     border-radius: 0px;
     background-color: black;
-    color:white;
+    color: white;
 }
 #info-moldura-imagem{ 
   width: 527px; 
@@ -102,10 +122,14 @@ html, body{
   background-size: 100%;
   transform: skew(-10deg,-10deg) rotate(-45deg) ;
   transition: .3s;
+    background-image:url('https://trampaki-tunnes.c9users.io/view/img/no_image.jpeg');
 }
 
 /* MENU LATERAL ---------------------------------------------------------------- */
 #barraLateral{
+    position: fixed;
+    left: 0px;
+    top: 0px;
     margin: 0px;
     float:left;
     background-color: black;
@@ -135,6 +159,10 @@ html, body{
     display: block;
     color: white;
 }
+#barraLateral span{
+    cursor: pointer;
+}
+
 /* CORPO ----------------------------------------------------------------------- */
 #barraLateral .main{
     margin-top: 40px;
@@ -268,6 +296,7 @@ html, body{
     font-size: 18px;
 }
 #wrapper-perfil-prestador h1{
+    font-weight: 800;
     margin-top: 10px;
     font-size: 44px;
     margin-bottom: 0px;
@@ -387,16 +416,18 @@ html, body{
 }
 
 .info_servico{
+    
     margin-top: 11px;
     margin-left: 15px;
     float: left;
 }
 .info_servico strong{
+    font-size: 13px;
     font-weight: 800;
     text-transform: uppercase;
 }
 .info_servico p{
-    font-size: 12px;
+    font-size: 10px;
 }
 
 /* SOLICITACOES ---------------------------------------------------------------------------------------- */
@@ -492,3 +523,16 @@ html, body{
     padding-bottom: 4px;
     border-bottom: 1px solid #b0b0b0;
 }
+
+
+/* teste remove */
+.gmnoprint:not(.gm-bundled-control) {
+    display: none;
+}
+
+.gm-bundled-control .gmnoprint {
+    display: block;
+}
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+a[href^="https://www.google.com/maps"]{display:none !important}
