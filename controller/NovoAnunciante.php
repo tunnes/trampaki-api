@@ -7,46 +7,79 @@
         }
         
         private function responsePOST(){
-        #   Variável que conterá informações 
-        #   relativas ao erro de validação:
-            $erro = false;
+        #   Variável que conterá informações, relativas ao erro de validação:
+            $IO = ValidacaoIO::getInstance();
+            $es = array();
+            $ps = array();
             
-        #   Verificação de quantidade de parametros fornecidos no request:
-            count($_POST) != 11 ? $erro = "Quantidade de parametros invalida." : null;
+            foreach ( $_POST as $atributo => $valor ){ $ps[$atributo] = $valor; }
+            
+            $es = $IO->validarConsisten($es, $ps['codigo_postal']);
+            
+        #   Conseguindo longitude e latitude do endereco ------------------------
+            $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'&sensor=false');
         
-        #   Criando variáveis dinamicamente, e removendo possiveis 
-        #   tags HTML, espaços em branco e valores nulos:
-            foreach ( $_POST as $atributo => $valor ){
-    	        $$atributo = trim(strip_tags($valor));
-            	empty($valor) ? $erro = "Existem campos em branco." : null;
-            }
+            $ps['longitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
+            $ps['latitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
             
-        #   Verificando se longitude, latitude são numeros:
-            !is_numeric($lati)      ? $erro = 'A latitude deve ser de valor númererico.' : null;
-            !is_numeric($long)      ? $erro = 'A longitude deve ser de valor númererico.' : null;
             
+        #   Verificando se o email ou login já foram cadastrados.    
+            $es = $IO->redundanciaEmail($es, $ps['usuario_email']);
+            $es = $IO->redundanciaLogin($es, $ps['usuario_login']);
+        
         #   Verificando a formatação do campo de email e possivel duplicidade:
-            !filter_var($email, FILTER_VALIDATE_EMAIL) ? $erro = 'Envie um email válido.' : null;
-            !$this->duplicidadeEmail($email)           ? $erro = "Email já cadastrado." : null;
-            
-        #   Verificando se o login já foi cadastrado:
-            !$this->duplicidadeLogin($login) ? $erro = "Login já cadastrado." : null;
+            $es = $IO->validarEmail($es, $ps['usuario_email']);    
         
-        #   Se existir algum erro, mostra o erro   
-            if($erro){
-                echo $erro;
+        #   Validação da imagem de perfil ------------------------------------------------------
+            if(isset($_FILES['imagem_perfil']) && $_FILES['imagem_perfil']['size'] > 0){ 
+                $tmpName  = $_FILES['imagem_perfil']['tmp_name'];  
+                $ps['imagem_perfil'] = fopen($tmpName, 'rb');
             }else{
-                $loginBPO       = new LoginBPO(null, $login, $senha);
-                $enderecoBPO    = new EnderecoBPO(null, $sigla_estado, $cidade, $codigo_postal, $num_residencial, $long, $lati);
-                $anuncianteBPO  = new AnuncianteBPO(null, $nome, $email, $telefone, $enderecoBPO, $loginBPO);
-                
-                $anuncianteDAO    = AnuncianteDAO::getInstance();
-                $anuncianteBPO    = $anuncianteDAO->cadastrarAnunciante($anuncianteBPO);
-                $login = $anuncianteBPO->getLogin();
-                $login->iniciarSessao($anuncianteBPO, '0');
-                echo "Cadastrado com sucesso.";
-            }
-
+                $es = $IO->addERRO($es, 821 , 'Imagem invalida');
+            } 
+        #   ------------------------------------------------------------------------------------
+        
+        #   Se existir algum es, mostra o es
+            $es ? $IO->retornar400($es) : $this->retornar201($ps);
         }
+        public function retornar201($ps){
+        #   Cadastrando a imagem de perfil:    
+            $codigoImagem = ImagemDAO::getInstance()->cadastrar($ps['imagem_perfil']);
+        
+            $loginBPO = new LoginBPO(
+                null, 
+                $ps['usuario_login'], 
+                $ps['usuario_senha'], 
+                null
+            );    
+            $enderecoBPO = new EnderecoBPO(
+                null, 
+                $ps['sigla_estado'], 
+                $ps['nome_cidade'], 
+                $ps['codigo_postal'], 
+                $ps['numero_residencial'], 
+                $ps['longitude'], 
+                $ps['latitude']
+            );
+            $anuncianteBPO = new AnuncianteBPO(
+                null, 
+                $ps['usuario_nome'], 
+                $ps['usuario_email'], 
+                $ps['usuario_telefone'], 
+                $enderecoBPO, 
+                $loginBPO, 
+                $codigoImagem
+            );
+            
+            $anuncianteDAO = AnuncianteDAO::getInstance();
+            $anuncianteBPO = $anuncianteDAO->cadastrarAnunciante($anuncianteBPO);
+            
+            header('HTTP/1.1 201 Created');
+            header('Content-type: application/json');
+        #   Uma solução MVP para o problema de pegar o Authorization via Js:
+            header("Authorization: ".$anuncianteBPO->getLogin()->getToken()."");
+        #   echo json_encode(array('token'=>$anuncianteBPO->getLogin()->getToken()));
+        }
+
     }
 ?>

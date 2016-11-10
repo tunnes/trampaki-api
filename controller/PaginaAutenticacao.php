@@ -1,5 +1,4 @@
 <?php
-    session_start();
     require_once 'configuration/autoload-geral.php';
     
     class PaginaAutenticacao{
@@ -15,13 +14,10 @@
         
             $dadosLogin  = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
             $dadosSenha  = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
-                
+            
+            $token = base64_encode($dadosLogin. ':' .$dadosSenha);    
             $loginDAO = LoginDAO::getInstance();
-            $loginDAO->gerarAutenticacao($dadosLogin, $dadosSenha) ? $this->redirecionar() : print "login ou email invalido.";
-        }
-        private function teste(){
-            $anuncianteBPO = unserialize($_SESSION['objetoUsuario']);
-            echo $anuncianteBPO->getNome();
+            $usuario = $loginDAO->gerarAutenticacao($token);
         }
         private function redirecionar(){
             header('HTTP/1.1 301 Moved Permanently');

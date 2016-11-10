@@ -1,34 +1,21 @@
 <?php
-    session_start();
     require_once 'configuration/autoload-geral.php';
 
     class CarregarAnuncios{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->responsePOST() : $this->responseGET();
+            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarToken() : null;
         }
-        private function carregarAnuncios(){
-            $anuncioDAO = AnuncioDAO::getInstance();
-            $response = $anuncioDAO->listarAnuncios();
+        private function validarToken(){
+            $this->retornar200();
+            // $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
+            // $prestadorBPO instanceof PrestadorBPO ? $this->retornar200() : header('HTTP/1.1 401 Unauthorized');
+        }
+        private function retornar200(){
+            header('HTTP/1.1 200 OK');
             header('Content-type: application/json');
+            $response = AnuncioDAO::getInstance()->consultarTodos();
             echo json_encode($response);
-        }
-        private function responsePOST(){
-            switch ($_SESSION['tipoUsuario']){
-                    case 1:
-                    case 2:
-                        $this->carregarAnuncios(); break;
-                        break;
-                    case 0:
-                        echo 'voce não possui privilegio para isto malandrãoo!';
-                        break;
-                    default:
-                        header('Location: login');  
-                        break;
-            }
-        }
-        private function responseGET(){
-            include('view/pagina-404.html');
         }
     }
 ?>

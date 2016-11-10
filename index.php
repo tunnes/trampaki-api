@@ -1,4 +1,11 @@
 <?php
+#   Configuração de requisições ao servidor:
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Authorization");
+//  header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
+    
+ 
+    
     require_once 'router.php';
     require_once 'configuration/autoload-geral.php';
 
@@ -18,6 +25,7 @@
         '/editar-prestador'         =>'EditarPrestador',
         '/carregar-anuncio'         =>'CarregarAnuncio',
         '/carregar-anuncios'        =>'CarregarAnuncios',
+        '/carregar-imagem'          =>'CarregarImagem',
         '/carregar-categorias'      =>'CarregarCategorias',
         '/carregar-prestadores'     =>'CarregarPrestadores',
         '/carregar-solicitacoes'    =>'CarregarSolicitacoes',
@@ -27,5 +35,10 @@
     );
     
     foreach ($rotas as $URL => $CLASS) { $roteador -> novaRota($URL, $CLASS); }
+    // echo 'URL: '.$_GET['url'];
+    // echo '<hr>';
+    // echo 'PARAM: '.$_GET['param'];
+    // echo '<hr>';
+    
     $roteador -> rotear();
 ?>

@@ -1,35 +1,26 @@
 <?php
     require_once 'configuration/autoload-geral.php';
+    
     class NovaConexaoPrestador{
         public function __construct(){
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarSessao() : null; 
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarToken() : null; 
         }
-        private function validarSessao(){
-            switch ($_SESSION['tipoUsuario']){
-                    case 1:
-                    case 2:
-                        $this->validarPOST();
-                        break;
-                    case 0:
-                        echo 'voce não possui privilegio para isto malandrãoo!';
-                        break;
-                    default:
-                        header('Location: login');  
-                        break;
-            }
+        private function validarToken(){
+            $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
+            $prestadorBPO instanceof PrestadorBPO ? $this->validarPOST($prestadorBPO) : header('HTTP/1.1 401 Unauthorized');
         }
-        private function validarPOST(){
+        private function validarPOST($prestadorBPO){
             $IO = ValidacaoIO::getInstance();
-            $erro = array();
-            $erro = $IO->validarConsisten($erro, $_POST["codigoAnuncio"]);
-            $erro = $IO->validarAnuncio($erro, $_POST["codigoAnuncio"]);
-            $erro ? $IO->retornar400($erro) : $this->retornar200();
+            $es = array();
+            
+            $es = $IO->validarConsisten($es, $_POST["codigo_anuncio"]);
+            $es = $IO->validarAnuncio($es, $_POST["codigo_anuncio"]);
+            $es ? $IO->retornar400($es) : $this->retornar201($prestadorBPO);
         }
-        private function retornar200(){
-            $prestadorBPO = unserialize($_SESSION['objetoUsuario']);
+        private function retornar201($prestadorBPO){
             $prestadorDAO = PrestadorDAO::getInstance();
-            $prestadorDAO->novaConexao($prestadorBPO, $_POST['codigoAnuncio']);
-            header('HTTP/1.1 200 OK');            
+            $prestadorDAO->novaConexao($prestadorBPO, $_POST['codigo_anuncio']);
+            header('HTTP/1.1 201 Created');          
         }
     }
 ?>    

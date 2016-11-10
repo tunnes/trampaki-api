@@ -57,6 +57,12 @@
             }
             return $categoriasBPO;            
         }
+        public function consultarTodas(){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL = $bancoDeDados->prepare("SELECT * FROM categoria");
+            $comandoSQL->execute();
+            return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);
+        }
         
     }
 ?>

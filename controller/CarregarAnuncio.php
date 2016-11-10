@@ -1,39 +1,25 @@
 <?php
-    session_start();
     require_once 'configuration/autoload-geral.php';
     
     class CarregarAnuncio{
         public function __construct(){
-        #   Verificação de metodo da requisição:
-            echo "AKI";
-            $_SERVER['REQUEST_METHOD'] == 'POST'? $this->validarSessao() : include('view/pagina-404.html');
+            $_SERVER['REQUEST_METHOD'] == 'GET'? $this->validarToken() : header('HTTP/1.1 400 Bad Request');
         }
-        private function validarSessao(){
-            switch ($_SESSION['tipoUsuario']){
-                    case 1:
-                    case 2:
-                        $this->validarPOST();
-                        break;
-                    case 0:
-                        echo 'voce não possui privilegio para isto malandrãoo!';
-                        break;
-                    default:
-                        header('Location: login');  
-                        break;
-            }
+        private function validarToken(){
+            $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
+            $prestadorBPO instanceof PrestadorBPO ? $this->validarGET() : header('HTTP/1.1 401 Unauthorized');
         }
-        private function validarPOST(){
+        private function validarGET(){
             $IO = ValidacaoIO::getInstance();
-            $erro = array();
-            $erro = $IO->validarConsisten($erro, $_POST["codigoAnuncio"]);
-            $erro = $IO->validarAnuncio($erro, $_POST["codigoAnuncio"]);
-            $erro ? $IO->retornar400($erro) : $this->retornar200(); 
+            $es = array();
+            $es = $IO->validarConsisten($es, $_GET["param"]);
+            $es = $IO->validarAnuncio($es,   $_GET["param"]);
+            $es ? $IO->retornar400($es) : $this->retornar200(); 
         }
         private function retornar200(){
-            $anuncioDAO = AnuncioDAO::getInstance();
             header('HTTP/1.1 200 OK');
             header('Content-type: application/json');
-            $response = $anuncioDAO->consultarAnuncio($_POST["codigoAnuncio"]);
+            $response = AnuncioDAO::getInstance()->consultarAnuncio($_GET["param"]);
             echo json_encode($response);    
         }
     }

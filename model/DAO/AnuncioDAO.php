@@ -7,15 +7,18 @@
         }
     
     #   Funções de acesso ao banco ----------------------------------------------------------------------------------------------------------
-        public function cadastrarAnuncio(AnuncioBPO $anuncioBPO, $categorias){
+        public function cadastrar(AnuncioBPO $anuncioBPO, $categorias){
             $bancoDeDados = Database::getInstance();
-            $querySQL   = "INSERT INTO anuncio (cd_usuario, nm_titulo, ds_anuncio, qt_areaAlcance, cd_status) 
-                                        VALUES (:cd_usuario, :nm_titulo, :ds_anuncio, :qt_areaAlcance, '0')";
+            $querySQL   = "INSERT INTO anuncio (cd_usuario, nm_titulo, ds_anuncio, qt_areaAlcance, cd_status, cd_imagem01, cd_imagem02, cd_imagem03) 
+                           VALUES (:cd_usuario, :nm_titulo, :ds_anuncio, :qt_areaAlcance, '0', :cd_imagem01, :cd_imagem02, :cd_imagem03)";
             $comandoSQL =  $bancoDeDados->prepare($querySQL);
             $comandoSQL -> bindParam(':cd_usuario',     $anuncioBPO->getCodigoAnunciante());
             $comandoSQL -> bindParam(':nm_titulo',      $anuncioBPO->getTitulo());
             $comandoSQL -> bindParam(':ds_anuncio',     $anuncioBPO->getDescricao());
             $comandoSQL -> bindParam(':qt_areaAlcance', $anuncioBPO->getAreaAlcance());
+            $comandoSQL -> bindParam(':cd_imagem01',    $anuncioBPO->getImagem01());
+            $comandoSQL -> bindParam(':cd_imagem02',    $anuncioBPO->getImagem02());
+            $comandoSQL -> bindParam(':cd_imagem03',    $anuncioBPO->getImagem03());
             $comandoSQL->execute();
             
             $codigoAnuncio = $bancoDeDados->lastInsertId();
@@ -25,13 +28,20 @@
                 $this->selecionarCategoria($codigoAnuncio, $categoria);
             }
         }
-        public function listarAnuncios(){
+        public function consultarTodos(){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT A.cd_usuario, AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, E.cd_latitude, E.cd_longitude 
+            // $comandoSQL   = $bancoDeDados->prepare("SELECT A.cd_usuario, AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, E.cd_latitude, E.cd_longitude 
+            //                                         FROM usuario as U 
+            //                                         INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
+            //                                         INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
+            //                                         INNER JOIN anuncio as AN ON A.cd_usuario = AN.cd_usuario
+            //                                         INNER JOIN categoriaAnuncio as CA ON CA.cd_anuncio = CA.cd_anuncio");
+            $comandoSQL   = $bancoDeDados->prepare("SELECT AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, AN.cd_imagem01, E.cd_latitude, E.cd_longitude 
                                                     FROM usuario as U 
                                                     INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
                                                     INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
-                                                    INNER JOIN anuncio as AN ON A.cd_usuario = AN.cd_usuario");
+                                                    INNER JOIN anuncio as AN ON A.cd_usuario = AN.cd_usuario");            
+        
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);
         }
@@ -55,7 +65,20 @@
             $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM anuncio WHERE cd_anuncio = :cd_anuncio");
             $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);
             $comandoSQL->execute();
-            return $comandoSQL->fetch(PDO::FETCH_OBJ);
+            $row = $comandoSQL->fetch(PDO::FETCH_OBJ);
+            return $anuncioBPO = new AnuncioBPO(
+                $row->cd_anuncio, 
+                $row->cd_usuario, 
+                $row->nm_titulo, 
+                $row->ds_anuncio, 
+                $row->qt_areaAlcance, 
+                CategoriaDAO::getInstance()->consultarAnunCate($row->cd_anuncio), 
+                $row->cd_status, 
+                $row->cd_imagem01,
+                $row->cd_imagem02,
+                $row->cd_imagem03
+            );
+            
         }
         public function editarAnuncio($codigoAnuncio, $titulo, $descricao, $areaAlcance, $status){
             $bancoDeDados = Database::getInstance();
