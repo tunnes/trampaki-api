@@ -242,8 +242,8 @@
                     
                     
                     var item_solicitacao = document.createElement("div");
-                    var imagem_solicitacao = document.createElement("div");
-                        solicitacao.cd_imagem01 != null ? carregarImagem(imagem_solicitacao, solicitacao.cd_imagem01) : null;
+                    var div_image_solicitacao = document.createElement("div");
+                        solicitacao.cd_imagem01 != null ? carregarImagem(div_image_solicitacao, solicitacao.cd_imagem01) : null;
                         
                     var info_solicitacao = document.createElement("div");
                     var titulo = document.createElement("strong");
@@ -251,30 +251,28 @@
                     var cidade = document.createElement("p");
                         cidade.innerHTML = solicitacao.nm_cidade +', '+ solicitacao.sg_estado;
 
-                    imagem_solicitacao.onclick=function(){
+                    div_image_solicitacao.onclick=function(){
                         visualizaAnuncio(solicitacao.cd_anuncio)
                     }
-                        
-                    item_solicitacao.className = 'item_solicitacao';
-                    imagem_solicitacao.className = 'imagem_solicitacao';
-                    info_solicitacao.className = 'info_solicitacao';
-                    buttons_solicitacao.className = 'buttons_solicitacao';
+                    item_solicitacao.className = 'item_solicitacao col-xs-12 col-sm-6 col-md-5';
+                    div_image_solicitacao.className = 'col-xs-5 col-sm-5 col-md-5 imagem_solicitacao';
+                    info_solicitacao.className = 'col-xs-7 col-sm-7 col-md-7 info_solicitacao';
                         
                     info_solicitacao.appendChild(titulo);
                     info_solicitacao.appendChild(cidade);
-                        
-                        
-                    item_solicitacao.appendChild(imagem_solicitacao);
-                    item_solicitacao.appendChild(info_solicitacao);
+                           
+                    item_solicitacao.appendChild(div_image_solicitacao);
+                    
                     
                     if(solicitacao.cd_solicitante == 1){
                         
                         var button_cancelar = document.createElement("button");
                             button_cancelar.innerHTML = 'CANCELAR';
-                            button_cancelar.className = 'item_cancelar';
+                            button_cancelar.className = 'item_cancelar pull-right';
                         
                         buttons_solicitacao.appendChild(button_cancelar);
-                        item_solicitacao.appendChild(buttons_solicitacao);
+                        info_solicitacao.appendChild(buttons_solicitacao);
+                        item_solicitacao.appendChild(info_solicitacao);
                         
                     }else if(solicitacao.cd_solicitante == 0){
                         

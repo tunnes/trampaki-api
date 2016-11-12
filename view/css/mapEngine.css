@@ -2,18 +2,15 @@
 html, body{
 	height: 100%;
 	margin: 0px;
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans', sans-serif !important;
     
 }
 
 /* JANELA CENTRAL -------------------------------------------------------------- */
 #janela{
-    float:left;
-    width: 65%;
     display: none;
     margin: 0px 0px 0px 40px;
     height: 100%;
-    position: relative; 
     margin-left: 15%;
     padding-left: 5%;
 }
@@ -436,13 +433,16 @@ html, body{
 /* SOLICITACOES ---------------------------------------------------------------------------------------- */
 .item_solicitacao {
     float:left;
+    
+    height: 100px;
     margin-right: 6px;
-    width: 45%;
-    height: 90px;
     margin-top: 10px;
     border: 1px Solid #101010;
     border-right-width: 8px;
+    padding: 0px !important;
+    
 }
+
 .item_solicitacao button{
     margin-right: 2px;
     font-size: 10px;
@@ -463,8 +463,8 @@ html, body{
 .imagem_solicitacao{
     border-right: 1px Solid #101010;
     display: inline-block;
-    width: 90px;
-    height: 90px;
+    /*width: 90px;*/
+    height: 98px;
     background-image:url('https://trampaki-tunnes.c9users.io/view/img/anunc.jpg');
     background-repeat:no-repeat;
     background-size: cover;
@@ -472,13 +472,10 @@ html, body{
 }
 
 .info_solicitacao{
-    width: 70%;
-    margin-top: 11px;
-    margin-left: 15px;
-    float: left;
-    width: 270px;
+    margin-top: 15px;
 }
 .info_solicitacao strong{
+    font-size: 12px;
     font-weight: 800;
     text-transform: uppercase;
 }
