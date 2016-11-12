@@ -78,6 +78,9 @@
         	statusCode:{
         		400: function(){
         		    modalConectar(400);
+        		},
+        		201: function(){
+        		    modalConectar(201);
         		}
         	}
         });
@@ -217,6 +220,8 @@
             }
         });
     }
+    function solicitacoesRecebidas(){}
+    function solicitacoesEnviadas(){}
     function solicitacoes(){
 	    novaJanela("/view/ajax/prestador-solicitacoes.html");
 	    $.ajax({
@@ -228,8 +233,10 @@
             },
             complete: function(data){
                 data = JSON.parse(data.responseText);
-                var solicitacoesDOM = document.getElementById('solicitacoes');
-                solicitacoesDOM.innerHTML = '';
+                var soli_enviadDOM = document.getElementById('solicitacoes_enviadas');
+                var soli_recebiDOM = document.getElementById('solicitacoes_recebidas');
+                soli_enviadDOM.innerHTML = ' ';
+                soli_recebiDOM.innerHTML = ' ';
                 [].slice.call(data).forEach(function(solicitacao){
                     var buttons_solicitacao = document.createElement("div");
                     
@@ -243,19 +250,7 @@
                         titulo.innerHTML = solicitacao.nm_titulo;
                     var cidade = document.createElement("p");
                         cidade.innerHTML = solicitacao.nm_cidade +', '+ solicitacao.sg_estado;
-                    var button_aceitar = document.createElement("button");
-                        button_aceitar.innerHTML = 'ACEITAR';
-                    
-                    button_aceitar.onclick=function(){
-                        aceitarConexao(solicitacao.cd_conexao);
-                    }
-                        
-                    var button_recusar = document.createElement("button");
-                        button_recusar.innerHTML = 'RECUSAR';
-                    button_recusar.onclick=function(){
-                        recusarConexao(solicitacao.cd_conexao);
-                    }
-                            
+
                     imagem_solicitacao.onclick=function(){
                         visualizaAnuncio(solicitacao.cd_anuncio)
                     }
@@ -271,15 +266,57 @@
                         
                     item_solicitacao.appendChild(imagem_solicitacao);
                     item_solicitacao.appendChild(info_solicitacao);
+                    
+                    if(solicitacao.cd_solicitante == 1){
                         
-                    buttons_solicitacao.appendChild(button_aceitar);
-                    buttons_solicitacao.appendChild(button_recusar);
-                    item_solicitacao.appendChild(buttons_solicitacao);                        
+                        var button_cancelar = document.createElement("button");
+                            button_cancelar.innerHTML = 'CANCELAR';
+                            button_cancelar.className = 'item_cancelar';
                         
-                    solicitacoesDOM.appendChild(item_solicitacao);   
+                        buttons_solicitacao.appendChild(button_cancelar);
+                        item_solicitacao.appendChild(buttons_solicitacao);
+                        
+                    }else if(solicitacao.cd_solicitante == 0){
+                        
+                        var button_aceitar = document.createElement("button");
+                            button_aceitar.innerHTML = 'ACEITAR';
+                        
+    
+                        button_aceitar.onclick=function(){
+                            aceitarConexao(solicitacao.cd_conexao);
+                        }
+                            
+                        var button_recusar = document.createElement("button");
+                            button_recusar.innerHTML = 'RECUSAR';
+                        
+                        button_recusar.onclick=function(){
+                            recusarConexao(solicitacao.cd_conexao);
+                        }                        
+                        buttons_solicitacao.appendChild(button_aceitar);
+                        buttons_solicitacao.appendChild(button_recusar);
+                        item_solicitacao.appendChild(buttons_solicitacao);    
+                    };    
+                    solicitacao.cd_solicitante == 1 ? soli_enviadDOM.appendChild(item_solicitacao) : soli_recebiDOM.appendChild(item_solicitacao);
                 });
             }
         });
+    }
+    
+    function soliEnviadas(e){
+        e.style.borderBottom = "3px solid black";
+        e.style.color = 'Black';
+    	document.getElementById('span_recebidas').style.borderBottom = "none";
+    	document.getElementById('span_recebidas').style.color  =  "gray";
+    	$("#solicitacoes_recebidas").hide();
+        $("#solicitacoes_enviadas").fadeIn('slow');
+    }
+    function soliRecebidas(e){
+        e.style.borderBottom = "3px solid black";
+    	e.style.color = 'Black';
+    	document.getElementById('span_enviadas').style.borderBottom = "none";
+    	document.getElementById('span_enviadas').style.color  =  "gray";
+    	$("#solicitacoes_recebidas").fadeIn('slow');
+        $("#solicitacoes_enviadas").hide();        
     }
     
     

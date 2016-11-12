@@ -3,8 +3,8 @@ function modalConectar(status){
     var descricao_201 = "Solicitação enviada com sucesso, em breve sua solicitação sera respondida.";
     var descricao_400 = "Solicitação já enviada, por favor selecione outro anuncio ou entre em contato com nossa equipe.";
 
-    var titulo_201 = "Solicitacao Efetuada";
-    var titulo_400 = "Solicitacao Já enviada";
+    var titulo_201 = "Solicitacão Efetuada";
+    var titulo_400 = "THE ERRO HAS BEEN PLANTED";
 
         switch (status) {
             case 201:
