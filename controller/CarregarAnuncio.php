@@ -3,7 +3,8 @@
     
     class CarregarAnuncio{
         public function __construct(){
-            $_SERVER['REQUEST_METHOD'] == 'GET'? $this->validarToken() : header('HTTP/1.1 400 Bad Request');
+            $_SERVER['REQUEST_METHOD'] == 'GET'? $this->validarToken() : null;
+            // header('HTTP/1.1 400 Bad Request')
         }
         private function validarToken(){
             $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);

@@ -47,7 +47,8 @@
                     200:function(data, textStatus, request){
                             sessionStorage.setItem('authorization', request.getResponseHeader('authorization'));
                             sessionStorage.setItem('trampaki-user', request.getResponseHeader('trampaki-user'));                            
-                            request.getResponseHeader('trampaki-user') == '0' ? window.location.assign("https://trampaki-tunnes.c9users.io/painel-de-operacoes") : painelPrestador();  
+                            console.log(request.getResponseHeader('authorization'));
+                            // request.getResponseHeader('trampaki-user') == '0' ? window.location.assign("https://trampaki-tunnes.c9users.io/painel-de-operacoes") : painelPrestador();  
                         }
                     }
                 });

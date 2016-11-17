@@ -3,7 +3,9 @@
     
     class NovoPrestador{
         public function __construct(){
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarPOST() : header('HTTP/1.1 400 Bad Request');
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarPOST() : null;
+            // header('HTTP/1.1 400 Bad Request');
+            
         }
         private function validarPOST(){
         #   Variável '$es' conterá informações relativas ao es de validação '$IO' é a instância de ValidaoIO:
@@ -96,7 +98,9 @@
             
             header('HTTP/1.1 201 Created');
         #   Uma solução MVP para o problema de pegar o Authorization via Js:
+            header("Access-Control-Expose-Headers: Authorization, Trampaki-user");
             header("Authorization: ".$prestadorBPO->getLogin()->getToken()."");
+            header("Trampaki-user: 1");
         #   echo json_encode(array('token'=>$anuncianteBPO->getLogin()->getToken()));
         }
     }
