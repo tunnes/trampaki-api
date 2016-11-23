@@ -14,6 +14,15 @@ public class ChatDAO {
         $cmd->bindParam(":dois", $ud);
         $cmd->execute();
     }
+    
+    public function checarChat($uu, $ud) {
+        $cmd = Database::getInstance()->prepare("SELECT * FROM chat WHERE cd_usuario_um = least(:um, :dois) AND cd_usuario_dois = greatest(:um, :dois)");
+        $cmd->bindParam(":um",   $uu);
+        $cmd->bindParam(":dois", $ud);
+        $cmd->execute();
+        $res = $cmd->fetch(PDO::FETCH_OBJ);
+        return isset($res) ? new ChatBPO($res->cd_usuario_um, $res->cd_usuario_dois) : $res;
+    }
 }
 
 ?>

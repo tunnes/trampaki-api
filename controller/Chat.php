@@ -1,38 +1,52 @@
 <?php
 
 class Chat {
-    private $host = "";
-    private $self;
-    private $user;
-    private $socket;
-
-    private static final $history = "/"
-
-    private function getErr() {
-        return socket_last_error() . ": " . socket_strerror(socket_last_error());
+    public static $chatFolder = '../chat/';
+    
+    public function __construct() {
+        set_time_limit(0);
+        header('Content-type: application/json');
+        switch ($_SERVER['REQUEST_METHOD']) {
+            case 'GET':
+                $this->checkMessages();
+            case 'POST':
+                $this->writeMessage();
+        }
     }
-
-    private function __construct(Usuario $s, Usuario $u) {
-        $this->self = $s;
-        $this->user = $u;
-        $this->socket = socket_create(AF_INET, SOCK_STREAM, SOL_TCP) or die(getErr());
-                        socket_bind  ($this->socket, "localhost")    or die(getErr());
-                        socket_listen($this->socket)                 or die(getErr());
-    }
-
-    public static function abrirChat(Usuario $s, Usuario $u) {
-        return new Chat($s, $u);
-    }
-
-    public static function aceitarChat(Chat $chat) {
-        $chat->socket = socket_accept($chat->socket) or die(getErr());
-        $ms = $history . $chat->self->getCodigoUsuario() . "/" . $chat->user->getCodigoUsuario();
-        if (file_exists($ms)) {
-            foreach(file($ms) as $m) {
-                socket_write($chat->socket, $m) or die(getErr());
+    
+    private function checkMessages($uu, $ud) {
+        while(true) {
+            $lastCall     = isset($_GET['timestamp']) ? (int) $_GET['timestamp'] : null;
+            $maybeMessage = ChatDAO::getInstance()->checarChat($uu, $ud);
+            if (isset($maybeMessage)) {
+                clearstatcache();
+                $chatFile   = $chatFolder . (string) $maybeMessage;
+                $lastChange = filemtime($chatFile);
+                if ($lastCall == null || $lastChange > $lastCall) {
+                    echo json_encode(array(
+                        'history'   => file_get_contents($chatFile),
+                        'timestamp' => $lastChange
+                    ));
+                    break;
+                }
+                else {
+                    sleep(1);
+                    continue;
+                }
+            }
+            else {
+                header('HTTP/1.1 400 Bad Request');
+                echo json_encode('{err: chat não existe}');
+                break;
             }
         }
-        return $chat;
+    }
+    private function writeMessage($uu, $ud) {
+        $maybeChat = ChatDAO::getInstance()->checarChat($uu, $ud);
+        if (isset($maybeChat)) {
+            file_put_contents($chatFolder . (string) $maybeChat, file_get_contents('php://input'), FILE_APPEND);
+            header('HTTP/1.1 200 OK');
+        }
     }
 }
 
