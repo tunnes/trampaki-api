@@ -55,7 +55,18 @@
             $xs = array();
             foreach($rows as $row){
                 $categoriasBPO = CategoriaDAO::getInstance()->consultarAnunCate($row->cd_anuncio);
-                $an = new AnuncioBPO($row->cd_anuncio, $row->cd_usuario, $row->nm_titulo, $row->ds_anuncio, $row->qt_areaAlcance, $categoriasBPO, $row->cd_status);
+                $an = new AnuncioBPO(
+                    $row->cd_anuncio, 
+                    $row->cd_usuario, 
+                    $row->nm_titulo, 
+                    $row->ds_anuncio, 
+                    $row->qt_areaAlcance, 
+                    $categoriasBPO, 
+                    $row->cd_status, 
+                    $row->cd_imagem01, 
+                    $row->cd_imagem02, 
+                    $row->cd_imagem03
+                );
                 array_push($xs, $an); 
             }
             return $xs;     
