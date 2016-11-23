@@ -4,7 +4,6 @@
     class CarregarAnuncio{
         public function __construct(){
             $_SERVER['REQUEST_METHOD'] == 'GET'? $this->validarToken() : null;
-            // header('HTTP/1.1 400 Bad Request')
         }
         private function validarToken(){
             $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
@@ -13,10 +12,10 @@
         private function validarGET(){
             $IO = ValidacaoIO::getInstance();
             $es = array();
-            $es = $IO->validarConsisten($es, $_GET["param"]);
-            $es = $IO->validarAnuncio($es,   $_GET["param"]);
-            $es ? $IO->retornar400($es) : $this->retornar200(); 
+            $es = $IO->validarPrestador($es, $_GET["param"]);
+            $es ? $IO->retornar400($es) : $this->retornar200();
         }
+
         private function retornar200(){
             header('HTTP/1.1 200 OK');
             header('Content-type: application/json');

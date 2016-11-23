@@ -24,6 +24,7 @@
         '/carregar-anuncio'         =>'CarregarAnuncio',
         '/carregar-anuncios'        =>'CarregarAnuncios',
         '/carregar-imagem'          =>'CarregarImagem',
+        '/carregar-perfil-prestador' =>'CarregarPerfilPrestador',        
         '/aceitar-conexao'          =>'AceitarConexao',
         '/carregar-categorias'      =>'CarregarCategorias',
         '/carregar-prestadores'     =>'CarregarPrestadores',

@@ -5,7 +5,7 @@
     class CarregarDadosAnunciante{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarToken() : header('HTTP/1.1 400 Bad Request');
+            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarToken() : null;
         }
         private function validarToken(){
             $anuncianteBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);

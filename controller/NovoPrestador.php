@@ -107,6 +107,8 @@
         
             $ps['longitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
             $ps['latitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
+           
+            return $ps;
         }
         
     }
