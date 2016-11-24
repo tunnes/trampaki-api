@@ -36,18 +36,18 @@
         #   Verificando se longitude, latitude são numeros:
             $es = $IO->validarAlcance($es, $ps['distancia_alcance']);
 
-        #   Manipulando funcionalmente as categorias:
+        #   Manipulando funcionalmente as categorias -------------------------------------------------------------------------------
         #   https://secure.php.net/manual/pt_BR/function.array-diff.php
         #   http://php.net/manual/pt_BR/function.array-unique.php
         
             array_push($cs, $ps['codigo_categoria_01'], $ps['codigo_categoria_02'], $ps['codigo_categoria_03']);
             
-            $es = $IO->validarCategorias($es, $cs);
-
         #   Remover valores nullos:    
             $cs = array_filter($cs);
         #   Remover valores repetidos:    
             $cs = array_unique($cs);
+            
+            $es = $IO->validarCategorias($es, $cs);
 
         #   Se existir algum es, mostra o es
             $es ? $IO->retornar400($es) : $this->retornar201($ps, $cs, $blob, $anuncianteBPO);
