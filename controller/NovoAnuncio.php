@@ -1,12 +1,11 @@
 <?php
-    session_start();
     require_once 'configuration/autoload-geral.php';
     
     class NovoAnuncio{
         public function __construct(){
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarSessao() : header('HTTP/1.1 400 Bad Request');; 
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarToken() : null; 
         }
-        private function validarSessao(){
+        private function validarToken(){
             $anuncianteBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
             $anuncianteBPO instanceof AnuncianteBPO ? $this->validarPOST($anuncianteBPO) : header('HTTP/1.1 401 Unauthorized');
         }
@@ -21,7 +20,7 @@
         #   Criando variáveis dinamicamente, e removendo possiveis tags HTML, espaços em branco e valores nulos:
             foreach ($_POST as $atributo => $valor){
     	        $ps[$atributo] = trim(strip_tags($valor));
-            	$es = $IO->validarConsisten($es, $valor);
+            	$es = $IO->validarConsisten($es, $atributo, $valor);
             }        
         
         #   Validação da imagem de perfil -----------------------------------------------------------------------------------------

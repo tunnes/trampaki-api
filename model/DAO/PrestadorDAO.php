@@ -75,14 +75,15 @@
             foreach($categorias as $categoria){ $this->selecionarCategoria($prestadorBPO->getCodigoUsuario(), $categoria);}
 
         }
-        public function excluirVinculoCategoria($codigo){
-            $bancoDeDados  = Database::getInstance();
-            $querySQL = "DELETE FROM categoriaPrestador WHERE cd_usuario = :cd_usuario";
-            $comandoSQL =  $bancoDeDados->prepare($querySQL);
-            $comandoSQL->bindParam(':cd_usuario', $codigo);
+        public function novaConexao(PrestadorBPO $prestadorBPO, $codigoAnuncio){
+            $bancoDeDados = Database::getInstance();
+            $querySQL = "INSERT INTO conexao (cd_anuncio, cd_usuario, cd_status, cd_solicitante) VALUES (:cd_anuncio, :cd_usuario, '0', '1')";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
+            $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            
             $comandoSQL->execute();
         }
-        private function selecionarCategoria($codigoUsuario, $codigoCategoria){
+        public function selecionarCategoria($codigoUsuario, $codigoCategoria){
             $bancoDeDados = Database::getInstance();
             $querySQL = "INSERT INTO categoriaPrestador (cd_usuario, cd_categoria) VALUES (:cd_usuario, :cd_categoria)";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
@@ -90,14 +91,52 @@
                     $comandoSQL->bindParam(':cd_categoria', $codigoCategoria);
                     $comandoSQL->execute();
         }
-        public function listarPrestadores(){
+        public function carregarSolicitacoes(PrestadorBPO $prestadorBPO){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT P.cd_usuario, U.nm_usuario, E.cd_longitude, E.cd_latitude 
-	                                                    FROM usuario as U 
-	                                                    INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
-	                                                    INNER JOIN prestador as P ON U.cd_usuario = P.cd_usuario");
+            $querySQL = "SELECT C.cd_conexao, C.cd_anuncio, A.cd_imagem01, A.nm_titulo, E.nm_cidade, E.sg_estado, C.cd_status, C.cd_solicitante 
+                        	FROM conexao AS C 
+                        	INNER JOIN anuncio AS A ON C.cd_anuncio = A.cd_anuncio
+                        	INNER JOIN usuario AS U ON A.cd_usuario = U.cd_usuario
+                        	INNER JOIN endereco AS E ON U.cd_endereco = E.cd_endereco
+                         WHERE C.cd_usuario = :cd_usuario and C.cd_status = '0'";
+                         
+            $comandoSQL   = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
             $comandoSQL->execute();
-            return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);     
+            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+        }
+        public function meusServicos(PrestadorBPO $prestadorBPO){
+            $bancoDeDados = Database::getInstance();
+            $querySQL = "SELECT A.cd_imagem01, C.cd_anuncio, A.cd_status, A.nm_titulo, E.sg_estado, E.nm_cidade  
+                         FROM conexao as C 
+                         INNER JOIN anuncio as A ON A.cd_anuncio = C.cd_anuncio 
+                         INNER JOIN usuario as U ON U.cd_usuario = A.cd_usuario 
+                         INNER JOIN endereco as E ON E.cd_endereco = U.cd_endereco 
+                         WHERE C.cd_usuario = :cd_usuario AND C.cd_status = '1'";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_usuario',  $prestadorBPO->getCodigoUsuario());
+            $comandoSQL->execute();
+            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);     
+        }
+        public function consultarPerfil($codigoPrestador){
+        #   Esta função esta muito quebrada, fiz isso meio que sem pensar ai é foda..    
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT P.*, U.*, E.* FROM usuario as U 
+                                                    	INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
+                                                    	INNER JOIN prestador as P ON U.cd_usuario = P.cd_usuario
+                                                    WHERE P.cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_usuario', $codigoPrestador);
+            $comandoSQL->execute();
+            $objeto = $comandoSQL->fetch(PDO::FETCH_OBJ);
+            $objeto->categorias = CategoriaDAO::getInstance()->consultarPresCate($objeto->cd_usuario);
+            return $objeto;                        
+        }
+        public function excluirVinculoCategoria($codigo){
+            $bancoDeDados  = Database::getInstance();
+            $querySQL = "DELETE FROM categoriaPrestador WHERE cd_usuario = :cd_usuario";
+            $comandoSQL =  $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_usuario', $codigo);
+            $comandoSQL->execute();
         }
         public function consultar($codigoPrestador){
             $bancoDeDados = DataBase::getInstance();
@@ -140,23 +179,15 @@
                 
             return $prestadorBPO;                         
         }
-        public function carregarSolicitacoes(PrestadorBPO $prestadorBPO){
+        public function listarPrestadores(){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao WHERE cd_usuario = :cd_usuario");
-            $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
+            $comandoSQL   = $bancoDeDados->prepare("SELECT P.cd_usuario, P.ds_perfilProfissional, U.cd_imagem, U.nm_usuario, E.cd_longitude, E.cd_latitude 
+	                                                    FROM usuario as U 
+	                                                    INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
+	                                                    INNER JOIN prestador as P ON U.cd_usuario = P.cd_usuario");
             $comandoSQL->execute();
-            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);              
+            return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);     
         }
-        public function novaConexao(PrestadorBPO $prestadorBPO, $codigoAnuncio){
-            $bancoDeDados = Database::getInstance();
-            $querySQL = "INSERT INTO conexao (cd_usuario, cd_anuncio) VALUES (:cd_usuario, :cd_anuncio)";
-            $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
-            $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            
-            $comandoSQL->execute();
-        }
-        private function consultarCategoria($codigoCategoria){
-            
-        }
+
     }
 ?>

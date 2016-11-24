@@ -34,7 +34,7 @@
         public function getCodigoImagem(){
             return $this->codigoImagem;
         }
-        public function jsonSerialize() {
+        public function jsonSerialize(){
         #   SE EU TIVESSE QUE ME APAIXONAR POR ALGO
         #   SERIA POR ESSA FUNÇÃO E COMO AMANTE EU TERIA ESSA INTERFACE (JsonSerializable)
             return get_object_vars($this);

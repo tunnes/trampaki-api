@@ -18,10 +18,30 @@
             $token = base64_encode($dadosLogin. ':' .$dadosSenha);    
             $loginDAO = LoginDAO::getInstance();
             $usuario = $loginDAO->gerarAutenticacao($token);
+            $this->enviar200($usuario);
+
         }
         private function redirecionar(){
             header('HTTP/1.1 301 Moved Permanently');
             header("Location: painel-de-operacoes");
+        }
+        private function enviar200($usuario){
+            if($usuario instanceof AnuncianteBPO){
+                header("Access-Control-Expose-Headers: Authorization, Trampaki-user");
+                header('HTTP/1.1 200 OK');
+                header("Authorization: ".$usuario->getLogin()->getToken()."");
+                
+            }
+            elseif($usuario instanceof PrestadorBPO){
+                header("Access-Control-Expose-Headers: Authorization, Trampaki-user");
+                header('HTTP/1.1 200 OK');
+                header("Authorization: ".$usuario->getLogin()->getToken()."");
+                header("Trampaki-user: 1");
+            }
+            else{
+                header('HTTP/1.1 401 Unauthorized');
+            }
+            
         }
     }
 ?>

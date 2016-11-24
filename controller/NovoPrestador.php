@@ -3,7 +3,9 @@
     
     class NovoPrestador{
         public function __construct(){
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarPOST() : header('HTTP/1.1 400 Bad Request');
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarPOST() : null;
+            // header('HTTP/1.1 400 Bad Request');
+            
         }
         private function validarPOST(){
         #   Variável '$es' conterá informações relativas ao es de validação '$IO' é a instância de ValidaoIO:
@@ -15,14 +17,12 @@
         #   Criando variáveis dinamicamente, e removendo possiveis tags HTML, espaços em branco e valores nulos:
             foreach ( $_POST as $atributo => $valor ){
     	        $ps[$atributo] = trim(strip_tags($valor));
-            	$es = $IO->validarConsisten($es, $valor);
+            	$es = $IO->validarConsisten($es, $atributo, $valor);
             }
             
-        #   Conseguindo longitude e latitude do endereco ------------------------
-            $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'&sensor=false');
+            $ps['codigo_postal'] != null ? $ps = $this->pegarCoordenadas($ps) : null;
+            
         
-            $ps['longitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
-            $ps['latitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
             
             $es = $IO->validarAlcance($es, $ps['distancia_alcance']);    
             
@@ -96,8 +96,20 @@
             
             header('HTTP/1.1 201 Created');
         #   Uma solução MVP para o problema de pegar o Authorization via Js:
+            header("Access-Control-Expose-Headers: Authorization, Trampaki-user");
             header("Authorization: ".$prestadorBPO->getLogin()->getToken()."");
+            header("Trampaki-user: 1");
         #   echo json_encode(array('token'=>$anuncianteBPO->getLogin()->getToken()));
         }
+        private function pegarCoordenadas($ps){
+        #   Conseguindo longitude e latitude do endereco ------------------------
+            $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'&sensor=false');
+        
+            $ps['longitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
+            $ps['latitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
+           
+            return $ps;
+        }
+        
     }
 ?>
