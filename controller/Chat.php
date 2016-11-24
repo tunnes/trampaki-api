@@ -8,9 +8,9 @@ class Chat {
         header('Content-type: application/json');
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                $this->checkMessages();
+                $this->checkMessages($_GET['param'], $_GET['param2']);
             case 'POST':
-                $this->writeMessage();
+                $this->writeMessage($_GET['param'], $_GET['param2']);
         }
     }
     
