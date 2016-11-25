@@ -1,5 +1,7 @@
 <?php
 
+require_once 'configuration/autoload-geral.php';
+
 class Chat {
     private static $chatFolder = '../chat/';
     
