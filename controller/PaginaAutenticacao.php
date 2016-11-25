@@ -4,7 +4,7 @@
     class PaginaAutenticacao{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->efetuarAutenticacao() : include('view/pagina-autenticacao.html');
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->efetuarAutenticacao() : null;
         }
         
         private function efetuarAutenticacao(){

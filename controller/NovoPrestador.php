@@ -4,8 +4,6 @@
     class NovoPrestador{
         public function __construct(){
             $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarPOST() : null;
-            // header('HTTP/1.1 400 Bad Request');
-            
         }
         private function validarPOST(){
         #   Variável '$es' conterá informações relativas ao es de validação '$IO' é a instância de ValidaoIO:
@@ -91,7 +89,7 @@
                 null,
                 $codigoImagem
             );
-            
+            echo "aqui filho da puta ".$ps['longitude'] . " - " .$ps['latitude'];
             $prestadorBPO = PrestadorDAO::getInstance()->cadastrarPrestador($prestadorBPO, $cs);
             
             header('HTTP/1.1 201 Created');
@@ -100,14 +98,13 @@
             header("Authorization: ".$prestadorBPO->getLogin()->getToken()."");
             header("Trampaki-ID: ".$prestadorBPO->getCodigoUsuario());            
             header("Trampaki-user: 1");
-        #   echo json_encode(array('token'=>$anuncianteBPO->getLogin()->getToken()));
         }
         private function pegarCoordenadas($ps){
         #   Conseguindo longitude e latitude do endereco ------------------------
-            $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'&sensor=false');
+            $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'-'.'&sensor=false');
         
-            $ps['longitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
-            $ps['latitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
+            $ps['latitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
+            $ps['longitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
            
             return $ps;
         }
