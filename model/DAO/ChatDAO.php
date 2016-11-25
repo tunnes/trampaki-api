@@ -24,16 +24,24 @@ class ChatDAO {
         return isset($res) ? new ChatBPO($res->cd_usuario_um, $res->cd_usuario_dois) : $res;
     }
     
-    public function listarContatos($uu) {
+    public function listarContatos($uu, $ty) {
         $cmd = Database::getInstance()->prepare(
-            "SELECT * FROM conexao
-                INNER JOIN anuncio ON conexao.cd_anuncio = anuncio.cd_anuncio
-                INNER JOIN usuario ON anuncio.cd_usuario = usuario.cd_usuario
-                    WHERE conexao.cd_usuario = :usuario AND conexao.cd_status = 1");
+            "SELECT u1.cd_usuario AS cuu, u1.nm_usuario AS nuu, u1.cd_imagem AS ciu,
+                    u2.cd_usuario AS cud, u2.nm_usuario AS nud, u2.cd_imagem AS cid
+                      FROM usuario AS u1
+                INNER JOIN conexao AS c  ON u1.cd_usuario =  c.cd_usuario
+                INNER JOIN anuncio AS a  ON  c.cd_anuncio =  a.cd_anuncio
+                INNER JOIN usuario AS u2 ON  a.cd_usuario = u2.cd_usuario
+                    WHERE " . $ty . ".cd_usuario = :usuario AND c.cd_status = 1");
         $cmd->bindParam(":usuario", $uu);
         $cmd->execute();
         $res = $cmd->fetchAll(PDO::FETCH_OBJ);
-        
+        return isset($res) ? array_map(function($con) {
+            return new ConexaoBPO(
+                $con->cuu, $con->ciu, $con->nuu,
+                $con->cud, $con->cid, $con->nud
+            );
+        }, $res) : $res;
     }
 }
 

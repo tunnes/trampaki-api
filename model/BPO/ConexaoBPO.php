@@ -1,11 +1,19 @@
 <?php                        
-    class Conexao implements JsonSerealizable{
-        private $codigoAnuncio;
-        private $codigoPrestadorDeServico;
+    class ConexaoBPO implements JsonSerealizable{
+        private $cuu;
+        private $ciu;
+        private $nuu;
+        private $cud;
+        private $cid;
+        private $nud;
         
-        public function __construct($codigoAnuncio, $codigoPrestadorDeServico){
-            $this->codigoAnuncio;
-            $this->codigoPrestadorDeServico;
+        public function __construct($cuu, $ciu, $nuu, $cud, $cid, $nud){
+            $this->cuu = $cuu;
+            $this->ciu = $ciu;
+            $this->nuu = $nuu;
+            $this->cud = $cud;
+            $this->cid = $cid;
+            $this->nud = $nud;
         }
         public function jsonSerialize() {
         #   SE EU TIVESSE QUE ME APAIXONAR POR ALGO

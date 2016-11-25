@@ -12,7 +12,7 @@ class Chat {
                     $this->checkMessages($_GET['param'], $_GET['param2']);
                 }
                 else {
-                    $this->listContacts($_GET['param']);
+                    apache_request_headers(['trampakiuser']) ? $this->listContacts($_GET['param'], "a") : $this->listContacts($_GET['param'], "c");
                 }
                 break;
             case 'POST':
@@ -56,7 +56,7 @@ class Chat {
         }
     }
     private function listContacts($uu) {
-        
+        echo json_encode(ChatDAO::getInstance()->listarContatos($uu));
     }
 }
 

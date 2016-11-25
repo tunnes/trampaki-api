@@ -1,7 +1,7 @@
 <?php
 #   Configuração de requisições ao servidor:
     header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Authorization, TrampakiUser");
+    header("Access-Control-Allow-Headers: Authorization, TrampakiUser, Trampaki-ID");
     header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
     
     require_once 'router.php';
