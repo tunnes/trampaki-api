@@ -32,7 +32,6 @@
             
             $arrayLImpo = array();
             foreach ($arrayDoBanco as $row => $valor){ array_push( $arrayLImpo, $valor->cd_categoria); }            
-
             $result = array_diff($arrayCate, $arrayLImpo);
             
             if(count($result) > 0){
@@ -59,8 +58,8 @@
         public function validarQuantParam($array, $param, $tamanho){
             return count($param) != $tamanho ? $array = $this->addERRO($array, 800, 'Quantidade de parametros invalida') : $array;
         }
-        public function validarConsisten($array, $nome, $dadoImpuro){
-            return empty($dadoImpuro) ? $array = $this->addERRO($array, 801 , 'Atributo '. $nome . ' não pode ser nulo.') : $array;
+        public function validarConsisten($array, $dadoImpuro){
+            return empty($dadoImpuro) ? $array = $this->addERRO($array, 801 , 'Existencia de parâmetros em branco') : $array;
         }
         public function validarStatusAnuncio($xs, $x){
             return $x == '0' || $x == '1' || $x == '2' ? $xs : $xs = $this->addERRO($xs, 823, 'Status anuncio invalido');  
@@ -137,7 +136,7 @@
             $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            
             $comandoSQL->execute();
             return $comandoSQL->rowCount() == 0 ? $array : $array = $this->addERRO($array, 123, 'Conexao já existente.');
-        }
+        }        
         
     }
 ?>

@@ -4,7 +4,7 @@
     class PaginaAutenticacao{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->efetuarAutenticacao() : include('view/pagina-autenticacao.html');
+            $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->efetuarAutenticacao() : null;
         }
         
         private function efetuarAutenticacao(){
@@ -21,21 +21,19 @@
             $this->enviar200($usuario);
 
         }
-        private function redirecionar(){
-            header('HTTP/1.1 301 Moved Permanently');
-            header("Location: painel-de-operacoes");
-        }
         private function enviar200($usuario){
             if($usuario instanceof AnuncianteBPO){
-                header("Access-Control-Expose-Headers: Authorization, Trampaki-user");
+                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
-                
+                header("Trampaki-ID: ".$usuario->getCodigoUsuario());
+                header("Trampaki-user: 0");
             }
             elseif($usuario instanceof PrestadorBPO){
-                header("Access-Control-Expose-Headers: Authorization, Trampaki-user");
+                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
+                header("Trampaki-ID: ".$usuario->getCodigoUsuario());                
                 header("Trampaki-user: 1");
             }
             else{

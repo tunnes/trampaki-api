@@ -17,10 +17,7 @@
             $es = $IO->validarConsisten($es, $ps['codigo_postal']);
             
         #   Conseguindo longitude e latitude do endereco ------------------------
-            $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'&sensor=false');
-        
-            $ps['longitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
-            $ps['latitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
+            $ps['codigo_postal'] != null ? $ps = $this->pegarCoordenadas($ps) : null;
             
             
         #   Verificando se o email ou login já foram cadastrados.    
@@ -75,11 +72,19 @@
             $anuncianteBPO = $anuncianteDAO->cadastrarAnunciante($anuncianteBPO);
             
             header('HTTP/1.1 201 Created');
-            header('Content-type: application/json');
-        #   Uma solução MVP para o problema de pegar o Authorization via Js:
+            header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
             header("Authorization: ".$anuncianteBPO->getLogin()->getToken()."");
-        #   echo json_encode(array('token'=>$anuncianteBPO->getLogin()->getToken()));
+            header("Trampaki-ID: ".$anuncianteBPO->getCodigoUsuario());            
+            header("Trampaki-user: 1");
         }
-
+        private function pegarCoordenadas($ps){
+        #   Conseguindo longitude e latitude do endereco ------------------------
+            $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'&sensor=false');
+        
+            $ps['latitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
+            $ps['longitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
+           
+            return $ps;
+        }
     }
 ?>

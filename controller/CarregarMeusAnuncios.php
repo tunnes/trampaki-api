@@ -1,33 +1,19 @@
 <?php
-    session_start();
     require_once 'configuration/autoload-geral.php';
 
     class CarregarMeusAnuncios{
         public function __construct(){
         #   Verificação de metodo da requisição:
-            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarSessao() : include('view/pagina-404.html');
+            $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarToken() : null;
         }
-        private function validarSessao(){
-            switch ($_SESSION['tipoUsuario']){
-                    case 0:
-                    case 2:
-                        $this->carregarMeusAnuncios();
-                        break;
-                    case 1:
-                        echo 'voce não possui privilegio para isto malandrãoo!';
-                        break;
-                    default:
-                        header('Location: login');  
-                        break;
-            }
+        private function validarToken(){
+            $anuncianteBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
+            $anuncianteBPO instanceof AnuncianteBPO ? $this->carregarMeusAnuncios($anuncianteBPO) : header('HTTP/1.1 401 Unauthorized');
         }
-        private function carregarMeusAnuncios(){
-            $anuncianteBPO = unserialize($_SESSION['objetoUsuario']);
-            $anuncioDAO = AnuncioDAO::getInstance();
-            $response = $anuncioDAO->listarMeusAnuncios($anuncianteBPO->getCodigoUsuario());
-            
-            header('Content-type: application/json');    
-            echo json_encode($response);
+        private function carregarMeusAnuncios($anuncianteBPO){
+            header('HTTP/1.1 200 OK');
+            header('Content-type: application/json');
+            echo json_encode(AnuncioDAO::getInstance()->listarMeusAnuncios($anuncianteBPO->getCodigoUsuario()));
         }
     }
 ?>
