@@ -8,9 +8,16 @@ class Chat {
         header('Content-type: application/json');
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                $this->checkMessages($_GET['param'], $_GET['param2']);
+                if (isset($_GET['param2'])) {
+                    $this->checkMessages($_GET['param'], $_GET['param2']);
+                }
+                else {
+                    $this->listContacts($_GET['param']);
+                }
+                break;
             case 'POST':
                 $this->writeMessage($_GET['param'], $_GET['param2']);
+                break;
         }
     }
     
@@ -47,6 +54,9 @@ class Chat {
             file_put_contents($chatFolder . (string) $maybeChat, file_get_contents('php://input'), FILE_APPEND);
             header('HTTP/1.1 200 OK');
         }
+    }
+    private function listContacts($uu) {
+        
     }
 }
 
