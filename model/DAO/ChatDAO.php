@@ -1,7 +1,7 @@
 <?php
 require_once 'configuration/autoload-geral.php';
 
-public class ChatDAO {
+class ChatDAO {
     private static $instance;
 
     public function getInstance() {

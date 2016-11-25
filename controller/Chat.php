@@ -1,7 +1,7 @@
 <?php
 
 class Chat {
-    public static $chatFolder = '../chat/';
+    private static $chatFolder = '../chat/';
     
     public function __construct() {
         set_time_limit(0);
