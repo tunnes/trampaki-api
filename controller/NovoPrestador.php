@@ -96,8 +96,9 @@
             
             header('HTTP/1.1 201 Created');
         #   Uma solução MVP para o problema de pegar o Authorization via Js:
-            header("Access-Control-Expose-Headers: Authorization, Trampaki-user");
+            header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
             header("Authorization: ".$prestadorBPO->getLogin()->getToken()."");
+            header("Trampaki-ID: ".$prestadorBPO->getCodigoUsuario());            
             header("Trampaki-user: 1");
         #   echo json_encode(array('token'=>$anuncianteBPO->getLogin()->getToken()));
         }
