@@ -53,9 +53,12 @@
         }
         public function carregarSolicitacoes(AnuncianteBPO $anuncianteBPO){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao AS c INNER JOIN anuncio AS a ON c.cd_anuncio = a.cd_anuncio 
-                                                    WHERE a.cd_usuario = :cd_usuario");
-            $comandoSQL->bindParam(':cd_usuario', $anuncianteBPO->getCodigoUsuario());                                                    
+            $comandoSQL   = $bancoDeDados->prepare("SELECT C.cd_conexao, C.cd_status, A.cd_imagem01, U.cd_usuario, U.nm_usuario, A.cd_anuncio, A.nm_titulo 
+                                                    FROM conexao AS C 
+                                                        INNER JOIN anuncio AS A ON C.cd_anuncio = A.cd_anuncio 
+                                                        INNER JOIN usuario AS U ON C.cd_usuario = U.cd_usuario
+                                                    WHERE A.cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_usuario', $anuncianteBPO->getCodigoUsuario());               
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_OBJ);              
         }
@@ -73,9 +76,30 @@
             if($opcao == 'perfil'){
                 return $row;
             }else{
-                $enderecoBPO = new EnderecoBPO($row->cd_endereco, $row->sg_estado, $row->nm_cidade, $row->cd_cep, $row->cd_numeroResidencia, $row->cd_logitude, $row->cd_latitude);
-                $loginBPO = new LoginBPO($row->cd_login, $row->ds_login, $row->ds_senha, $row->cd_token);
-                $anuncianteBPO = new AnuncianteBPO($row->cd_usuario, $row->nm_usuario, $row->ds_email, $row->ds_telefone, $enderecoBPO, $loginBPO, $row->cd_imagem);
+                $enderecoBPO = new EnderecoBPO(
+                    $row->cd_endereco, 
+                    $row->sg_estado, 
+                    $row->nm_cidade, 
+                    $row->cd_cep, 
+                    $row->cd_numeroResidencia, 
+                    $row->cd_longitude, 
+                    $row->cd_latitude
+                );
+                $loginBPO = new LoginBPO(
+                    $row->cd_login, 
+                    $row->ds_login, 
+                    $row->ds_senha, 
+                    $row->cd_token
+                );
+                $anuncianteBPO = new AnuncianteBPO(
+                    $row->cd_usuario, 
+                    $row->nm_usuario, 
+                    $row->ds_email, 
+                    $row->ds_telefone, 
+                    $enderecoBPO, 
+                    $loginBPO, 
+                    $row->cd_imagem
+                );
                 return $anuncianteBPO;
             }
             

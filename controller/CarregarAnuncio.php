@@ -3,11 +3,7 @@
     
     class CarregarAnuncio{
         public function __construct(){
-            $_SERVER['REQUEST_METHOD'] == 'GET'? $this->validarToken() : null;
-        }
-        private function validarToken(){
-            $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
-            $prestadorBPO instanceof PrestadorBPO ? $this->validarGET() : header('HTTP/1.1 401 Unauthorized');
+            $_SERVER['REQUEST_METHOD'] == 'GET'? $this->validarGET() : null;
         }
         private function validarGET(){
             $IO = ValidacaoIO::getInstance();

@@ -129,6 +129,14 @@
             $comandoSQL->execute();
             return $comandoSQL->rowCount() != 0 ? $xs = $this->addERRO($xs, 811 , 'Categoria '.$x.' já vinculada o prestador') : $xs;
         }
+        public function redundanciaConexao($array, $codigoUsuario, $codigoAnuncio){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao WHERE cd_usuario = :cd_usuario and cd_anuncio = :cd_anuncio");
+            $comandoSQL->bindParam(':cd_usuario', $codigoUsuario);
+            $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            
+            $comandoSQL->execute();
+            return $comandoSQL->rowCount() == 0 ? $array : $array = $this->addERRO($array, 123, 'Conexao já existente.');
+        }        
         
     }
 ?>

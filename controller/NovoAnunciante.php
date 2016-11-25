@@ -17,7 +17,7 @@
             $es = $IO->validarConsisten($es, $ps['codigo_postal']);
             
         #   Conseguindo longitude e latitude do endereco ------------------------
-            // $ps['codigo_postal'] != null ? $ps = $this->pegarCoordenadas($ps) : null;
+            $ps['codigo_postal'] != null ? $ps = $this->pegarCoordenadas($ps) : null;
             
             
         #   Verificando se o email ou login já foram cadastrados.    
@@ -81,8 +81,8 @@
         #   Conseguindo longitude e latitude do endereco ------------------------
             $coordenadas = file_get_contents('http://maps.google.com/maps/api/geocode/json?address='.$ps['codigo_postal'].'&sensor=false');
         
-            $ps['longitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
-            $ps['latitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
+            $ps['latitude'] = json_decode($coordenadas)->results[0]->geometry->location->lat;
+            $ps['longitude']  = json_decode($coordenadas)->results[0]->geometry->location->lng;
            
             return $ps;
         }
