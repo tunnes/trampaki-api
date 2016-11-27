@@ -3,18 +3,19 @@
 require_once 'configuration/autoload-geral.php';
 
 class Chat {
-    private static $chatFolder = '../chat/';
+    private $chatFolder;
     
     public function __construct() {
+        $this->chatFolder = __DIR__ . '/../chat/';
         set_time_limit(0);
         header('Content-type: application/json');
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
-                if (isset($_GET['param2'])) {
-                    $this->checkMessages($_GET['param'], $_GET['param2']);
+                if ($_GET['param2'] != null) {
+                    $this->checkMessages($_GET['param'], $_GET['param2'], $_GET['param3']);
                 }
                 else {
-                    apache_request_headers(['trampakiuser']) ? $this->listContacts($_GET['param'], "a") : $this->listContacts($_GET['param'], "c");
+                    apache_request_headers()['trampaki_user'] == 1 ? $this->listContacts($_GET['param'], "c", "u2") : $this->listContacts($_GET['param'], "a", "u1");
                 }
                 break;
             case 'POST':
@@ -23,42 +24,45 @@ class Chat {
         }
     }
     
-    private function checkMessages($uu, $ud) {
+    private function checkMessages($uu, $ud, $ts) {
         while(true) {
-            $lastCall     = isset($_GET['timestamp']) ? (int) $_GET['timestamp'] : null;
+            $lastCall     = $ts != "" ? (int) $ts : null;
             $maybeMessage = ChatDAO::getInstance()->checarChat($uu, $ud);
-            if (isset($maybeMessage)) {
-                clearstatcache();
-                $chatFile   = $chatFolder . (string) $maybeMessage;
-                $lastChange = filemtime($chatFile);
-                if ($lastCall == null || $lastChange > $lastCall) {
-                    echo json_encode(array(
-                        'history'   => file_get_contents($chatFile),
-                        'timestamp' => $lastChange
-                    ));
-                    break;
-                }
-                else {
-                    sleep(1);
-                    continue;
-                }
+            
+            if ($maybeMessage == null) {
+                $maybeMessage = ChatDAO::getInstance()->novoChat($uu, $ud);
+            }
+            
+            clearstatcache();
+            $chatFile = $this->chatFolder . (string) $maybeMessage;
+            if (!file_exists($chatFile)) {
+                touch($chatFile);
+            }
+            
+            $lastChange = filemtime($chatFile);
+            if ($lastCall == null || $lastChange > $lastCall) {
+                echo json_encode(array(
+                    'history'   => explode("\n", file_get_contents($chatFile)),
+                    'timestamp' => $lastChange
+                ));
+                break;
             }
             else {
-                header('HTTP/1.1 400 Bad Request');
-                echo json_encode('{err: chat não existe}');
-                break;
+                sleep(1);
+                continue;
             }
         }
     }
     private function writeMessage($uu, $ud) {
         $maybeChat = ChatDAO::getInstance()->checarChat($uu, $ud);
-        if (isset($maybeChat)) {
-            file_put_contents($chatFolder . (string) $maybeChat, file_get_contents('php://input'), FILE_APPEND);
+        echo ((string) $maybeChat);
+        if ($maybeChat != null) {
+            file_put_contents($this->chatFolder . (string) $maybeChat, "\n" . file_get_contents('php://input'), FILE_APPEND);
             header('HTTP/1.1 200 OK');
         }
     }
-    private function listContacts($uu) {
-        echo json_encode(ChatDAO::getInstance()->listarContatos($uu));
+    private function listContacts($uu, $ty, $ud) {
+        echo json_encode(ChatDAO::getInstance()->listarContatos($uu, $ty, $ud));
     }
 }
 

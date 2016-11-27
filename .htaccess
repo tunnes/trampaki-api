@@ -24,4 +24,4 @@
     # RewriteRule ^(.+)/?([0-9]+)/?$ index.php?url=$1&param=$2 [QSA]
     
 #   RewriteRule ^([^/]*)/?(.*)$ index.php?url=$1&param=$2 
-    RewriteRule ^([^/]*)/?(.*)/?(.*)$ index.php?url=$1&param=$2&param2=$3
+    RewriteRule ^([^/]*)/?([^/]*)/?([^/]*)/?(.*)$ index.php?url=$1&param=$2&param2=$3&param3=$4

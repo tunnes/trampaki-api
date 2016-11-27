@@ -10,7 +10,7 @@ class ChatBPO implements JsonSerializable {
     }
     
     public function __toString() {
-        return $usuarioUm . $usuarioDois;
+        return $this->usuarioUm . $this->usuarioDois;
     }
     
     public function getUsuarioUm() {

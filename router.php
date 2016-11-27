@@ -12,7 +12,7 @@
         public function rotear(){
             $url = $_GET['url'];
             $chave = array_search($url, $this->arrayRotas);
-            $chave === false ? include('view/pagina-404.html') : new  $this->arrayAcoes[$chave]();
+            $chave === false ? header('HTTP/1.1 404 Not Found') : new  $this->arrayAcoes[$chave]();
         }
     }
 ?>
