@@ -31,6 +31,11 @@ create table usuario(
 --  2 - HIBRIDO
 );
 
+create table chat(
+    cd_usuario_um int not null,
+    cd_usuario_dois int not null
+);
+
 create table prestador(
     cd_usuario int Primary Key,
     ds_perfilProfissional varchar(400),
@@ -98,6 +103,12 @@ create table imagem(
 ALTER TABLE `usuario` ADD CONSTRAINT `fk_usuario_login` FOREIGN KEY ( `cd_login` ) REFERENCES `login` ( `cd_login` ) ;
 
 ALTER TABLE `usuario` ADD CONSTRAINT `fk_usuario_endereco` FOREIGN KEY ( `cd_endereco` ) REFERENCES `endereco` ( `cd_endereco` ) ;
+
+ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_um_chat` FOREIGN KEY ( `cd_usuario_um` ) REFERENCES `chat` ( `cd_usuario` ) ;
+
+ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_dois_chat` FOREIGN KEY ( `cd_usuario_dois` ) REFERENCES `chat` ( `cd_usuario` ) ;
+
+ALTER TABLE `chat` ADD CONSTRAINT `pk_chat` PRIMARY KEY (least(`cd_usuario_um`, `cd_usuario_dois`), greatest(`cd_usuario_um`, `cd_usuario_dois`));
 
 ALTER TABLE `prestador` ADD CONSTRAINT `fk_prestador_usuario` FOREIGN KEY ( `cd_usuario` ) REFERENCES `usuario` ( `cd_usuario` ) ;
 

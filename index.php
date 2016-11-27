@@ -1,7 +1,7 @@
 <?php
 #   Configuração de requisições ao servidor:
     header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Authorization, TrampakiUser");
+    header("Access-Control-Allow-Headers: Authorization, Trampaki-ID, trampaki_user");
     header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
     
     require_once 'router.php';
@@ -22,7 +22,7 @@
         '/carregar-anuncio'          =>'CarregarAnuncio',
         '/carregar-anuncios'         =>'CarregarAnuncios',
         '/carregar-imagem'           =>'CarregarImagem',
-        '/carregar-perfil-prestador' =>'CarregarPerfilPrestador',        
+        '/carregar-perfil-prestador' =>'CarregarPerfilPrestador',
         '/aceitar-conexao'           =>'AceitarConexao',
         '/carregar-categorias'       =>'CarregarCategorias',
         '/carregar-prestadores'      =>'CarregarPrestadores',
@@ -31,8 +31,13 @@
         '/carregar-meus-anuncios'    =>'CarregarMeusAnuncios',
         '/carregar-dados-prestador'  =>'CarregarDadosPrestador',
         '/carregar-dados-anunciante' =>'CarregarDadosAnunciante',
+        '/chat'                      =>'Chat'
     );
-    
+    // echo "param" .$_GET['param'] . "<hr>";
+        
+    // echo "param2" .$_GET['param2'] . "<hr>";
+    // echo "param3" .$_GET['param3'] . "<hr>";
+        
     foreach ($rotas as $URL => $CLASS) { $roteador -> novaRota($URL, $CLASS); }
     $roteador -> rotear();
 ?>

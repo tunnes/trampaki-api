@@ -43,5 +43,14 @@
             $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
             $comandoSQL->execute();       
         }
+        protected function getCodigo($token) {
+            $cmd = Database::getInstance()->prepare(
+                "SELECT cd_usuario FROM usuario INNER JOIN login
+                    ON usuario.cd_login = login.cd_login
+                        WHERE cd_token = :token");
+            $cmd->bindParam(":token", $token);
+            $cmd->execute();
+            return $cmd->fetch(PDO::FETCH_OBJ)->cd_usuario;
+        }
     }
 ?>

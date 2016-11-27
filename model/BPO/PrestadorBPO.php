@@ -19,6 +19,11 @@
         public function getAreaAlcance(){
             return $this->qtAreaDeAlcance;
         }
+
+        public function abrirChat(AnuncianteBPO $u) {
+            return Chat::aceitarChat(Chat::abrirChat($this, $u));
+        }
+
         public function getCategorias(){
             return $this->categorias;
         }
