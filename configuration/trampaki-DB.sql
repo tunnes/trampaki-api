@@ -104,9 +104,9 @@ ALTER TABLE `usuario` ADD CONSTRAINT `fk_usuario_login` FOREIGN KEY ( `cd_login`
 
 ALTER TABLE `usuario` ADD CONSTRAINT `fk_usuario_endereco` FOREIGN KEY ( `cd_endereco` ) REFERENCES `endereco` ( `cd_endereco` ) ;
 
-ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_um_chat` FOREIGN KEY ( `cd_usuario_um` ) REFERENCES `chat` ( `cd_usuario` ) ;
+ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_um_chat` FOREIGN KEY ( `cd_usuario_um` ) REFERENCES `usuario` ( `cd_usuario` ) ;
 
-ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_dois_chat` FOREIGN KEY ( `cd_usuario_dois` ) REFERENCES `chat` ( `cd_usuario` ) ;
+ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_dois_chat` FOREIGN KEY ( `cd_usuario_dois` ) REFERENCES `usuario` ( `cd_usuario` ) ;
 
 ALTER TABLE `chat` ADD CONSTRAINT `pk_chat` PRIMARY KEY (least(`cd_usuario_um`, `cd_usuario_dois`), greatest(`cd_usuario_um`, `cd_usuario_dois`));
 
