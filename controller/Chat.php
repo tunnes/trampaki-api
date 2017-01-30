@@ -11,6 +11,7 @@ class Chat {
         header('Content-type: application/json');
         switch ($_SERVER['REQUEST_METHOD']) {
             case 'GET':
+                
                 if ($_GET['param2'] != null) {
                     $this->checkMessages($_GET['param'], $_GET['param2'], $_GET['param3']);
                 }
@@ -41,8 +42,14 @@ class Chat {
             
             $lastChange = filemtime($chatFile);
             if ($lastCall == null || $lastChange > $lastCall) {
+                $history = array_map(function($arg) {
+                    $args = explode(':', $arg, 2);
+                    if ($args[0] != "") {
+                        return '<span class="namebox">' . PrestadorDAO::getInstance()->getNome($args[0]) . ':</span> ' . $args[1];
+                    }
+                }, explode("\n", file_get_contents($chatFile)));
                 echo json_encode(array(
-                    'history'   => explode("\n", file_get_contents($chatFile)),
+                    'history'   => $history,
                     'timestamp' => $lastChange
                 ));
                 break;
@@ -57,7 +64,7 @@ class Chat {
         $maybeChat = ChatDAO::getInstance()->checarChat($uu, $ud);
         echo ((string) $maybeChat);
         if ($maybeChat != null) {
-            file_put_contents($this->chatFolder . (string) $maybeChat, "\n" . file_get_contents('php://input'), FILE_APPEND);
+            file_put_contents($this->chatFolder . (string) $maybeChat, "\n$uu:" . file_get_contents('php://input'), FILE_APPEND);
             header('HTTP/1.1 200 OK');
         }
     }

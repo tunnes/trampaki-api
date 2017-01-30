@@ -23,18 +23,18 @@
         }
         private function enviar200($usuario){
             if($usuario instanceof AnuncianteBPO){
-                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
+                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user");
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
                 header("Trampaki-ID: ".$usuario->getCodigoUsuario());
-                header("Trampaki-user: 0");
+                header("trampaki_user: 0");
             }
             elseif($usuario instanceof PrestadorBPO){
-                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
+                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user");
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
                 header("Trampaki-ID: ".$usuario->getCodigoUsuario());                
-                header("Trampaki-user: 1");
+                header("trampaki_user: 1");
             }
             else{
                 header('HTTP/1.1 401 Unauthorized');

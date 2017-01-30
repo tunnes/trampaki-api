@@ -32,8 +32,8 @@ class ChatDAO {
                 INNER JOIN conexao AS c  ON u1.cd_usuario =  c.cd_usuario
                 INNER JOIN anuncio AS a  ON  c.cd_anuncio =  a.cd_anuncio
                 INNER JOIN usuario AS u2 ON  a.cd_usuario = u2.cd_usuario
-                    WHERE " . $ty . ".cd_usuario = :usuario AND c.cd_status = 1");
-
+                    WHERE " . $ty . ".cd_usuario = :usuario AND c.cd_status <> 0");
+        // echo 'uu = '. $uu;
         $cmd->bindParam(":usuario", $uu);
         $cmd->execute();
         $res = $cmd->fetchAll(PDO::FETCH_OBJ);

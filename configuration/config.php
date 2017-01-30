@@ -5,7 +5,7 @@
       define('DB_HOST','localhost');
       
     # Definição do nome do Banco de Dados.    
-      define('DB_NAME','trampaki2');
+      define('DB_NAME','trampaki');
       
     # Definição do nome de usuário.    
       define('DB_USER','tunnes');

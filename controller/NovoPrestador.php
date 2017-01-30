@@ -94,10 +94,10 @@
             
             header('HTTP/1.1 201 Created');
         #   Uma solução MVP para o problema de pegar o Authorization via Js:
-            header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
+            header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user");
             header("Authorization: ".$prestadorBPO->getLogin()->getToken()."");
             header("Trampaki-ID: ".$prestadorBPO->getCodigoUsuario());            
-            header("Trampaki-user: 1");
+            header("trampaki_user: 1");
         }
         private function pegarCoordenadas($ps){
         #   Conseguindo longitude e latitude do endereco ------------------------

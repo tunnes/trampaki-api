@@ -8,7 +8,9 @@
         }
         private function validarToken(){
             $prestadorBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
-            $prestadorBPO instanceof PrestadorBPO ? $this->retornar200($prestadorBPO) : header('HTTP/1.1 401 Unauthorized');
+            // echo json_encode($prestadorBPO);
+            $prestadorBPO instanceof AnuncianteBPO ? print('sim') : print('nao'); 
+            // $prestadorBPO instanceof PrestadorBPO ? $this->retornar200($prestadorBPO) : header('HTTP/1.1 401 Unauthorized');
         }
         private function retornar200($prestadorBPO){
             $prestadorBPO  = PrestadorDAO::getInstance()->consultar($prestadorBPO->getCodigoUsuario());

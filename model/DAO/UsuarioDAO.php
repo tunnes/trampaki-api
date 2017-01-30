@@ -38,19 +38,16 @@
             $comandoSQL->execute();                
         }
         public function aceitarConexao($codigoConexao){
-            $bancoDeDados = Database::getInstance();
+            $bancoDeDados = DataBase::getInstance();
             $comandoSQL = $bancoDeDados->prepare("UPDATE conexao SET cd_status = '1' WHERE cd_conexao = :cd_conexao");
             $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
             $comandoSQL->execute();       
         }
-        protected function getCodigo($token) {
-            $cmd = Database::getInstance()->prepare(
-                "SELECT cd_usuario FROM usuario INNER JOIN login
-                    ON usuario.cd_login = login.cd_login
-                        WHERE cd_token = :token");
-            $cmd->bindParam(":token", $token);
+        public function getNome($id) {
+            $cmd = DataBase::getInstance()->prepare("SELECT nm_usuario FROM usuario WHERE cd_usuario = :id");
+            $cmd->bindParam(":id", $id);
             $cmd->execute();
-            return $cmd->fetch(PDO::FETCH_OBJ)->cd_usuario;
+            return $cmd->fetch(PDO::FETCH_OBJ)->nm_usuario;
         }
     }
 ?>

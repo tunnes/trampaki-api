@@ -75,7 +75,7 @@
             header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, Trampaki-user");
             header("Authorization: ".$anuncianteBPO->getLogin()->getToken()."");
             header("Trampaki-ID: ".$anuncianteBPO->getCodigoUsuario());            
-            header("Trampaki-user: 1");
+            header("trampaki_user: 1");
         }
         private function pegarCoordenadas($ps){
         #   Conseguindo longitude e latitude do endereco ------------------------

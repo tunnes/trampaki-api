@@ -44,13 +44,11 @@
             return $this->cd_imagem_02;
         }
         public function getImagem03(){
-            return $this->cd_imagem_02;
+            return $this->cd_imagem_03;
         }
         
                 
         public function jsonSerialize() {
-        #   SE EU TIVESSE QUE ME APAIXONAR POR ALGO
-        #   SERIA POR ESSA FUNÇÃO E COMO AMANTE EU TERIA ESSA INTERFACE (JsonSerializable)
             return get_object_vars($this);
         }   
     }

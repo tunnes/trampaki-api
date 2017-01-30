@@ -4,3 +4,12 @@
 # https://www.youtube.com/watch?v=etRFu_eJ3vU&list=PLbXvLovKLUIkE78UNFE8UpfOtoDlrpQec
 
 https://trampaki-tunnes.c9users.io/phpmyadmin.
+
+curl -X GET -H "Authorization: QXlydG9uVGVzdGU6MTIz" "https://trampaki-api-tunnes.c9users.io/carregar-anuncios"
+
+curl -X GET -H "Authorization: dHVubmVzOnR1bm5lcw==" "https://trampaki-api-tunnes.c9users.io/carregar-prestadores"
+
+curl -X GET "https://trampaki-api-tunnes.c9users.io/carregar-categorias"
+
+curl -X GET -H "Authorization: QXlydG9uVGVzdGU6MTIz" "https://trampaki-api-tunnes.c9users.io/carregar-anuncio/1"
+

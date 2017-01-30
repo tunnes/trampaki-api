@@ -108,7 +108,7 @@ ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_um_chat` FOREIGN KEY ( `cd_usuario
 
 ALTER TABLE `chat` ADD CONSTRAINT `fk_usuario_dois_chat` FOREIGN KEY ( `cd_usuario_dois` ) REFERENCES `usuario` ( `cd_usuario` ) ;
 
-ALTER TABLE `chat` ADD CONSTRAINT `pk_chat` PRIMARY KEY (least(`cd_usuario_um`, `cd_usuario_dois`), greatest(`cd_usuario_um`, `cd_usuario_dois`));
+ALTER TABLE `chat` ADD CONSTRAINT `pk_chat` PRIMARY KEY (`cd_usuario_um`, `cd_usuario_dois`);
 
 ALTER TABLE `prestador` ADD CONSTRAINT `fk_prestador_usuario` FOREIGN KEY ( `cd_usuario` ) REFERENCES `usuario` ( `cd_usuario` ) ;
 

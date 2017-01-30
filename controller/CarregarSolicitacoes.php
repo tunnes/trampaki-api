@@ -7,7 +7,7 @@
             $_SERVER['REQUEST_METHOD'] == 'GET' ? $this->validarHeader() : null; 
         }
         private function validarHeader(){
-            switch (apache_request_headers()['trampakiuser']) {
+            switch (apache_request_headers()['trampaki_user']) {
                 case 0:
                     $anuncianteBPO = LoginDAO::getInstance()->gerarAutenticacao(apache_request_headers()['authorization']);
                     $anuncianteBPO instanceof AnuncianteBPO ? $this->responseAnunciante($anuncianteBPO) : header('HTTP/1.1 401 Unauthorized');

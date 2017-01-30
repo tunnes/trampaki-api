@@ -8,7 +8,7 @@
         private function validarGET(){
             $IO = ValidacaoIO::getInstance();
             $es = array();
-            $es = $IO->validarPrestador($es, $_GET["param"]);
+            $es = $IO->validarAnuncio($es, $_GET["param"]);
             $es ? $IO->retornar400($es) : $this->retornar200();
         }
 
