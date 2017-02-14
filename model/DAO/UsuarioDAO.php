@@ -30,10 +30,11 @@
             $comandoSQL -> bindParam(':cd_usuario',  $objetoUsuario->getCodigoUsuario());
             $comandoSQL->execute();
         }
-        protected function novaConexao($codigoPrestador, $codigoAnuncio){
+        public function novaConexao($codigoPrestador, $codigoAnuncio, $enumSolicitante){
+            echo $enumSolicitante;
             $bancoDeDados = Database::getInstance();
-            $querySQL = "INSERT INTO conexao (cd_usuario, cd_anuncio, cd_status) 
-                                VALUES (".$codigoPrestador.", ".$codigoAnuncio.", '0')";
+            $querySQL = "INSERT INTO conexao (cd_usuario, cd_anuncio, cd_status, cd_solicitante) 
+                                VALUES (".$codigoPrestador.", ".$codigoAnuncio.", '0', '".$enumSolicitante."')";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
             $comandoSQL->execute();                
         }

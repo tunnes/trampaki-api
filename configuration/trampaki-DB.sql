@@ -43,7 +43,8 @@ create table prestador(
 );
 
 create table anunciante(
-    cd_usuario int Primary Key
+    cd_usuario int Primary Key,
+    cd_codigoAnuncioSelecioado int
 );
 
 create table categoria(
@@ -113,6 +114,9 @@ ALTER TABLE `chat` ADD CONSTRAINT `pk_chat` PRIMARY KEY (`cd_usuario_um`, `cd_us
 ALTER TABLE `prestador` ADD CONSTRAINT `fk_prestador_usuario` FOREIGN KEY ( `cd_usuario` ) REFERENCES `usuario` ( `cd_usuario` ) ;
 
 ALTER TABLE `anunciante` ADD CONSTRAINT `fk_anunciante_usuario` FOREIGN KEY ( `cd_usuario` ) REFERENCES `usuario` ( `cd_usuario` ) ;
+
+-- Alteração recente:
+-- ALTER TABLE `usuario` ADD CONSTRAINT `fk_anunciante_anuncio_selecioado` FOREIGN KEY ( `cd_codigoAnuncioSelecioado` ) REFERENCES `anuncio` ( `cd_anuncio` ) ;
 
 ALTER TABLE `anuncio` ADD CONSTRAINT `fk_anuncio_anunciante` FOREIGN KEY ( `cd_usuario` ) REFERENCES `anunciante` ( `cd_usuario` ) ;
 

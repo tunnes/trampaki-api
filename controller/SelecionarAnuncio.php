@@ -1,7 +1,7 @@
 <?php
     require_once 'configuration/autoload-geral.php';
     
-    class NovaConexaoAnunciante{
+    class SelecionarAnuncio{
         public function __construct(){
             $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarToken() : null; 
         }
@@ -14,20 +14,17 @@
             $IO = ValidacaoIO::getInstance();
             $es = array();
             $ps = $_POST;
-        
+
         #   Validar codigo de anuncio fornecido:                    
-            $es = $IO->validarPrestador($es, $ps['codigo_prestador']);            
-            $es = $IO->validarDonoAnuncio($es, $anuncianteBPO->getCodigoUsuario(), $ps['codigo_anuncio']);
-            $es = $IO->redundanciaConexao($es, $ps['codigo_prestador'], $_POST["codigo_anuncio"]);                      
+            $es = $IO->validarDonoAnuncio($es, $anuncianteBPO->getCodigoUsuario(), $ps['codigoAnuncio']);
         
         #   Se existir algum erro, mostra o erro
-            $es ? $IO->retornar400($es) : $this->retornar200($ps);
-
+            $es ? $IO->retornar400($es) : $this->retornar200($anuncianteBPO, $ps);
         }
-        private function retornar200($ps){
+        private function retornar200($anuncianteBPO, $ps){
             $anuncianteDAO = AnuncianteDAO::getInstance();
-            $anuncianteDAO->novaConexao($ps['codigo_prestador'], $ps['codigo_anuncio'], '0');
-            header('HTTP/1.1 201 Created');       
+            $anuncianteDAO->selecionarAnuncio($anuncianteBPO->getCodigoUsuario(), $ps['codigoAnuncio']);
+            header('HTTP/1.1 200 OK');         
         }
     }
 ?>

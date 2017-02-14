@@ -23,11 +23,12 @@
         }
         private function enviar200($usuario){
             if($usuario instanceof AnuncianteBPO){
-                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user");
+                header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user, anuncio_selecionado");
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
                 header("Trampaki-ID: ".$usuario->getCodigoUsuario());
                 header("trampaki_user: 0");
+                header("anuncio_selecionado: ".$usuario->getCodigoAnuncioSelecionado());
             }
             elseif($usuario instanceof PrestadorBPO){
                 header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user");

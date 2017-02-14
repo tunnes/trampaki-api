@@ -46,8 +46,7 @@
         public function getImagem03(){
             return $this->cd_imagem_03;
         }
-        
-                
+            
         public function jsonSerialize() {
             return get_object_vars($this);
         }   

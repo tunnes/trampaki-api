@@ -75,14 +75,6 @@
             foreach($categorias as $categoria){ $this->selecionarCategoria($prestadorBPO->getCodigoUsuario(), $categoria);}
 
         }
-        public function novaConexao(PrestadorBPO $prestadorBPO, $codigoAnuncio){
-            $bancoDeDados = Database::getInstance();
-            $querySQL = "INSERT INTO conexao (cd_anuncio, cd_usuario, cd_status, cd_solicitante) VALUES (:cd_anuncio, :cd_usuario, '0', '1')";
-            $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
-            $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            
-            $comandoSQL->execute();
-        }
         public function selecionarCategoria($codigoUsuario, $codigoCategoria){
             $bancoDeDados = Database::getInstance();
             $querySQL = "INSERT INTO categoriaPrestador (cd_usuario, cd_categoria) VALUES (:cd_usuario, :cd_categoria)";
@@ -93,7 +85,7 @@
         }
         public function carregarSolicitacoes(PrestadorBPO $prestadorBPO){
             $bancoDeDados = DataBase::getInstance();
-            $querySQL = "SELECT C.cd_conexao, C.cd_anuncio, A.cd_imagem01, A.nm_titulo, E.nm_cidade, E.sg_estado, C.cd_status, C.cd_solicitante 
+            $querySQL = "SELECT U.nm_usuario, C.cd_conexao, C.cd_anuncio, A.cd_imagem01, A.nm_titulo, E.nm_cidade, E.sg_estado, C.cd_status, C.cd_solicitante 
                         	FROM conexao AS C 
                         	INNER JOIN anuncio AS A ON C.cd_anuncio = A.cd_anuncio
                         	INNER JOIN usuario AS U ON A.cd_usuario = U.cd_usuario

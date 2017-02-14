@@ -1,6 +1,6 @@
 <?php
     require_once 'configuration/autoload-geral.php';
-    
+    // deve ser 0
     class NovaConexaoPrestador{
         public function __construct(){
             $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarToken() : null; 
@@ -20,7 +20,7 @@
         }
         private function retornar201($prestadorBPO){
             $prestadorDAO = PrestadorDAO::getInstance();
-            $prestadorDAO->novaConexao($prestadorBPO, $_POST['codigo_anuncio']);
+            $prestadorDAO->novaConexao($prestadorBPO->getCodigoUsuario(), $_POST['codigo_anuncio'], '1');
             header('HTTP/1.1 201 Created');          
         }
     }

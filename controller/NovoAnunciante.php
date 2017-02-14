@@ -65,7 +65,8 @@
                 $ps['usuario_telefone'], 
                 $enderecoBPO, 
                 $loginBPO, 
-                $codigoImagem
+                $codigoImagem,
+                null
             );
             
             $anuncianteDAO = AnuncianteDAO::getInstance();

@@ -53,7 +53,7 @@
         }
         public function carregarSolicitacoes(AnuncianteBPO $anuncianteBPO){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT C.cd_conexao, C.cd_status, A.cd_imagem01, U.cd_usuario, U.nm_usuario, A.cd_anuncio, A.nm_titulo 
+            $comandoSQL   = $bancoDeDados->prepare("SELECT C.cd_conexao, C.cd_solicitante, C.cd_status, U.cd_imagem, U.cd_usuario, U.nm_usuario, A.cd_anuncio, A.nm_titulo 
                                                     FROM conexao AS C 
                                                         INNER JOIN anuncio AS A ON C.cd_anuncio = A.cd_anuncio 
                                                         INNER JOIN usuario AS U ON C.cd_usuario = U.cd_usuario
@@ -98,12 +98,21 @@
                     $row->ds_telefone, 
                     $enderecoBPO, 
                     $loginBPO, 
-                    $row->cd_imagem
+                    $row->cd_imagem,
+                    $row->cd_anuncioSelecionado
                 );
                 return $anuncianteBPO;
             }
             
                    
+        }
+        public function selecionarAnuncio($cd_anunciante, $cd_anuncioSelecionado){
+            $dataBase = DataBase::getInstance();
+            $querySQL = "UPDATE anunciante SET cd_anuncioSelecionado = :cd_anuncioSelecionado WHERE cd_usuario = :cd_usuario";
+            $comandoSQL =  $dataBase->prepare($querySQL);
+            $comandoSQL -> bindParam(':cd_usuario', $cd_anunciante);
+            $comandoSQL -> bindParam(':cd_anuncioSelecionado', $cd_anuncioSelecionado);
+            $comandoSQL->execute();             
         }
     }
 ?>
