@@ -44,6 +44,24 @@
             $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
             $comandoSQL->execute();       
         }
+        public function recusarConexao($codigoConexao){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL = $bancoDeDados->prepare("UPDATE conexao SET cd_status = '2' WHERE cd_conexao = :cd_conexao");
+            $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
+            $comandoSQL->execute();       
+        } 
+        public function excluirConexao($codigoConexao){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL = $bancoDeDados->prepare("DELETE FROM conexao WHERE cd_conexao = :cd_conexao");
+            $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
+            $comandoSQL->execute();       
+        }         
+        public function consultarConexao($codigoConexao){
+            $comandoSQL =  DataBase::getInstance()->prepare('SELECT * FROM conexao WHERE cd_conexao = :cd_conexao');
+        	$comandoSQL->bindParam(':cd_conexao', $codigoConexao);
+            $comandoSQL->execute();
+            return  $comandoSQL->fetch(PDO::FETCH_OBJ);
+        }        
         public function getNome($id) {
             $cmd = DataBase::getInstance()->prepare("SELECT nm_usuario FROM usuario WHERE cd_usuario = :id");
             $cmd->bindParam(":id", $id);

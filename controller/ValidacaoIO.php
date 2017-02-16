@@ -136,6 +136,30 @@
             $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);            
             $comandoSQL->execute();
             return $comandoSQL->rowCount() == 0 ? $array : $array = $this->addERRO($array, 123, 'Conexao já existente.');
+        }
+        public function conexaoExistente($array, $codigoConexao){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao WHERE cd_conexao = :cd_conexao");
+            $comandoSQL->bindParam(':cd_conexao', $codigoConexao);        
+            $comandoSQL->execute();
+            return $comandoSQL->rowCount() == 0 ? $array = $this->addERRO($array, 123, 'Conexao não existente.') : $array;
+        }
+        public function conexaoPrestador($array, $codigoConexao, $codigoPrestador){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao WHERE cd_conexao = :cd_conexao and cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
+            $comandoSQL->bindParam(':cd_usuario', $codigoPrestador);            
+            $comandoSQL->execute();
+            return $comandoSQL->rowCount() == 0 ? $array = $this->addERRO($array, 123, 'Conexao não vinculada ao usuario.') : $array;            
+        }
+        public function conexaoAnunciante($array, $codigoConexao, $codigoAnunciante){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT * FROM conexao as C INNER JOIN anuncio as A ON C.cd_anuncio = A.cd_anuncio 
+                                                    WHERE C.cd_conexao = :cd_conexao AND A.cd_usuario = :cd_usuario");
+            $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
+            $comandoSQL->bindParam(':cd_usuario', $codigoPrestador);            
+            $comandoSQL->execute();
+            return $comandoSQL->rowCount() == 0 ? $array = $this->addERRO($array, 123, 'Conexao não vinculada ao usuario.') : $array;            
         }        
         
     }

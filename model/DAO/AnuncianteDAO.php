@@ -57,7 +57,7 @@
                                                     FROM conexao AS C 
                                                         INNER JOIN anuncio AS A ON C.cd_anuncio = A.cd_anuncio 
                                                         INNER JOIN usuario AS U ON C.cd_usuario = U.cd_usuario
-                                                    WHERE A.cd_usuario = :cd_usuario");
+                                                    WHERE A.cd_usuario = :cd_usuario and C.cd_status = '0'");
             $comandoSQL->bindParam(':cd_usuario', $anuncianteBPO->getCodigoUsuario());               
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_OBJ);              

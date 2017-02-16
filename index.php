@@ -32,7 +32,9 @@
         '/carregar-dados-prestador'  =>'CarregarDadosPrestador',
         '/carregar-dados-anunciante' =>'CarregarDadosAnunciante',
         '/chat'                      =>'Chat',
-        '/selecionar-anuncio'        =>'SelecionarAnuncio'
+        '/selecionar-anuncio'        =>'SelecionarAnuncio',
+        '/recusar-conexao'           =>'RecusarConexao',
+        '/cancelar-conexao'          =>'CancelarConexao'
     );
         
     foreach ($rotas as $URL => $CLASS) { $roteador -> novaRota($URL, $CLASS); }

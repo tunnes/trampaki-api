@@ -83,9 +83,10 @@ create table conexao(
     cd_conexao int Primary Key auto_increment,
     cd_anuncio int not null,
     cd_usuario int not null,
-    cd_status enum('0','1'),
---  0 - FALSO
---  1 - VERDADE
+    cd_status enum('0','1','2'),
+--  0 - PENDENTE
+--  1 - ACEITA
+--  2 - RECUSADA
     cd_solicitante enum('0','1')
 --  0 - ANUNCIANTE
 --  1 - PRESTADOR    

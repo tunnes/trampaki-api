@@ -1,7 +1,7 @@
 <?php
     require_once 'configuration/autoload-geral.php';
     
-    class AceitarConexao{
+    class RecusarConexao{
         public function __construct(){
             $_SERVER['REQUEST_METHOD'] == 'PUT' ? $this->validarHeader() : null; 
         }
@@ -29,7 +29,7 @@
             }
         }
         private function response200($codigoConexao){
-            PrestadorDAO::getInstance()->aceitarConexao($codigoConexao);
+            PrestadorDAO::getInstance()->recusarConexao($codigoConexao);
             header('HTTP/1.1 200 Ok');
         }
     }
