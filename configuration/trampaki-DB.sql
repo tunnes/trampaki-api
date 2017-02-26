@@ -92,10 +92,13 @@ create table conexao(
 --  1 - PRESTADOR    
 );
 create table avaliacao(
+--  cd_usuario = cd_prestador.
+    cd_avaliacao int Primary Key auto_increment,
     cd_usuario int not null,
     cd_conexao int not null,
-    qt_avaliacao double
-
+    qt_nota_servico double,
+    qt_nota_avaliacao double,
+    ds_avaliacao varchar(600)
 );
 create table imagem(
     cd_imagem int Primary Key auto_increment,

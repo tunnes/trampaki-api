@@ -34,7 +34,9 @@
         '/chat'                      =>'Chat',
         '/selecionar-anuncio'        =>'SelecionarAnuncio',
         '/recusar-conexao'           =>'RecusarConexao',
-        '/cancelar-conexao'          =>'CancelarConexao'
+        '/cancelar-conexao'          =>'CancelarConexao',
+        '/carregar-envolvidos'       =>'CarregarEnvolvidos',
+        '/nova-avaliacao'            =>'NovaAvaliacao'
     );
         
     foreach ($rotas as $URL => $CLASS) { $roteador -> novaRota($URL, $CLASS); }

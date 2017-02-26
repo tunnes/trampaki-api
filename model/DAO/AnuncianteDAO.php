@@ -114,5 +114,17 @@
             $comandoSQL -> bindParam(':cd_anuncioSelecionado', $cd_anuncioSelecionado);
             $comandoSQL->execute();             
         }
+        public function novaAvaliacao($codigoPrestador, $codigoConexao, $notaServico, $notaValor, $descricao){
+            $bancoDeDados  = Database::getInstance();
+            $querySQL = "INSERT INTO avaliacao (cd_usuario, cd_conexao, qt_nota_servico, qt_nota_valor, ds_avaliacao) 
+                                VALUES (:cd_usuario, :cd_conexao, :qt_nota_servico, :qt_nota_valor, :ds_avaliacao)";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_usuario', $codigoPrestador);
+            $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
+            $comandoSQL->bindParam(':qt_nota_servico', $notaServico);
+            $comandoSQL->bindParam(':qt_nota_valor', $notaValor);
+            $comandoSQL->bindParam(':ds_avaliacao', $descricao);            
+            $comandoSQL->execute();
+        }
     }
 ?>

@@ -160,7 +160,9 @@
             $comandoSQL->bindParam(':cd_usuario', $codigoPrestador);            
             $comandoSQL->execute();
             return $comandoSQL->rowCount() == 0 ? $array = $this->addERRO($array, 123, 'Conexao não vinculada ao usuario.') : $array;            
-        }        
-        
+        }
+        public function validarNota($array, $dadoImpuro){
+            return !is_numeric($dadoImpuro) ? $array = $this->addERRO($array, 802 , 'A nota deve ser númererica') : $array;
+        }
     }
 ?>

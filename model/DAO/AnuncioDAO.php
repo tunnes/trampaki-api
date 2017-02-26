@@ -30,12 +30,6 @@
         }
         public function consultarTodos(){
             $bancoDeDados = DataBase::getInstance();
-            // $comandoSQL   = $bancoDeDados->prepare("SELECT A.cd_usuario, AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, E.cd_latitude, E.cd_longitude 
-            //                                         FROM usuario as U 
-            //                                         INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
-            //                                         INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
-            //                                         INNER JOIN anuncio as AN ON A.cd_usuario = AN.cd_usuario
-            //                                         INNER JOIN categoriaAnuncio as CA ON CA.cd_anuncio = CA.cd_anuncio");
             $comandoSQL   = $bancoDeDados->prepare("SELECT AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, AN.cd_imagem01, E.cd_latitude, E.cd_longitude 
                                                     FROM usuario as U 
                                                     INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
@@ -112,8 +106,18 @@
             $comandoSQL->bindParam(':cd_categoria', $codigoCategoria);
             $comandoSQL->execute();
         }
-        public function novaConexao(){
-            
+        public function carregarEnvolvidos($codigoAnuncio){
+            $bancoDeDados = DataBase::getInstance();
+            $querySQL = "SELECT C.cd_conexao, U.cd_imagem, U.cd_usuario, U.nm_usuario, A.cd_anuncio
+                            FROM conexao AS C 
+                                INNER JOIN anuncio AS A ON C.cd_anuncio = A.cd_anuncio 
+                                INNER JOIN usuario AS U ON C.cd_usuario = U.cd_usuario
+                            WHERE A.cd_anuncio = :cd_anuncio and C.cd_status = '1'";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);  
+            $bancoDeDados->prepare($querySQL);               
+            $comandoSQL->execute();
+            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);                      
         }
     }
 ?>

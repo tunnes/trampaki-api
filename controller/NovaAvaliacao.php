@@ -1,7 +1,7 @@
 <?php
     require_once 'configuration/autoload-geral.php';
     
-    class NovaConexaoAnunciante{
+    class NovaAvaliacao{
         public function __construct(){
             $_SERVER['REQUEST_METHOD'] == 'POST' ? $this->validarToken() : null; 
         }
@@ -15,20 +15,19 @@
             $es = array();
             $ps = $_POST;
         
-        #   Validar codigo de anuncio fornecido:                    
-            $es = $IO->validarPrestador($es, $ps['codigo_prestador']);   
+        #   Validar codigo de anuncio fornecido:
+            $es = $IO->validarPrestador($es, $ps['codigo_prestador']);
+            $es = $IO->conexaoExistente($es, $ps['codigo_conexao']);
+            $es = $IO->validarNota($es, $ps['nota_servico']);
+            $es = $IO->validarNota($es, $ps['nota_valor']);
             
-            $es = $IO->validarDonoAnuncio($es, $anuncianteBPO->getCodigoUsuario(), $ps['codigo_anuncio']);
-            $es = $IO->redundanciaConexao($es, $ps['codigo_prestador'], $_POST["codigo_anuncio"]);                      
-        
         #   Se existir algum erro, mostra o erro
             $es ? $IO->retornar400($es) : $this->retornar200($ps);
-
         }
         private function retornar200($ps){
             $anuncianteDAO = AnuncianteDAO::getInstance();
-            $anuncianteDAO->novaConexao($ps['codigo_prestador'], $ps['codigo_anuncio'], '0');
-            header('HTTP/1.1 201 Created');       
+            $anuncianteDAO->novaAvaliacao($ps['codigo_prestador'], $ps['codigo_conexao'], $ps['nota_servico'], $ps['nota_valor'], $ps['descricao']);
+            header('HTTP/1.1 201 Created');
         }
     }
 ?>
