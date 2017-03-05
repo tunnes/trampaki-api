@@ -7,6 +7,7 @@
     require_once 'router.php';
     require_once 'configuration/autoload-geral.php';
 
+
     $roteador =  new Router();
     $rotas = array(
         '/login'                     =>'PaginaAutenticacao',
