@@ -8,10 +8,10 @@
       define('DB_NAME','trampaki');
       
     # Definição do nome de usuário.    
-      define('DB_USER','tunnes');
+      define('DB_USER','tarcisiolima');
 
     # Definição de senha do banco.  
       define('DB_PASS','');
-      
-    # https://trampaki-tunnes.c9users.io/phpmyadmi
+
+    # https://trampaki-api-tarcisiolima.c9users.io/phpmyadmin/
 ?>
