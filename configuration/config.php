@@ -8,7 +8,7 @@
       define('DB_NAME','trampaki');
       
     # Definição do nome de usuário.    
-      define('DB_USER','tarcisiolima');
+      define('DB_USER','tunnes');
 
     # Definição de senha do banco.  
       define('DB_PASS','');

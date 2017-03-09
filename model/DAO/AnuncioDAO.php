@@ -30,12 +30,11 @@
         }
         public function consultarTodos(){
             $bancoDeDados = DataBase::getInstance();
-            $comandoSQL   = $bancoDeDados->prepare("SELECT AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, AN.cd_imagem01, E.cd_latitude, E.cd_longitude 
-                                                    FROM usuario as U 
-                                                    INNER JOIN endereco as E ON U.cd_endereco = E.cd_endereco
-                                                    INNER JOIN anunciante as A ON U.cd_usuario = A.cd_usuario
-                                                    INNER JOIN anuncio as AN ON A.cd_usuario = AN.cd_usuario");            
-        
+            $querySQL ="SELECT U.cd_usuario, U.cd_imagem, U.nm_usuario, AN.cd_anuncio, AN.nm_titulo, AN.ds_anuncio, AN.cd_imagem01, E.cd_latitude, E.cd_longitude FROM usuario as U 
+                            INNER JOIN endereco   as E  ON U.cd_endereco =  E.cd_endereco
+                            INNER JOIN anunciante as A  ON U.cd_usuario  =  A.cd_usuario
+                            INNER JOIN anuncio    as AN ON A.cd_usuario  = AN.cd_usuario";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_ASSOC);
         }
