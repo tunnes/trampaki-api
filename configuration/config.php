@@ -12,6 +12,4 @@
 
     # Definição de senha do banco.  
       define('DB_PASS','');
-
-    # https://trampaki-api-tarcisiolima.c9users.io/phpmyadmin/
 ?>
