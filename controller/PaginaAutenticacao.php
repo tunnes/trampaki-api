@@ -1,5 +1,5 @@
 <?php
-    require_once 'configuration/autoload-geral.php';
+ 
     
     class PaginaAutenticacao{
         public function __construct(){
@@ -14,15 +14,16 @@
         
             $dadosLogin  = filter_input(INPUT_POST, "login", FILTER_SANITIZE_MAGIC_QUOTES);
             $dadosSenha  = filter_input(INPUT_POST, "senha", FILTER_SANITIZE_MAGIC_QUOTES);
-            
+            $tokenFcm    = filter_input(INPUT_POST, "token", FILTER_SANITIZE_MAGIC_QUOTES);
             $token = base64_encode($dadosLogin. ':' .$dadosSenha);    
             $loginDAO = LoginDAO::getInstance();
             $usuario = $loginDAO->gerarAutenticacao($token);
-            $this->enviar200($usuario);
-
+            $this->enviar200($usuario,$loginDAO,$tokenFcm);
         }
-        private function enviar200($usuario){
+        
+        private function enviar200($usuario, $loginDAO,$tokenFcm){
             if($usuario instanceof AnuncianteBPO){
+                $tokenFcm != null ? $loginDAO->atualizarTokenFcm($tokenFcm,$usuario->getCodigoUsuario()) : null;
                 header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user, anuncio_selecionado");
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
@@ -31,6 +32,7 @@
                 header("anuncio_selecionado: ".$usuario->getCodigoAnuncioSelecionado());
             }
             elseif($usuario instanceof PrestadorBPO){
+                $tokenFcm != null ? $loginDAO->atualizarTokenFcm($tokenFcm,$usuario->getCodigoUsuario()) : null;
                 header("Access-Control-Expose-Headers: Authorization, Trampaki-ID, trampaki_user");
                 header('HTTP/1.1 200 OK');
                 header("Authorization: ".$usuario->getLogin()->getToken()."");
@@ -40,7 +42,6 @@
             else{
                 header('HTTP/1.1 401 Unauthorized');
             }
-            
         }
     }
 ?>

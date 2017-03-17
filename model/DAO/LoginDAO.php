@@ -13,7 +13,6 @@
             $comandoSQL   = $bancoDeDados->prepare($query);
             $comandoSQL->bindParam(':cd_token', $token, PDO::PARAM_STR);
             $comandoSQL->execute();
-                
             if($comandoSQL->rowCount() == 1){
                 $comandoSQL = $comandoSQL->fetch(PDO::FETCH_OBJ);
                 switch ($comandoSQL->cd_tipo){
@@ -30,7 +29,7 @@
         #   Implementação de 'Token' ------------------------------------------------------------------------------
         #   Para começar a utilizar a 'md5' verificar com o Garcia...
             $token = $loginBPO->getLogin(). ':' .$loginBPO->getSenha();
-            $token = base64_encode($token);
+            $token = base64_encode($token); 
         
         #   -------------------------------------------------------------------------------------------------------
             
@@ -63,5 +62,13 @@
             return new LoginBPO($consulta->cd_login, $consulta->ds_login, $consulta->ds_senha);   
         }
         
+        public function atualizarTokenFcm($token,$usuario){
+            $dataBase = DataBase::getInstance();
+            $querySQL = "UPDATE usuario SET cd_tokenFcm = :cd_tokenFcm WHERE cd_usuario = :cd_usuario";
+            $comandoSQL =  $dataBase->prepare($querySQL);
+            $comandoSQL -> bindParam(':cd_tokenFcm', $token);
+            $comandoSQL -> bindParam(':cd_usuario', $usuario);
+            $comandoSQL->execute(); 
+        }
     }
 ?>

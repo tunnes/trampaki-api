@@ -77,7 +77,7 @@
                 $row->nm_titulo, 
                 $row->ds_anuncio, 
                 $row->qt_areaAlcance, 
-                CategoriaDAO::getInstance()->consultarAnunCate($row->cd_anuncio), 
+                CategoriaDAO::getInstance()->consultarAnunCate($row->cd_anuncio),
                 $row->cd_status, 
                 $row->cd_imagem01,
                 $row->cd_imagem02,
@@ -118,6 +118,45 @@
             $bancoDeDados->prepare($querySQL);               
             $comandoSQL->execute();
             return $comandoSQL->fetchAll(PDO::FETCH_OBJ);                      
+        }
+        
+        public function anunciosAceitos($usuario, $codigoAnuncio){
+            $bancoDeDados = DataBase::getInstance();
+            $querySQL = "SELECT u.nm_usuario AS prestador , u.cd_imagem AS imagem, a.nm_titulo AS titulo, 
+                         c.cd_anuncio as codigo FROM conexao AS c INNER JOIN anuncio a ON c.cd_anuncio = a.cd_anuncio
+		                 INNER JOIN usuario AS u ON c.cd_usuario = u.cd_usuario 
+		              	 WHERE a.cd_usuario = :cd_usuario AND c.cd_status = '1' AND c.cd_anuncio > :cd_anuncio";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam('cd_usuario', $usuario);
+            $comandoSQL->bindParam(':cd_anuncio', $codigoAnuncio);
+            $comandoSQL->execute();
+            return $comandoSQL->fetchAll(PDO::FETCH_OBJ);
+        }
+        
+        public function getTituloPorConexao($conexao){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT nm_titulo FROM anuncio WHERE cd_anuncio
+                                                        IN (SELECT cd_anuncio FROM conexao WHERE cd_conexao = :cd_conexao)");
+            $comandoSQL->bindParam(':cd_conexao', $conexao);
+            $comandoSQL->execute();
+            return $comandoSQL->fetch(PDO::FETCH_OBJ)->nm_titulo;
+        }
+        
+        public function getCodigoAnunciante($conexao){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT cd_usuario FROM anuncio WHERE cd_anuncio
+                                                        IN (SELECT cd_anuncio FROM conexao WHERE cd_conexao = :cd_conexao)");
+            $comandoSQL->bindParam(':cd_conexao', $conexao);
+            $comandoSQL->execute();
+            return $comandoSQL->fetch(PDO::FETCH_OBJ)->cd_usuario;
+        }
+        
+        public function getCodigoPrestador($conexao){
+            $bancoDeDados = DataBase::getInstance();
+            $comandoSQL   = $bancoDeDados->prepare("SELECT cd_usuario FROM conexao WHERE cd_conexao = :cd_conexao");
+            $comandoSQL->bindParam(':cd_conexao', $conexao);
+            $comandoSQL->execute();
+            return $comandoSQL->fetch(PDO::FETCH_OBJ)->cd_usuario;
         }
     }
 ?>

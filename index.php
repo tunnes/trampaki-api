@@ -1,7 +1,7 @@
 <?php
 #   Configuração de requisições ao servidor:
     header("Access-Control-Allow-Origin: *");
-    header("Access-Control-Allow-Headers: Authorization, Trampaki-ID, trampaki_user, anuncio_selecionado");
+    header("Access-Control-Allow-Headers: Authorization, Trampaki-ID, trampaki_user, anuncio_selecionado, ultimo_anuncio_aceito");
     header('Access-Control-Allow-Methods: POST, GET, PUT, DELETE, OPTIONS');
     
     require_once 'router.php';
@@ -37,7 +37,11 @@
         '/recusar-conexao'           =>'RecusarConexao',
         '/cancelar-conexao'          =>'CancelarConexao',
         '/carregar-envolvidos'       =>'CarregarEnvolvidos',
-        '/nova-avaliacao'            =>'NovaAvaliacao'
+        '/nova-avaliacao'            =>'NovaAvaliacao',
+        '/longpolling-anunciante'    =>'LongPollingAnunciante',
+        '/longpolling-prestador'     =>'LongPollingPrestador',
+        '/dados-iniciais-anunciante' =>'DadosIniciaisAnunciante',
+        '/dados-iniciais-prestador'  =>'DadosIniciaisPrestador'
     );
         
     foreach ($rotas as $URL => $CLASS) { $roteador -> novaRota($URL, $CLASS); }

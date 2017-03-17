@@ -6,8 +6,8 @@
         private $qtAreaDeAlcance;
         private $categorias;
 
-        public function __construct($codigoUsuario, $nome, $email, $telefone, LoginBPO $login, EnderecoBPO $endereco, $dsProfissional, $qtAreaDeAlcance, $categorias = null, $codigoImagem){
-            parent::__construct($codigoUsuario, $nome, $email, $telefone,$endereco,$login, $codigoImagem);
+        public function __construct($codigoUsuario, $nome, $email, $telefone, LoginBPO $login, EnderecoBPO $endereco, $dsProfissional, $qtAreaDeAlcance, $categorias = null, $codigoImagem, $tokenFcm){
+            parent::__construct($codigoUsuario, $nome, $email, $telefone,$endereco,$login, $codigoImagem, $tokenFcm);
             $this->dsProfissional = $dsProfissional;
             $this->qtAreaDeAlcance = $qtAreaDeAlcance;
             $this->categorias = $categorias;

@@ -99,12 +99,11 @@
                     $enderecoBPO, 
                     $loginBPO, 
                     $row->cd_imagem,
-                    $row->cd_anuncioSelecionado
+                    $row->cd_anuncioSelecionado,
+                    $row->cd_tokenFcm
                 );
                 return $anuncianteBPO;
             }
-            
-                   
         }
         public function selecionarAnuncio($cd_anunciante, $cd_anuncioSelecionado){
             $dataBase = DataBase::getInstance();
@@ -125,6 +124,16 @@
             $comandoSQL->bindParam(':qt_nota_valor', $notaValor);
             $comandoSQL->bindParam(':ds_avaliacao', $descricao);            
             $comandoSQL->execute();
+        }
+        
+        public function ultimoAnuncioAceito($id) {
+            $cmd = DataBase::getInstance()->prepare("SELECT MAX(c.cd_anuncio) as cd FROM conexao AS c 
+                        INNER JOIN anuncio AS a ON c.cd_anuncio = a.cd_anuncio 
+                        WHERE a.cd_usuario = :usuario AND c.cd_status = '1'");
+            $cmd->bindParam(":usuario", $id);
+            $cmd->execute();            
+            $res = $cmd->fetch(PDO::FETCH_OBJ)->cd;
+            return $res != null ? (int) $res : 0;
         }
     }
 ?>

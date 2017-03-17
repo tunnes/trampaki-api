@@ -3,8 +3,8 @@
 #   as interações genéricas dos usuários do sistema.
 
     abstract class UsuarioBPO implements JsonSerializable{
-        protected $codigoUsuario, $nome, $email, $telefone, $endereco, $login, $codigoImagem;
-        protected function __construct($codigoUsuario, $nome, $email, $telefone, EnderecoBPO $endereco, LoginBPO $login, $codigoImagem){
+        protected $codigoUsuario, $nome, $email, $telefone, $endereco, $login, $codigoImagem, $tokenFcm;
+        protected function __construct($codigoUsuario, $nome, $email, $telefone, EnderecoBPO $endereco, LoginBPO $login, $codigoImagem, $tokenFcm){
             $this->codigoUsuario = $codigoUsuario;
             $this->nome     = $nome;
             $this->email    = $email;
@@ -12,6 +12,7 @@
             $this->endereco = $endereco;
             $this->login    = $login;
             $this->codigoImagem = $codigoImagem;
+            $this->tokenFcm = $tokenFcm;
         }
         public function getCodigoUsuario(){
             return $this->codigoUsuario;
@@ -33,6 +34,9 @@
         }
         public function getCodigoImagem(){
             return $this->codigoImagem;
+        }
+        public function getTokenFcm(){
+            return $this->tokenFcm;
         }
         public function jsonSerialize(){
         #   SE EU TIVESSE QUE ME APAIXONAR POR ALGO

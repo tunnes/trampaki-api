@@ -20,8 +20,15 @@
         }
         private function retornar201($prestadorBPO){
             $prestadorDAO = PrestadorDAO::getInstance();
-            $prestadorDAO->novaConexao($prestadorBPO->getCodigoUsuario(), $_POST['codigo_anuncio'], '1');
-            header('HTTP/1.1 201 Created');          
+            $prestadorDAO->novaConexao($prestadorBPO->getCodigoUsuario(), $_POST["codigo_anuncio"], '1');
+            $anuncio = AnuncioDAO::getInstance()->consultarAnuncio($_POST["codigo_anuncio"]);
+            $tokenFcm = $prestadorDAO->getTokenFcm($anuncio->getCodigoAnunciante());
+            $notificacao = new NotificacaoFirebase($tokenFcm, "Nova conexão - ". $anuncio->getTitulo(),
+                                                   $prestadorBPO->getNome() . " solicitou conexão ao seu anúncio.", 
+                                                   $prestadorBPO->getCodigoImagem(), "/painel-anunciante", "default",
+                                                   $prestadorBPO->getCodigoUsuario());
+            $notificacao->enviar();
+            header('HTTP/1.1 201 Created');
         }
     }
 ?>    

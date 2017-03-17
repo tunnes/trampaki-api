@@ -36,13 +36,13 @@
             $querySQL = "INSERT INTO conexao (cd_usuario, cd_anuncio, cd_status, cd_solicitante) 
                                 VALUES (".$codigoPrestador.", ".$codigoAnuncio.", '0', '".$enumSolicitante."')";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
-            $comandoSQL->execute();                
+            $comandoSQL->execute();
         }
         public function aceitarConexao($codigoConexao){
             $bancoDeDados = DataBase::getInstance();
             $comandoSQL = $bancoDeDados->prepare("UPDATE conexao SET cd_status = '1' WHERE cd_conexao = :cd_conexao");
             $comandoSQL->bindParam(':cd_conexao', $codigoConexao);
-            $comandoSQL->execute();       
+            $comandoSQL->execute();
         }
         public function recusarConexao($codigoConexao){
             $bancoDeDados = DataBase::getInstance();
@@ -67,6 +67,12 @@
             $cmd->bindParam(":id", $id);
             $cmd->execute();
             return $cmd->fetch(PDO::FETCH_OBJ)->nm_usuario;
+        }
+        public function getTokenFcm($usuario){
+            $cmd = DataBase::getInstance()->prepare("SELECT cd_tokenFcm FROM usuario WHERE cd_usuario = :cd_usuario");
+            $cmd->bindParam(":cd_usuario", $usuario);
+            $cmd->execute();
+            return $cmd->fetch(PDO::FETCH_OBJ)->cd_tokenFcm;
         }
     }
 ?>

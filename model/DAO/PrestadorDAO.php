@@ -166,7 +166,8 @@
                 $row->ds_perfilProfissional, 
                 $row->qt_areaAlcance,
                 $categoriasBPO,
-                $row->cd_imagem
+                $row->cd_imagem,
+                $row->cd_tokenFcm
             );
                 
             return $prestadorBPO;                         
