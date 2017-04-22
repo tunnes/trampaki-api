@@ -13,7 +13,6 @@
             equipe resolveu dar um jeito nesta situação, desenvolvemos uma api totalmente <strong>REST</strong> para cadastro de prestadores de serviços autônomos e pessoas 
             como você que já precisaram encontrar alguém que resolvesse um problema urgente. Nossa <strong>API</strong> conta com recursos de geolocalização e chat para 
             auxiliar você na procura pelo o melhor profissional isso tudo em tempo recorde!
-
             </sub>
         </td>
     </tr>
