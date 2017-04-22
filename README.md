@@ -34,7 +34,7 @@
 <sub> **-** PHP 7.0.4 </sub>   
 <sub> **-** JWT (JSON Web Token) </sub>  
 <sub> **-** Long Polling </sub>  
-<sub> **-** MySQL </sub>
+<sub> **-** MySQL </sub>  
 <sub> **-** Google FireBase </sub>
 
 ## ![Titulo](http://imgur.com/cNeYVWQ.png)  
