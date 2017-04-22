@@ -11,13 +11,12 @@
     #   Funções de acesso ao banco ----------------------------------------------------------------------------------------------------------
         public function cadastrar(AnuncioBPO $anuncioBPO, $categorias){
             $bancoDeDados = Database::getInstance();
-            $querySQL   = "INSERT INTO anuncio (cd_usuario, nm_titulo, ds_anuncio, qt_areaAlcance, cd_status, cd_imagem01, cd_imagem02, cd_imagem03) 
-                           VALUES (:cd_usuario, :nm_titulo, :ds_anuncio, :qt_areaAlcance, '0', :cd_imagem01, :cd_imagem02, :cd_imagem03)";
+            $querySQL   = "INSERT INTO anuncio (cd_usuario, nm_titulo, ds_anuncio, cd_status, cd_imagem01, cd_imagem02, cd_imagem03) 
+                           VALUES (:cd_usuario, :nm_titulo, :ds_anuncio, '0', :cd_imagem01, :cd_imagem02, :cd_imagem03)";
             $comandoSQL =  $bancoDeDados->prepare($querySQL);
             $comandoSQL -> bindParam(':cd_usuario',     $anuncioBPO->getCodigoAnunciante());
             $comandoSQL -> bindParam(':nm_titulo',      $anuncioBPO->getTitulo());
             $comandoSQL -> bindParam(':ds_anuncio',     $anuncioBPO->getDescricao());
-            $comandoSQL -> bindParam(':qt_areaAlcance', $anuncioBPO->getAreaAlcance());
             $comandoSQL -> bindParam(':cd_imagem01',    $anuncioBPO->getImagem01());
             $comandoSQL -> bindParam(':cd_imagem02',    $anuncioBPO->getImagem02());
             $comandoSQL -> bindParam(':cd_imagem03',    $anuncioBPO->getImagem03());
@@ -55,7 +54,6 @@
                     $row->cd_usuario, 
                     $row->nm_titulo, 
                     $row->ds_anuncio, 
-                    $row->qt_areaAlcance, 
                     $categoriasBPO, 
                     $row->cd_status, 
                     $row->cd_imagem01, 
@@ -77,7 +75,6 @@
                 $row->cd_usuario, 
                 $row->nm_titulo, 
                 $row->ds_anuncio, 
-                $row->qt_areaAlcance, 
                 CategoriaDAO::getInstance()->consultarAnunCate($row->cd_anuncio),
                 $row->cd_status, 
                 $row->cd_imagem01,
@@ -86,15 +83,14 @@
             );
             
         }
-        public function editarAnuncio($codigoAnuncio, $titulo, $descricao, $areaAlcance, $status){
+        public function editarAnuncio($codigoAnuncio, $titulo, $descricao, $status){
             $bancoDeDados = Database::getInstance();
             $querySQL   = "UPDATE anuncio SET 
-                           nm_titulo = :nm_titulo, ds_anuncio = :ds_anuncio, qt_areaAlcance = :qt_areaAlcance, cd_status = :cd_status  
+                           nm_titulo = :nm_titulo, ds_anuncio = :ds_anuncio, cd_status = :cd_status  
                            WHERE cd_anuncio = :cd_anuncio";
             $comandoSQL =  $bancoDeDados->prepare($querySQL);
             $comandoSQL -> bindParam(':nm_titulo',      $titulo);
             $comandoSQL -> bindParam(':ds_anuncio',     $descricao);
-            $comandoSQL -> bindParam(':qt_areaAlcance', $areaAlcance);
             $comandoSQL -> bindParam(':cd_status',      $status);
             $comandoSQL -> bindParam(':cd_anuncio',     $codigoAnuncio);
             $comandoSQL->execute();

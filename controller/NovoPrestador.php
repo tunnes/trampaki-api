@@ -20,10 +20,6 @@
             
             $ps['codigo_postal'] != null ? $ps = $this->pegarCoordenadas($ps) : null;
             
-        
-            
-            $es = $IO->validarAlcance($es, $ps['distancia_alcance']);    
-            
         #   Verificando se o email ou login já foram cadastrados.    
             $es = $IO->redundanciaEmail($es, $ps['usuario_email']);
             $es = $IO->redundanciaLogin($es, $ps['usuario_login']);
@@ -84,12 +80,12 @@
                 $ps['usuario_telefone'], 
                 $loginBPO, 
                 $enderecoBPO, 
-                $ps['descricao_profissional'], 
-                $ps['distancia_alcance'], 
+                $ps['descricao_profissional'],
                 null,
-                $codigoImagem
+                $codigoImagem,
+                null
             );
-            echo "aqui filho da puta ".$ps['longitude'] . " - " .$ps['latitude'];
+            // echo "aqui filho da puta ".$ps['longitude'] . " - " .$ps['latitude'];
             $prestadorBPO = PrestadorDAO::getInstance()->cadastrarPrestador($prestadorBPO, $cs);
             
             header('HTTP/1.1 201 Created');

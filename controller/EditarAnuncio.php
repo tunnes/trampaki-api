@@ -37,9 +37,6 @@
             
         #   Verificando a quantidade de parametros enviados:
             $es = $IO->validarQuantParam($es, $ps, 5);
-            
-        #   Verificando se longitude, latitude são numeros:
-            $es = $IO->validarAlcance($es, $ps['areaAlcance']);
         
         #   Validar status fornecido:
             $es = $IO->validarStatusAnuncio($es, $ps['status']);
@@ -55,7 +52,7 @@
         }
         private function retornar200($ps){
             $anuncioDAO = AnuncioDAO::getInstance();
-            $anuncioBPO = $anuncioDAO->editarAnuncio($ps['codigoAnuncio'], $ps['titulo'], $ps['descricao'], $ps['areaAlcance'], $ps['status']);
+            $anuncioBPO = $anuncioDAO->editarAnuncio($ps['codigoAnuncio'], $ps['titulo'], $ps['descricao'], $ps['status']);
             header('HTTP/1.1 200 OK');
         }
     }

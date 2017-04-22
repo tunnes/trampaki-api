@@ -27,15 +27,12 @@
             array_push($is, $_FILES["imagem_anuncio_01"], $_FILES["imagem_anuncio_02"], $_FILES["imagem_anuncio_03"]);
             $blob = array();
             
-            foreach($is as $imagem){ isset($imagem) && $imagem['size'] > 0 ? array_push($blob, (fopen(($imagem['tmp_name']), 'rb'))) : null; };
+            foreach($is as $imagem){ 
+                isset($imagem) && $imagem['size'] > 0 ? array_push($blob, (fopen(($imagem['tmp_name']), 'rb'))) : null; 
+            };
             
         #   -----------------------------------------------------------------------------------------------------------------------    
             
-      
-            
-        #   Verificando se longitude, latitude são numeros:
-            $es = $IO->validarAlcance($es, $ps['distancia_alcance']);
-
         #   Manipulando funcionalmente as categorias -------------------------------------------------------------------------------
         #   https://secure.php.net/manual/pt_BR/function.array-diff.php
         #   http://php.net/manual/pt_BR/function.array-unique.php
@@ -44,6 +41,7 @@
             
         #   Remover valores nullos:    
             $cs = array_filter($cs);
+            
         #   Remover valores repetidos:    
             $cs = array_unique($cs);
             
@@ -62,7 +60,6 @@
                 $anuncianteBPO->getCodigoUsuario(),     //  Código do anunciante.
                 $ps['titulo_anuncio'],                  //  Titulo do anuncio.
                 $ps['descricao_anuncio'],               //  Descrição do anuncio.
-                $ps['distancia_alcance'],               //  Distância de alcance do anuncio.
                 null,                                   //  Array de CategoriaBPO do anuncio.
                 '0',                                    //  Status do anuncio.
                 $codigoImagens[0],

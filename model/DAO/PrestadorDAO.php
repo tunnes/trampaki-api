@@ -11,11 +11,11 @@
     #   Funções de acesso ao banco -------------------------------------------------------------------------------------------------------------------------
         public function cadastrarPrestador(PrestadorBPO $prestadorBPO, $categorias){
             $bancoDeDados = Database::getInstance();
-            $loginDAO     = LoginDAO::getInstance();
-            $enderecoDAO  = EnderecoDAO::getInstance();
+            $loginDAO = LoginDAO::getInstance();
+            $enderecoDAO = EnderecoDAO::getInstance();
             
-            $loginBPO      = $loginDAO->cadastrarLogin($prestadorBPO->getLogin());
-            $enderecoBPO   = $enderecoDAO->cadastrarEndereco($prestadorBPO->getEndereco());
+            $loginBPO = $loginDAO->cadastrarLogin($prestadorBPO->getLogin());
+            $enderecoBPO = $enderecoDAO->cadastrarEndereco($prestadorBPO->getEndereco());
             $codigoUsuario = $this->cadastrarUsuario(
                 $prestadorBPO->getNome(), 
                 $prestadorBPO->getEmail(), 
@@ -26,12 +26,10 @@
                 $prestadorBPO->getCodigoImagem()
             );
             
-            $querySQL = "INSERT INTO prestador (cd_usuario, ds_perfilProfissional, qt_areaAlcance) 
-                                VALUES (:cd_usuario, :ds_perfilProfissional, :qt_areaAlcance)";
+            $querySQL = "INSERT INTO prestador (cd_usuario, ds_perfilProfissional) VALUES (:cd_usuario, :ds_perfilProfissional)";
             $comandoSQL = $bancoDeDados->prepare($querySQL);
             $comandoSQL -> bindParam(':cd_usuario',             $codigoUsuario);
-            $comandoSQL -> bindParam(':ds_perfilProfissional',  $prestadorBPO->getDescricao());
-            $comandoSQL -> bindParam(':qt_areaAlcance',         $prestadorBPO->getAreaAlcance());            
+            $comandoSQL -> bindParam(':ds_perfilProfissional',  $prestadorBPO->getDescricao());            
             $comandoSQL->execute();
             
             $categoriasBPO = array();
@@ -49,30 +47,30 @@
                 $loginBPO, 
                 $enderecoBPO, 
                 $prestadorBPO->getDescricao(), 
-                $prestadorBPO->getAreaAlcance(),
                 $categoriasBPO,
-                $prestadorBPO->getCodigoImagem()
+                $prestadorBPO->getCodigoImagem(),
+                null
             );
             return $prestadorBPO;
         }
         public function editarPrestador(PrestadorBPO $prestadorBPO, $categorias){
-            $bancoDeDados  = Database::getInstance();
-            $loginDAO      = LoginDAO::getInstance();
-            $enderecoDAO   = EnderecoDAO::getInstance();
+            $bancoDeDados = Database::getInstance();
+            $loginDAO = LoginDAO::getInstance();
+            $enderecoDAO = EnderecoDAO::getInstance();
             
-            $loginBPO      = $loginDAO->editarLogin($prestadorBPO->getLogin());
-            $enderecoBPO   = $enderecoDAO->editarEndereco($prestadorBPO->getEndereco());
+            $loginBPO = $loginDAO->editarLogin($prestadorBPO->getLogin());
+            $enderecoBPO = $enderecoDAO->editarEndereco($prestadorBPO->getEndereco());
             
             $this->editarUsuario($prestadorBPO);
-            $querySQL = "UPDATE prestador SET ds_perfilProfissional = :ds_perfilProfissional, qt_areaAlcance = :qt_areaAlcance  
-                         WHERE cd_usuario = :cd_usuario";
-            $comandoSQL =  $bancoDeDados->prepare($querySQL);
-            $comandoSQL -> bindParam(':ds_perfilProfissional',  $prestadorBPO->getDescricao());
-            $comandoSQL -> bindParam(':qt_areaAlcance',         $prestadorBPO->getAreaAlcance());
-            $comandoSQL -> bindParam(':cd_usuario',             $prestadorBPO->getCodigoUsuario());
+            $querySQL = "UPDATE prestador SET ds_perfilProfissional = :ds_perfilProfissional WHERE cd_usuario = :cd_usuario";
+            $comandoSQL = $bancoDeDados->prepare($querySQL);
+            $comandoSQL->bindParam(':ds_perfilProfissional', $prestadorBPO->getDescricao());
+            $comandoSQL->bindParam(':cd_usuario', $prestadorBPO->getCodigoUsuario());
             $comandoSQL->execute();
             $this->excluirVinculoCategoria($prestadorBPO->getCodigoUsuario());
-            foreach($categorias as $categoria){ $this->selecionarCategoria($prestadorBPO->getCodigoUsuario(), $categoria);}
+            foreach($categorias as $categoria){ 
+                $this->selecionarCategoria($prestadorBPO->getCodigoUsuario(), $categoria);
+            };
 
         }
         public function selecionarCategoria($codigoUsuario, $codigoCategoria){
@@ -164,7 +162,6 @@
                 $loginBPO, 
                 $enderecoBPO, 
                 $row->ds_perfilProfissional, 
-                $row->qt_areaAlcance,
                 $categoriasBPO,
                 $row->cd_imagem,
                 $row->cd_tokenFcm

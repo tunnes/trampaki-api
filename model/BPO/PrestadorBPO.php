@@ -3,21 +3,15 @@
 
     class PrestadorBPO extends UsuarioBPO implements JsonSerializable{
         private $dsProfissional;
-        private $qtAreaDeAlcance;
         private $categorias;
 
-        public function __construct($codigoUsuario, $nome, $email, $telefone, LoginBPO $login, EnderecoBPO $endereco, $dsProfissional, $qtAreaDeAlcance, $categorias = null, $codigoImagem, $tokenFcm){
-            parent::__construct($codigoUsuario, $nome, $email, $telefone,$endereco,$login, $codigoImagem, $tokenFcm);
+        public function __construct($codigoUsuario, $nome, $email, $telefone, LoginBPO $login, EnderecoBPO $endereco, $dsProfissional, $categorias = null, $codigoImagem, $tokenFcm){
+            parent::__construct($codigoUsuario, $nome, $email, $telefone, $endereco, $login, $codigoImagem, $tokenFcm);
             $this->dsProfissional = $dsProfissional;
-            $this->qtAreaDeAlcance = $qtAreaDeAlcance;
             $this->categorias = $categorias;
-            
         }
         public function getDescricao(){
             return $this->dsProfissional; 
-        }
-        public function getAreaAlcance(){
-            return $this->qtAreaDeAlcance;
         }
 
         public function abrirChat(AnuncianteBPO $u) {
@@ -28,8 +22,6 @@
             return $this->categorias;
         }
         public function jsonSerialize() {
-        #   SE EU TIVESSE QUE ME APAIXONAR POR ALGO
-        #   SERIA POR ESSA FUNÇÃO E COMO AMANTE EU TERIA ESSA INTERFACE (JsonSerializable)
             return get_object_vars($this);
         }  
     }

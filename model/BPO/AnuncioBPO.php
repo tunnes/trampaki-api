@@ -1,13 +1,12 @@
 <?php
     class AnuncioBPO implements JsonSerializable{
-        private $codigoAnuncio, $codigoAnunciante, $titulo, $descricao, $areaAlcance, $categorias, $codigoStatus, $cd_imagem_01, $cd_imagem_02, $cd_imagem_03;
+        private $codigoAnuncio, $codigoAnunciante, $titulo, $descricao, $categorias, $codigoStatus, $cd_imagem_01, $cd_imagem_02, $cd_imagem_03;
         
-        public function __construct($codigoAnuncio, $codigoAnunciante, $titulo, $descricao, $areaAlcance, $categorias = null, $codigoStatus, $cd_imagem_01, $cd_imagem_02, $cd_imagem_03){
+        public function __construct($codigoAnuncio, $codigoAnunciante, $titulo, $descricao, $categorias = null, $codigoStatus, $cd_imagem_01, $cd_imagem_02, $cd_imagem_03){
             $this->codigoAnuncio    = $codigoAnuncio;
             $this->codigoAnunciante = $codigoAnunciante;
             $this->titulo           = $titulo;
             $this->descricao        = $descricao;
-            $this->areaAlcance      = $areaAlcance;
             $this->categorias       = $categorias;
             $this->codigoStatus     = $codigoStatus;
             $this->cd_imagem_01     = $cd_imagem_01;
@@ -26,9 +25,6 @@
         }
         public function getDescricao(){
             return $this->descricao;
-        }
-        public function getAreaAlcance(){
-            return $this->areaAlcance;
         }
         public function getCategorias(){
             return $this->categorias;

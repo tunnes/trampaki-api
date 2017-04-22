@@ -70,7 +70,7 @@
         private function retornar200($ps, $prestadorBPO, $categorias){
             $enderecoBPO    = new EnderecoBPO($prestadorBPO->getEndereco()->getCodigoEndereco(), $ps['estado'], $ps['cidade'], $ps['CEP'], $ps['numRes'], $ps['longitude'], $ps['latitude']);
             $loginBPO       = new LoginBPO($prestadorBPO->getLogin()->getCodigoLogin(), $ps['login'], $ps['senha']);                    
-            $prestadorBPO   = new PrestadorBPO($prestadorBPO->getCodigoUsuario(), $ps['nome'], $ps['email'], $ps['tel'], $loginBPO, $enderecoBPO, $ps['desProf'], $ps['qntAlc'], $prestadorBPO->getCategorias(), null);
+            $prestadorBPO   = new PrestadorBPO($prestadorBPO->getCodigoUsuario(), $ps['nome'], $ps['email'], $ps['tel'], $loginBPO, $enderecoBPO, $ps['desProf'], $prestadorBPO->getCategorias(), null);
                 
             $prestadorDAO  = PrestadorDAO::getInstance();
             $prestadorDAO->editarPrestador($prestadorBPO, $categorias);

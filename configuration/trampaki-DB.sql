@@ -40,7 +40,6 @@ create table chat(
 create table prestador(
     cd_usuario int Primary Key,
     ds_perfilProfissional varchar(400),
-    qt_areaAlcance double
 );
 
 create table anunciante(
@@ -59,7 +58,6 @@ create table anuncio(
     cd_usuario int not null,
     nm_titulo varchar(80),
     ds_anuncio varchar(600),
-    qt_areaAlcance double,
     cd_status enum('0','1','2','3'),
     cd_imagem01 int,
     cd_imagem02 int,
