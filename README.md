@@ -9,10 +9,10 @@
     <tr>
         <td>
             <sub>
-                Já precissou de uma forçinha em um horário complicado ou estava com um orçamento baixo no momento, quem nunca não é? Bom pensando nisso nossa 
-                equipe resolveu dar um jeito nesta situação, desenvolvemos uma api totalmente REST para cadastro de prestadores de serviços autonomos e pessoas 
-                como você que já precisaram encontrar alguem que resolvesse um problema urgente. Nossa API conta com recursos de geolocalização e chat para 
-                auxiliar você na procura pelo o melhor profissional isso tudo em tempo recorde!
+                Já precisou de uma força em um horário complicado ou estava com um orçamento baixo no momento, quem nunca!?                    Bom pensando nisso nossa 
+            equipe resolveu dar um jeito nesta situação, desenvolvemos uma api totalmente <strong>REST</strong> para cadastro de prestadores de serviços autônomos e pessoas 
+            como você que já precisaram encontrar alguém que resolvesse um problema urgente. Nossa <strong>API</strong> conta com recursos de geolocalização e chat para 
+            auxiliar você na procura pelo o melhor profissional isso tudo em tempo recorde!
             </sub>
         </td>
     </tr>
@@ -34,7 +34,7 @@
 <sub> **-** PHP 7.0.4 </sub>   
 <sub> **-** JWT (JSON Web Token) </sub>  
 <sub> **-** Long Polling </sub>  
-<sub> **-** MySQL </sub>
+<sub> **-** MySQL </sub>  
 <sub> **-** Google FireBase </sub>
 
 ## ![Titulo](http://imgur.com/cNeYVWQ.png)  
@@ -43,7 +43,7 @@
 
 
 ## ![Titulo](http://imgur.com/i7qHYs5.png)
-> Embreve...
+> Em Breve...
 
 <!--<table>-->
 <!--    <tr>-->
