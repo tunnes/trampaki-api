@@ -25,10 +25,11 @@ create table usuario(
     ds_email varchar(30),
     ds_telefone varchar(20),
     cd_tipo enum('0','1','2') not null,
-    cd_imagem int
+    cd_imagem int,
 --  0 - ANUNCIANTE
 --  1 - PRESTADOR
 --  2 - HIBRIDO
+    cd_tokenFcm varchar(255)
 );
 
 create table chat(
