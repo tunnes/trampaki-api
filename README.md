@@ -22,7 +22,7 @@
 ![Page Preview](http://imgur.com/x1GTR5B.gif)
 
 
-## <sub><sub>PRINCIPAIS CARACTERÍSTICAS</sub></sub>  
+## ![Titulo](http://imgur.com/tjrLdaS.png)  
 <sub> **-** Arquitetura **REST**.</sub>  
 <sub> **-** Autenticação com Token.</sub>  
 <sub> **-** Chat exclusivo com **Long Polling**.</sub>  
@@ -30,19 +30,19 @@
 <sub> **-** Desacoplamento de responsabilidades **BPO** (Business Persist Object) e **DAO** (Data Access Object).</sub>  
 <sub> **-** Utilização de Design Patterns.</sub>
 
-## <sub><sub>TECNOLOGIAS UTILIZADAS</sub></sub>   
+## ![Titulo](http://i.imgur.com/waZLmze.png)
 <sub> **-** PHP 7.0.4 </sub>   
 <sub> **-** JWT (JSON Web Token) </sub>  
 <sub> **-** Long Polling </sub>  
 <sub> **-** MySQL </sub>
 <sub> **-** Google FireBase </sub>
 
-## <sub><sub>ESCOPO TÉCNICO</sub></sub>   
+## ![Titulo](http://imgur.com/cNeYVWQ.png)  
 <sub> **-** [**MER**](https://www.draw.io/?chrome=0&lightbox=1&nav=1#Dnew-mer-trampaki.html) (Modelo Entidade Relacionamento).</sub>   
 <sub> **-** [**UML**](https://www.draw.io/?chrome=0&lightbox=1&nav=1#Dclasses-trampaki.html) (Diagrama de Classes).</sub>  
 
 
-## <sub><sub>ROTAS DISPONÍVEIS</sub></sub>
+## ![Titulo](http://imgur.com/i7qHYs5.png)
 > Embreve...
 
 <!--<table>-->
